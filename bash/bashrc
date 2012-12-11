@@ -8,7 +8,7 @@ BASHRC_SOURCE="${BASH_SOURCE[0]}"
 DOTFILES_DIR="$( dirname "$BASHRC_SOURCE" )"
 while [ -h "$BASHRC_SOURCE" ]
 do 
-  BASHRC_SOURCE="$(readlink -e "$BASHRC_SOURCE")"
+  BASHRC_SOURCE="$(readlink "$BASHRC_SOURCE")"
   [[ $BASHRC_SOURCE != /* ]] && BASHRC_SOURCE="$DOTFILES_DIR/$BASHRC_SOURCE"
   DOTFILES_DIR="$( cd -P "$( dirname "$BASHRC_SOURCE"  )" && pwd )"
 done
