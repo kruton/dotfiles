@@ -140,8 +140,17 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-export EDITOR="vim"
-export VISUAL="gvim --nofork"
+# Use vim if it's available. Otherwise fall back to "vi"
+if [ ! -z "$(type -p vim)" ]; then \
+    export EDITOR="vim"
+elif [ ! -z "$(type -p vi)" ]; then \
+    export EDITOR="vi"
+fi
+
+# Use gvim if we have a DISPLAY and it's available.
+if [ ! -z "${DISPLAY}" -a ! -z "$(type -p gvim)" ]; then
+    export VISUAL="gvim --nofork"
+fi
 
 export P4CONFIG=.p4config
 export P4PORT=perforce9:9666
