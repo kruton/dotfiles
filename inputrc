@@ -1,0 +1,11 @@
+# "\e[A" and "\e[B" being whatever your terminal uses for up & down.
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Make sure ctrl-left ctrl-right still work
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
