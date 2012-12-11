@@ -55,6 +55,7 @@ if [ ! -z "${ANDROID_DIR}" -a -d "${ANDROID_DIR}" ]; then \
     if [ "${target}x" != "x" ]; then \
         export TOP=${ANDROID_DIR}${target}
         export CCACHE_BASEDIR=${TOP}
+        export CDPATH="${CDPATH}:${ANDROID_DIR}"
         pushd ${TOP} > /dev/null 2>&1
         . ${TOP}/build/envsetup.sh
         popd > /dev/null 2>&1
