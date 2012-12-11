@@ -1,3 +1,12 @@
+set completion-ignore-case on
+set bind-tty-special-chars on
+set mark-symlinked-directories on
+set match-hidden-files off
+
+# Delete words as filenames
+"\C-w": unix-filename-rubout
+"": unix-filename-rubout
+
 # "\e[A" and "\e[B" being whatever your terminal uses for up & down.
 "\e[A": history-search-backward
 "\e[B": history-search-forward
