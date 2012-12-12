@@ -2,6 +2,8 @@ set completion-ignore-case on
 set bind-tty-special-chars on
 set mark-symlinked-directories on
 set match-hidden-files off
+set show-all-if-ambiguous on
+set visible-stats on
 
 # Delete words as filenames
 "\C-w": unix-filename-rubout
