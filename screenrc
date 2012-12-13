@@ -1,0 +1,21 @@
+# Kenny Root's .screenrc
+
+# Disable the silly startup message.
+startup_message off
+
+# Enable alternate screen buffer like xterm
+altscreen on
+
+# Enable UTF-8 by default
+defutf8 on
+
+# Nethack mode!
+nethack on
+
+# We want 256 colors by default
+term screen-256color
+
+# Pass through hard status line to xterm
+termcapinfo xterm*|rxvt*|kterm*|Eterm* 'hs:ts=\E]0;:fs=\007:ds=\E]0;\007'
+defhstatus "screen ^E (^Et) | $USER@^EH"
+hardstatus off
