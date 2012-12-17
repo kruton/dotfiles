@@ -162,7 +162,6 @@ export PAGER="less"
 export LESS="-X -R -M --shift 5 -i"
 
 export USE_CCACHE=1
-export CCACHE_DIR=/usr/local/google2/home/$USER/.ccache
 
 export CCACHE_NLEVELS=4
 export CCACHE_SLOPPINESS="time_macros"
