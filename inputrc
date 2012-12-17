@@ -1,8 +1,13 @@
+# Tab completions ignore case
 set completion-ignore-case on
-set bind-tty-special-chars on
+
+# Marks symlinks that point to directories with /
 set mark-symlinked-directories on
-set match-hidden-files off
+
+# Pressing TAB once will show all completions
 set show-all-if-ambiguous on
+
+# Show file type (@, /, etc) with completions
 set visible-stats on
 
 # Delete words as filenames
