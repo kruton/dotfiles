@@ -14,3 +14,4 @@ title_string=%s
 win_title=%s
 background_type=2
 saturation=0.05
+scroll_on_keystroke=1
