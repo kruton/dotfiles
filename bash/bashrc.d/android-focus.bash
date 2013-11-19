@@ -1,5 +1,10 @@
+#
 # Bash script to focus on certain Android devices. Intended to be included
 # into one's .bashrc
+#
+# Author: Kenny Root <kenny@the-b.org>
+# Last change: Dec 10, 2012
+#
 
 focus() {
     local wasmsg
