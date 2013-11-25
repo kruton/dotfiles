@@ -153,9 +153,6 @@ if [ ! -z "${DISPLAY}" -a ! -z "$(type -p gvim)" ]; then
 fi
 
 export P4CONFIG=.p4config
-export P4PORT=perforce9:9666
-export P4DIFF=/home/build/public/google/tools/p4diff
-export P4MERGE=/home/build/public/eng/perforce/mergep4.tcl 
 export P4EDITOR=$EDITOR
 
 export PAGER="less"
