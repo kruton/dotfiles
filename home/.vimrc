@@ -48,6 +48,9 @@ Bundle 'scrooloose/snipmate-snippets'
 " Color schemes
 Bundle 'flazz/vim-colorschemes'
 
+" My syntax plugins and suff
+Bundle 'kruton/vimstuff'
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General settings
