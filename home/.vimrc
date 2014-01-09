@@ -17,7 +17,8 @@ filetype off " workaround vundle ftdetect bug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
-Bundle 'gmarik/vundle'
+" Homeshick manages this update now.
+"Bundle 'gmarik/vundle'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
