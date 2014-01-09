@@ -215,7 +215,7 @@ function _mrg_rdr() {
   local SIZE="$(perl -e 'print -s $ARGV[0]' -- "$HISTFILE_MRG")"
   test "$MRG_LAST_SIZE" = "$SIZE" && return
   MRG_LAST_SIZE="$SIZE"
-  
+
   local HISTFILE="$HISTFILE_MRG"
   # Make `history -w' and `history -a' add prefix "$TIMESTAMP\n" to $HISTFILE.
   local HISTTIMEFORMAT=' '

@@ -7,7 +7,7 @@
 BASHRC_SOURCE="${BASH_SOURCE[0]}"
 DOTFILES_DIR="$( dirname "$BASHRC_SOURCE" )"
 while [ -h "$BASHRC_SOURCE" ]
-do 
+do
   BASHRC_SOURCE="$(readlink "$BASHRC_SOURCE")"
   [[ $BASHRC_SOURCE != /* ]] && BASHRC_SOURCE="$DOTFILES_DIR/$BASHRC_SOURCE"
   DOTFILES_DIR="$( cd -P "$( dirname "$BASHRC_SOURCE"  )" && pwd )"
@@ -175,7 +175,7 @@ if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then \
     alias ls='ls --color=auto'
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
-    
+
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -187,15 +187,18 @@ if [ -f "${HOME}/.bashrc.local.pre" ]; then
 fi
 
 # Source any modules from bashrc.d
-for file in "${DOTFILES_DIR}/bashrc.d"/*.bash; do
+for file in "${DOTFILES_DIR}/.bashrc.d"/*.bash; do
     . "${file}"
 done
 
 # Read in bash aliases
-. "${DOTFILES_DIR}/bash_aliases" 
+. "${DOTFILES_DIR}/.bash_aliases"
+
+# Homeshick setup
+source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+source "$HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash"
 
 # Override any variables with local things.
 if [ -f "${HOME}/.bashrc.local" ]; then
     . "${HOME}/.bashrc.local"
 fi
-
