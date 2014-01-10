@@ -24,15 +24,15 @@
 			}
 		},
 		"shell": {
-			"colorscheme": "default",
-			"theme": "default"
+			"colorscheme": "solarized",
+			"theme": "kruton"
 		},
 		"tmux": {
 			"colorscheme": "default",
 			"theme": "kruton"
 		},
 		"vim": {
-			"colorscheme": "default",
+			"colorscheme": "solarized",
 			"theme": "default",
 			"local_themes": {
 				"cmdwin": "cmdwin",
