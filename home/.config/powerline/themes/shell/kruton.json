@@ -24,7 +24,10 @@
 				"name": "hostname"
 			},
 			{
-				"name": "user"
+				"name": "user",
+				"args": {
+					"if_not_match_environment": "DEFAULT_USER"
+				}
 			},
 			{
 				"name": "virtualenv"
