@@ -38,18 +38,16 @@
 					"use_path_separator": true,
 					"dir_limit_depth": 5
 				}
-			}
-		],
-		"right": [
-			{
-				"module": "powerline.segments.shell",
-				"name": "last_pipe_status"
 			},
 			{
 				"name": "branch",
 				"args": {
 					"status_colors": true
 				}
+			},
+			{
+				"module": "powerline.segments.shell",
+				"name": "last_pipe_status"
 			}
 		]
 	},
