@@ -13,6 +13,7 @@
 		"hostname":           { "fg": "oldlace", "bg": "darkgreencopper" },
 		"exit_fail":          { "fg": "oldlace", "bg": "red" },
 		"exit_success":       { "fg": "oldlace", "bg": "green" },
-		"environment":        { "fg": "oldlace", "bg": "green" }
+		"environment":        { "fg": "oldlace", "bg": "green" },
+		"jobnum":             { "fg": "oldlace", "bg": "green" }
 	}
 }

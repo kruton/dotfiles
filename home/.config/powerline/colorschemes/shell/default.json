@@ -13,6 +13,7 @@
 		"hostname": { "fg": "brightyellow", "bg": "mediumorange" },
 		"exit_fail": { "fg": "white", "bg": "darkestred" },
 		"exit_success": { "fg": "white", "bg": "darkestgreen" },
-		"environment": { "fg": "white", "bg": "darkestgreen" }
+		"environment": { "fg": "white", "bg": "darkestgreen" },
+		"jobnum": { "fg": "white", "bg": "darkestgreen" }
 	}
 }

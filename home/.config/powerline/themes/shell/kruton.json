@@ -21,6 +21,10 @@
 	"segments": {
 		"left": [
 			{
+				"module": "powerline.segments.shell",
+				"name": "jobnum"
+			},
+			{
 				"name": "hostname"
 			},
 			{
