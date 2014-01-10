@@ -315,14 +315,12 @@ function _mrg_install_debug_hook() {
   #
   # TODO(pts): Remove old versions more smartly, by detecting delimiters.
   PROMPT_COMMAND="${PROMPT_COMMAND#trap \'\' DEBUG; _mrg_rdh; }"
-  PROMPT_COMMAND="${PROMPT_COMMAND%
-trap _mrg_ec DEBUG}"
+  PROMPT_COMMAND="${PROMPT_COMMAND%trap _mrg_ec DEBUG}"
 
   # We want to run `trap _mrg_ec DEBUG' in $PROMPT_COMMAND as late as
   # possible so that the debug hook (_mrg_ec) won't be executed on the rest
   # of $PROMPT_COMMAND, but it will be executed at the user command.
-  PROMPT_COMMAND="trap '' DEBUG; _mrg_rdh; $PROMPT_COMMAND
-trap _mrg_ec DEBUG"
+  PROMPT_COMMAND="trap '' DEBUG; _mrg_rdh; ${PROMPT_COMMAND}${PROMPT_COMMAND:+; }trap _mrg_ec DEBUG"
 }
 
 # Set these both so hook_at_debug gets called in a subshell.
