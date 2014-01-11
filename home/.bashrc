@@ -4,13 +4,12 @@
 [ -z "$PS1" ] && return
 
 # Get the base directory for this file to engage the "dotfiles" structure.
+# From https://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
 BASHRC_SOURCE="${BASH_SOURCE[0]}"
-DOTFILES_DIR="$( dirname "$BASHRC_SOURCE" )"
-while [ -h "$BASHRC_SOURCE" ]
-do
+while [ -h "$BASHRC_SOURCE" ]; do
+  DOTFILES_DIR="$( cd -P "$( dirname "$BASHRC_SOURCE" )" && pwd )"
   BASHRC_SOURCE="$(readlink "$BASHRC_SOURCE")"
   [[ $BASHRC_SOURCE != /* ]] && BASHRC_SOURCE="$DOTFILES_DIR/$BASHRC_SOURCE"
-  DOTFILES_DIR="$( cd -P "$( dirname "$BASHRC_SOURCE"  )" && pwd )"
 done
 DOTFILES_DIR="$( cd -P "$( dirname "$BASHRC_SOURCE" )" && pwd )"
 
