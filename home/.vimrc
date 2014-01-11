@@ -311,7 +311,7 @@ au BufReadPost .vimrc map K :exe ":help ".expand("<cword>")<CR>
 
 " Set GUI font used
 if has("gui_running")
-    set guifont=Essential\ PragmataPro\ 10
+    set guifont=Essential\ PragmataPro:h12
 endif
 
 " Enable line numbers and make them dark grey
