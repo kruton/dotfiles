@@ -18,15 +18,17 @@ filetype off " workaround vundle ftdetect bug
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 " Homeshick manages this update now.
-"Bundle 'gmarik/vundle'
+Bundle 'gmarik/vundle'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " My vundles
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Bundle 'Lokaltog/powerline'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'myusuf3/numbers.vim'
 Bundle 'rdolgushin/gitignore.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'tomtom/tcomment_vim'
