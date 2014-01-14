@@ -30,7 +30,7 @@
 			{
 				"name": "user",
 				"args": {
-					"if_not_match_environment": "DEFAULT_USER"
+					"hide_user": "kenny"
 				}
 			},
 			{
