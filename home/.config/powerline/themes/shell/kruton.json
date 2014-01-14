@@ -28,10 +28,7 @@
 				"name": "hostname"
 			},
 			{
-				"name": "user",
-				"args": {
-					"hide_user": "kenny"
-				}
+				"name": "user"
 			},
 			{
 				"name": "virtualenv"

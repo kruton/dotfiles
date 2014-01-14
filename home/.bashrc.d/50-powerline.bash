@@ -33,7 +33,7 @@ _powerline_prompt() {
 	if [[ -z $last_exit_code ]]; then
 		local last_exit_code=$?
 	fi
-	PS1="$($POWERLINE_COMMAND shell left -r bash_prompt --last_exit_code=$last_exit_code --jobnum="$(jobs -lrs|wc -l)" -t kruton.segment_data.user.hide_user="$DEFAULT_USER" )"
+	PS1="$($POWERLINE_COMMAND shell left -r bash_prompt --last_exit_code=$last_exit_code --jobnum="$(jobs -lrs|wc -l)" -t kruton.segment_data.user.args.hide_user="$DEFAULT_USER" )"
 	_powerline_tmux_set_pwd
 	return $last_exit_code
 }
