@@ -310,29 +310,30 @@ function _mrg_ec() {
   fi
 }
 
-function _mrg_install_debug_hook() {
-  # Remove previous hook installed by _mrg_install_debug_hook .
-  #
-  # TODO(pts): Remove old versions more smartly, by detecting delimiters.
-  PROMPT_COMMAND="${PROMPT_COMMAND#trap \'\' DEBUG; _mrg_rdh; }"
-  PROMPT_COMMAND="${PROMPT_COMMAND%trap _mrg_ec DEBUG}"
-
-  # We want to run `trap _mrg_ec DEBUG' in $PROMPT_COMMAND as late as
-  # possible so that the debug hook (_mrg_ec) won't be executed on the rest
-  # of $PROMPT_COMMAND, but it will be executed at the user command.
-  PROMPT_COMMAND="trap '' DEBUG; _mrg_rdh; ${PROMPT_COMMAND}${PROMPT_COMMAND:+; }trap _mrg_ec DEBUG"
-}
-
+# function _mrg_install_debug_hook() {
+#   # Remove previous hook installed by _mrg_install_debug_hook .
+#   #
+#   # TODO(pts): Remove old versions more smartly, by detecting delimiters.
+#   PROMPT_COMMAND="${PROMPT_COMMAND#trap \'\' DEBUG; _mrg_rdh; }"
+#   PROMPT_COMMAND="${PROMPT_COMMAND%trap _mrg_ec DEBUG}"
+#
+#   # We want to run `trap _mrg_ec DEBUG' in $PROMPT_COMMAND as late as
+#   # possible so that the debug hook (_mrg_ec) won't be executed on the rest
+#   # of $PROMPT_COMMAND, but it will be executed at the user command.
+#   PROMPT_COMMAND="trap '' DEBUG; _mrg_rdh; ${PROMPT_COMMAND}${PROMPT_COMMAND:+; }trap _mrg_ec DEBUG"
+# }
+#
 # Set these both so hook_at_debug gets called in a subshell.
-set -o functrace > /dev/null 2>&1
-shopt -s extdebug > /dev/null 2>&1
+#set -o functrace > /dev/null 2>&1
+#shopt -s extdebug > /dev/null 2>&1
 
 MRG_LAST_SIZE=
 
 # As a side effect, we install our own debug hook. We wouldn't have to do
 # that if bash had support for zsh's `preexec' hook, which is executed just
 # after a command has been read and is about to be executed).
-_mrg_install_debug_hook
+# NOTE(kruton): this is handled by preexec.bash now
+#_mrg_install_debug_hook
 
 # It's too early to do this, lines starting with # would be also loaded.
 #test "$MC_TMPDIR" && _mrg_rdr

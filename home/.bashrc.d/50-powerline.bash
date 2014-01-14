@@ -30,9 +30,9 @@ _powerline_tmux_set_columns() {
 }
 
 _powerline_prompt() {
-	local last_exit_code=$?
-	[[ -z "$POWERLINE_OLD_PROMPT_COMMAND" ]] ||
-		eval $POWERLINE_OLD_PROMPT_COMMAND
+	if [[ -z $last_exit_code ]]; then
+		local last_exit_code=$?
+	fi
 	PS1="$($POWERLINE_COMMAND shell left -r bash_prompt --last_exit_code=$last_exit_code --jobnum="$(jobs -lrs|wc -l)" -t kruton.segment_data.user.hide_user="$DEFAULT_USER" )"
 	_powerline_tmux_set_pwd
 	return $last_exit_code
@@ -40,7 +40,3 @@ _powerline_prompt() {
 
 trap "_powerline_tmux_set_columns" SIGWINCH
 _powerline_tmux_set_columns
-
-[[ "$PROMPT_COMMAND" != "${PROMPT_COMMAND/_powerline_prompt/}" ]] ||
-	POWERLINE_OLD_PROMPT_COMMAND="$PROMPT_COMMAND"
-export PROMPT_COMMAND="_powerline_prompt"
