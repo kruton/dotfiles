@@ -1,7 +1,9 @@
 # This runs all the things that want to use preexec-like functionality
 
 function preexec() {
-    _mrg_ec
+    if type -t _mrg_ec > /dev/null; then
+        _mrg_ec
+    fi
     if [[ $TERM == xterm* || $TERM == screen* ]]; then
         _preexec_title
     fi
@@ -9,7 +11,9 @@ function preexec() {
 
 function precmd() {
     local last_exit_code=$?
-    _mrg_rdh
+    if type -t _mrg_rdh > /dev/null; then
+        _mrg_rdh
+    fi
     if [[ $TERM == xterm* || $TERM == screen* ]]; then
         _precmd_title
     fi
