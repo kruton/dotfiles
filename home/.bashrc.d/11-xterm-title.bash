@@ -37,7 +37,7 @@ function _display_command () {
     local banned_commands=( 'ls' 'cd' 'bg' 'fg' 'pwd' 'pushd' 'popd' )
     for cmd in "${banned_commands[@]}"
     do
-        if [[ "$1" == "$cmd" ]]
+        if [[ "$1" == $cmd ]]
         then
             return 1
         fi
