@@ -26,41 +26,46 @@ focus() {
 _focus_match_device() {
     local device cur casematch
 
-    device=$1
-    cur=$2
+    device="$1"
+    cur="$2"
 
     if [[ ${device} == ${cur}* ]]; then
-        printf '%s\n' ${device}
+        printf '%s\n' "${device}"
     fi
 }
 
 _focus() {
-    local cur device
+    local cur device nocasematch
     local -a devices
 
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
 
     # complete only if the user is typing the first word of the command
-    if [ $COMP_CWORD -eq 1 ]; then
-        local casematch=`shopt -p nocasematch`
-        shopt -s nocasematch
+    if (( $COMP_CWORD == 1 )); then
+        # See whether we need to toggle nocasematch
+        shopt -q nocasematch; (( nocasematch = !$? ))
+
+        # Either it's on or we need to set it
+        (( nocasematch )) || shopt -s nocasematch
 
         devices=( $(
             adb devices | while read -r serial junk; do
                 if [[ -n ${serial} && ${serial} != List ]]; then
-                    _focus_match_device ${serial} ${cur}
+                    _focus_match_device "${serial}" "${cur}"
                 fi
             done
             fastboot devices | while read -r serial junk; do
                 if [[ -n ${serial} ]]; then
-                    _focus_match_device ${serial} ${cur}
+                    _focus_match_device "${serial}" "${cur}"
                 fi
             done
         ) )
 
-        eval ${casematch}
-        COMPREPLY=( ${devices[@]:-} )
+        # Either it was on or we need to unset it
+        (( nocasematch )) || shopt -u nocasematch
+
+        COMPREPLY=( "${devices[@]}" )
     fi
 }
 complete -F _focus focus
