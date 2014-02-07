@@ -1,6 +1,7 @@
 #!/bin/bash -ex
 
 # Paste this into a terminal to install.
+#   curl -sL https://raw.github.com/kruton/dotfiles/master/bootstrap.bash | bash -ex
 #
 # For OS X, install Xcode first if MacVim is needed.
 
