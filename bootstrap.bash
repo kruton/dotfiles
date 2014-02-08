@@ -11,7 +11,7 @@ case $OSTYPE in
     platform="darwin"
     ;;
   linux*)
-    LSBRELEASE=`which lsb_release`
+    LSBRELEASE="$(which lsb_release)"
     if [[ ! -x ${LSBRELEASE} ]]; then
        echo "Unknown Linux distro: lsb_release not found in path!"
        exit 1
@@ -36,10 +36,10 @@ esac
 if [[ ${platform} == "darwin" ]]; then
   ### Detect XCode tools
   ( gcc -v > /dev/null 2>&1 )
-  ret=$?
-  if [[ $ret -eq 69 ]]; then
+  (( ret = $? ))
+  if (( ret == 69 )); then
     sudo xcodebuild -license
-  elif [[ $ret -ne 0 ]]; then
+  elif (( ret != 0 )); then
     echo "Detected that XCode is not installed."
     echo "Follow on-screen instructions to install and restart script afterward."
     exit 1
@@ -51,10 +51,10 @@ if [[ ${platform} == "darwin" ]]; then
   fi
   
   # Make sure Homebrew is first on the list
-  export PATH=/usr/local/bin:${PATH}
+  export PATH="/usr/local/bin:${PATH}"
 
   brew doctor
-  if [[ $? -ne 0 ]]; then
+  if (( $? != 0 )); then
     echo "*** FIX ALL HOMEBREW ERRORS FIRST: brew doctor"
     exit 1
   fi
@@ -63,7 +63,7 @@ if [[ ${platform} == "darwin" ]]; then
   brew install python
   
   # macvim requires full Xcode. vim just needs the CLI
-  if [[ `xcode-select -p` == /Applications/Xcode.app* ]]; then
+  if [[ $(xcode-select -p) == /Applications/Xcode.app* ]]; then
     brew install macvim --override-system-vim --with-lua
   else
     brew install vim --override-system-vi --with-lua
@@ -97,7 +97,7 @@ else
   repo="https://github.com/kruton/dotfiles.git"
 fi
 
-homeshick --batch clone ${repo}
+homeshick --batch clone "${repo}"
 
 homeshick link --force
 
