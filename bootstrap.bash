@@ -86,7 +86,7 @@ if [[ ${platform} == ubuntu ]]; then
 fi
 
 # if Mac with Homebrew, omit --user
-if [[ ${platform} != "darwin" ]]; then
+if [[ ${platform} != darwin ]]; then
   PIPFLAGS="--user"
 fi
 pip install ${PIPFLAGS} git+https://github.com/kruton/powerline
