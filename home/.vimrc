@@ -30,6 +30,8 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'Bogdanp/browser-connect.vim'
+Bundle 'brookhong/cscope.vim'
+Bundle 'majutsushi/tagbar'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'rdolgushin/gitignore.vim'
 Bundle 'scrooloose/syntastic'
@@ -59,13 +61,8 @@ Bundle 'kruton/vimstuff'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General settings
 
-" SnipMate
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-Bundle "honza/vim-snippets"
-Bundle 'scrooloose/snipmate-snippets'
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Map leader
+let mapleader = ","
 
 " Unlet g:color_names to avoid loading color scheme several times
 " when sourcing ~/.virmc a second time. Several commands would trigger
