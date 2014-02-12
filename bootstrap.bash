@@ -1,9 +1,33 @@
 #!/bin/bash -ex
-
+#
 # Paste this into a terminal to install.
+#
 #   curl -sL https://raw.github.com/kruton/dotfiles/master/bootstrap.bash | bash -ex
 #
+# or:
+#   wget -O - -o /dev/null https://raw.github.com/kruton/dotfiles/master/bootstrap.bash | bash -ex
+#
+# If "sudo" access is not available, use:
+#
+#   curl -sL https://raw.github.com/kruton/dotfiles/master/bootstrap.bash | bash -ex /dev/stdin --no-sudo
+#
 # For OS X, install Xcode first if MacVim is needed.
+
+# Script options
+((sudo=0))
+
+# Argument parsing
+while getopts "-:" optchar; do
+  case "${optchar}" in
+    -)
+      case "${OPTARG}" in
+        no-sudo)
+          ((sudo=1))
+          ;;
+      esac
+      ;;
+  esac
+done
 
 ### Detect the OS and distribution ###
 case $OSTYPE in
@@ -34,6 +58,11 @@ esac
 
 ### Prepare MacOS X machines ###
 if [[ ${platform} == darwin ]]; then
+  if ((sudo)); then
+    echo "You must have sudo on the Mac"
+    exit 1
+  fi
+
   ### Detect XCode tools
   ( gcc -v > /dev/null 2>&1 )
   (( ret = $? ))
@@ -72,17 +101,29 @@ fi
 
 ### Prepare Fedora machines ###
 if [[ ${platform} == fedora ]]; then
+  if ((nosudo)); then
+    echo "Fedora without sudo has not been tested yet."
+    exit 1
+  fi
+
   sudo yum install python-pip git cmake gcc gcc-c++ python-devel
 fi
 
 ### Prepare Ubuntu machines ###
 if [[ ${platform} == ubuntu ]]; then
-  if [[ ! -f /etc/apt-fast.conf ]]; then
-    sudo add-apt-repository ppa:apt-fast/stable
-    sudo apt-get update
-    sudo apt-get install apt-fast
+  if ((sudo)); then
+    PIP="$(which pip)"
+    if [[ ! -x ${PIP} ]]; then
+      curl -sL https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python /dev/stdin --user
+    fi
+  else
+    if [[ ! -f /etc/apt-fast.conf ]]; then
+      sudo add-apt-repository ppa:apt-fast/stable
+      sudo apt-get update
+      sudo apt-get install apt-fast
+    fi
+    sudo apt-fast install python-pip git vim cmake python-dev default-jdk
   fi
-  sudo apt-fast install python-pip git vim cmake python-dev default-jdk
 fi
 
 # if Mac with Homebrew, omit --user
@@ -125,3 +166,5 @@ vim - +BundleInstall +BundleClean +qall < /dev/null
 pushd "$HOME/.vim/bundle/YouCompleteMe"
 [ -x ./install.sh ] && ./install.sh
 popd
+
+# vim: set ts=2 sw=2 :
