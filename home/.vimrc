@@ -51,8 +51,8 @@ NeoBundle 'vim-scripts/bash-support.vim'
 " YouCompleteMe
 NeoBundle 'Valloric/YouCompleteMe', {
     \ 'build' : {
-    \     'unix': './install.sh',
-    \     'mac': './install.sh',
+    \     'unix': './install.sh --clang-completer',
+    \     'mac': './install.sh --clang-completer',
     \   },
     \ }
 
