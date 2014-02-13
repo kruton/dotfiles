@@ -27,7 +27,6 @@ NeoBundleFetch 'Shugo/neobundle.vim'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 NeoBundle 'Lokaltog/powerline'
 NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'Bogdanp/browser-connect.vim'
@@ -44,6 +43,14 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'CSApprox'
 NeoBundle 'genindent.vim'
+
+" YouCompleteMe
+NeoBundle 'Valloric/YouCompleteMe', {
+    \ 'build' : {
+    \     'unix': './install.sh',
+    \     'mac': './install.sh',
+    \   },
+    \ }
 
 " SnipMate
 NeoBundle "MarcWeber/vim-addon-mw-utils"
