@@ -44,6 +44,9 @@ NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'CSApprox'
 NeoBundle 'genindent.vim'
 
+" Filetype editing
+NeoBundle 'sukima/xmledit'
+
 " YouCompleteMe
 NeoBundle 'Valloric/YouCompleteMe', {
     \ 'build' : {
