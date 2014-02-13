@@ -15,48 +15,51 @@ filetype off " workaround vundle ftdetect bug
 " For more help see the vundle website:
 " https://github.com/gmarik/vundle#readme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+set runtimepath+=~/.vim/bundle/neobundle.vim/
+call neobundle#rc(expand('~/.vim/bundle/'))
+
 " Homeshick manages this update now.
-Bundle 'gmarik/vundle'
+NeoBundleFetch 'Shugo/neobundle.vim'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " My vundles
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Bundle 'Lokaltog/powerline'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'Bogdanp/browser-connect.vim'
-Bundle 'brookhong/cscope.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'myusuf3/numbers.vim'
-Bundle 'rdolgushin/gitignore.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-git'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'CSApprox'
-Bundle 'genindent.vim'
+NeoBundle 'Lokaltog/powerline'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'Bogdanp/browser-connect.vim'
+NeoBundle 'brookhong/cscope.vim'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'myusuf3/numbers.vim'
+NeoBundle 'rdolgushin/gitignore.vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-git'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'CSApprox'
+NeoBundle 'genindent.vim'
 
 " SnipMate
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-Bundle "honza/vim-snippets"
-Bundle 'scrooloose/snipmate-snippets'
+NeoBundle "MarcWeber/vim-addon-mw-utils"
+NeoBundle "tomtom/tlib_vim"
+NeoBundle "garbas/vim-snipmate"
+NeoBundle "honza/vim-snippets"
+NeoBundle 'scrooloose/snipmate-snippets'
 
 " Color schemes
-Bundle 'flazz/vim-colorschemes'
+NeoBundle 'flazz/vim-colorschemes'
 
 " My syntax plugins and suff
-Bundle 'kruton/vimstuff'
+NeoBundle 'kruton/vimstuff'
 
+" Completion
+NeoBundle 'Shougo/unite.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General settings

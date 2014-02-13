@@ -1,6 +1,9 @@
 [submodule "libs/dircolors-solarized"]
 	path = libs/dircolors-solarized
 	url = https://github.com/huyz/dircolors-solarized
+[submodule "home/.vim/bundle/neobundle.vim"]
+	path = home/.vim/bundle/neobundle.vim
+	url = https://github.com/Shougo/neobundle.vim.git
 [submodule "home/.vim/bundle/vundle"]
 	path = home/.vim/bundle/vundle
 	url = https://github.com/gmarik/vundle.git
