@@ -46,6 +46,7 @@ NeoBundle 'genindent.vim'
 
 " Filetype editing
 NeoBundle 'sukima/xmledit'
+NeoBundle 'vim-scripts/bash-support.vim'
 
 " YouCompleteMe
 NeoBundle 'Valloric/YouCompleteMe', {
