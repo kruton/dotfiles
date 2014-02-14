@@ -7,80 +7,8 @@
 set nocompatible
 filetype off " workaround vundle ftdetect bug
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vundle configuration
-"
-" :BundleInstall! upgrades bundles
-"
-" For more help see the vundle website:
-" https://github.com/gmarik/vundle#readme
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set runtimepath+=~/.vim/bundle/neobundle.vim/
-call neobundle#rc(expand('~/.vim/bundle/'))
-
-" Homeshick manages this update now.
-NeoBundleFetch 'Shugo/neobundle.vim'
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" My vundles
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-NeoBundle 'Lokaltog/powerline'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'Bogdanp/browser-connect.vim'
-NeoBundle 'brookhong/cscope.vim'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'myusuf3/numbers.vim'
-NeoBundle 'rdolgushin/gitignore.vim'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-git'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'CSApprox'
-NeoBundle 'genindent.vim'
-
-" Filetype editing
-NeoBundle 'sukima/xmledit'
-NeoBundle 'vim-scripts/bash-support.vim'
-
-" YouCompleteMe
-NeoBundle 'Valloric/YouCompleteMe', {
-    \ 'build' : {
-    \     'unix': './install.sh --clang-completer',
-    \     'mac': './install.sh --clang-completer',
-    \   },
-    \ }
-
-" Vimproc, asynchronous execution library
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
-
-" SnipMate
-NeoBundle "MarcWeber/vim-addon-mw-utils"
-NeoBundle "tomtom/tlib_vim"
-NeoBundle "garbas/vim-snipmate"
-NeoBundle "honza/vim-snippets"
-NeoBundle 'scrooloose/snipmate-snippets'
-
-" Color schemes
-NeoBundle 'flazz/vim-colorschemes'
-
-" My syntax plugins and suff
-NeoBundle 'kruton/vimstuff'
-
-" Completion
-NeoBundle 'Shougo/unite.vim'
+source ~/.vim/vimrc/plugins.vim
+source ~/.vim/vimrc/settings.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General settings
