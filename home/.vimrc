@@ -10,12 +10,6 @@ filetype off " workaround vundle ftdetect bug
 source ~/.vim/vimrc/plugins.vim
 source ~/.vim/vimrc/settings.vim
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General settings
-
-" Map leader
-let mapleader = ","
-
 " Unlet g:color_names to avoid loading color scheme several times
 " when sourcing ~/.virmc a second time. Several commands would trigger
 " sourcing color scheme :syntax on and :set t_Co=256 and of course
