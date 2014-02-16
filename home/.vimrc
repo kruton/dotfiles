@@ -265,10 +265,6 @@ if has("gui_running")
     endif
 endif
 
-" Enable line numbers and make them dark grey
-set number
-highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
-
 " Powerline setup
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 python from powerline.vim import setup as powerline_setup
