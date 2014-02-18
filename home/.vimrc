@@ -158,12 +158,6 @@ if has('autocmd')
     au BufWritePost *.dat if  &bin   | %!xxd
     au BufWritePost *.dat set nomod  | endif
   augroup END
-
-  " Don't try to syntax highlight on a file over 512KB
-  au BufReadPost * if getfsize(bufname("%")) > 512*1024 | 
-    \ set syntax= |
-    \ endif
-
 endif
 
 " Use modelines
