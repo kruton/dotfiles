@@ -37,12 +37,6 @@ set timeout timeoutlen=3000 ttimeoutlen=100
 
 set history=400
 set textwidth=0
-set backup
-if has('persistent_undo')
-  set undodir=~/UNDO
-  set undofile
-endif
-if exists('+undoreload')  | set undoreload=100000    | endif
 if exists('+cryptmethod') | set cryptmethod=blowfish | endif
 
 set wildmode=longest,list
@@ -165,11 +159,6 @@ set modelines=5
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-"if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-"else
-"  set backup		" keep a backup file
-"endif
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
