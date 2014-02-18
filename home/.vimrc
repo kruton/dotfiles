@@ -7,9 +7,7 @@
 set nocompatible
 filetype off " workaround vundle ftdetect bug
 
-source ~/.vim/vimrc/plugins.vim
-source ~/.vim/vimrc/settings.vim
-source ~/.vim/vimrc/speedups.vim
+source ~/.vim/settings.vim
 
 " Unlet g:color_names to avoid loading color scheme several times
 " when sourcing ~/.virmc a second time. Several commands would trigger
