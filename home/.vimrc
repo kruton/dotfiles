@@ -221,15 +221,6 @@ au BufReadPost .vimrc map K :exe ":help ".expand("<cword>")<CR>
 :silent! colorscheme rastafari
 :silent! colorscheme spectro
 
-" Set GUI font used
-if has("gui_running")
-    if has("gui_macvim")
-        set guifont=Essential\ PragmataPro:h12
-    elseif has("gui_gtk2")
-        set guifont=Essential\ PragmataPro\ 10
-    endif
-endif
-
 " Powerline setup
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 python from powerline.vim import setup as powerline_setup
