@@ -123,20 +123,6 @@ if has('spell')
   map  <F8> :set spell!<CR>
 endif
 
-" Function used to display utf-8 sequence.
-fun! ShowUtf8Sequence()
-  try
-    let p = getpos('.')
-    redir => utfseq
-    sil normal! g8
-    redir End
-    call setpos('.', p)
-    return substitute(matchstr(utfseq, '\x\+ .*\x'), '\<\x', '0x&', 'g')
-  catch
-    return '?'
-  endtry
-endfunction
-
 if has('autocmd')
   " vim -b : edit binary using xxd-format
   " See :help hex-editing
