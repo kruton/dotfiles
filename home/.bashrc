@@ -180,10 +180,6 @@ done
 # Read in bash aliases
 . "${DOTFILES_DIR}/.bash_aliases"
 
-# Homeshick setup
-source "$HOME/.homesick/repos/homeshick/homeshick.sh"
-source "$HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash"
-
 # Override any variables with local things.
 if [ -f "${HOME}/.bashrc.local" ]; then
     . "${HOME}/.bashrc.local"
