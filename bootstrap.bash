@@ -153,6 +153,8 @@ if (( $? != 0 )); then
   homeshick --batch clone "${repo}"
 fi
 
+homeshick list | grep -q neobundle.vim || homeshick --batch clone https://github.com/Shougo/neobundle.vim.git
+
 homeshick link --force
 
 if [[ ! -f $HOME/.merged_bash_history ]]; then
