@@ -77,7 +77,7 @@ test_agent_socket_socat() {
 	if [[ -x ${_SOCAT_BINARY} ]]
 	then
 		expected="$(echo -e '\x00\x00\x00\x01\x05')"
-		response="$(echo -e '\x00\x00\x00\x01\xFF' | ${_SOCAT_BINARY} - UNIX-CONNECT:${SOCKET})"
+                response="$(echo -e '\x00\x00\x00\x01\xFF' | ${_SOCAT_BINARY} - UNIX-CONNECT:${SOCKET} 2> /dev/null)"
 		if [[ ${response} = ${expected} ]]
 		then
 			if [[ -n "$_LIVE_AGENT_LIST" ]]
