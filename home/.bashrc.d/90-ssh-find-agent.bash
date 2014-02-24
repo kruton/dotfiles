@@ -4,7 +4,14 @@
 #
 # See LICENSE for details
 
-_SOCAT_BINARY=$(which socat)
+_SOCAT_BINARY="$(which socat)"
+_TIMEOUT_BINARY="$(which timeout)"
+if [[ -x $_TIMEOUT_BINARY ]]; then
+    _SSH_ADD_BINARY="$_TIMEOUT_BINARY 1 ssh-add"
+else
+    _SSH_ADD_BINARY="$(which ssh-add)"
+fi
+
 _LIVE_AGENT_LIST=""
 
 _debug_print() {
@@ -41,7 +48,7 @@ find_all_gnubby_agent_sockets() {
 
 test_agent_socket() {
 	local SOCKET=$1
-	SSH_AUTH_SOCK=$SOCKET ssh-add -l 2> /dev/null > /dev/null
+	SSH_AUTH_SOCK=$SOCKET $_SSH_ADD_BINARY -l 2> /dev/null > /dev/null
 	result=$?
 
 	_debug_print $result
@@ -49,7 +56,7 @@ test_agent_socket() {
 	if [[ $result -eq 0 ]]
 	then
 		# contactible and has keys loaded
-		_KEY_COUNT=`SSH_AUTH_SOCK=$SOCKET ssh-add -l | wc -l | tr -d ' '`
+		_KEY_COUNT=`SSH_AUTH_SOCK=$SOCKET $_SSH_ADD_BINARY -l | wc -l | tr -d ' '`
 	fi
 
 	if [[ $result -eq 1 ]]
