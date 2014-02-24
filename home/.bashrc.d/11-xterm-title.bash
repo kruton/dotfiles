@@ -28,7 +28,7 @@ function _abbreviate_path () {
         local working_dir="${PWD##/*/}/"
     fi
 
-    echo $working_dir
+    echo "$working_dir"
 }
 
 # Don't bother changing the title for commands that take very little time.  
@@ -54,7 +54,7 @@ function _precmd_title () {
 
     if [[ $TERM == screen* ]]
     then
-        _preexec_screen_title `_abbreviate_path`
+        _preexec_screen_title "`_abbreviate_path`"
     fi
 }
 
@@ -77,7 +77,7 @@ function _android_title () {
 function _preexec_title () {
     # Give me the command name sans any arguments
     local cutit="$1"
-    local cmdtitle=`echo "$cutit" | cut -d " " -f 1`
+    local cmdtitle="`echo "$cutit" | cut -d " " -f 1`"
 
     if _display_command "$cmdtitle"
     then
@@ -89,7 +89,7 @@ function _preexec_title () {
             # the value of $1 is exec which isn't very useful.
             if [[ "$cmdtitle" == "exec" ]]
             then
-                local cmdtitle=`echo "$cutit" | cut -d " " -f 2`
+                local cmdtitle="`echo "$cutit" | cut -d " " -f 2`"
             fi
             _preexec_screen_title "$cmdtitle"
         fi
