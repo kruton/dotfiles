@@ -4,8 +4,8 @@
 #
 # See LICENSE for details
 
-_SOCAT_BINARY="$(which socat)"
-_TIMEOUT_BINARY="$(which timeout)"
+_SOCAT_BINARY="$(which socat 2> /dev/null)"
+_TIMEOUT_BINARY="$(which timeout 2> /dev/null)"
 if [[ -x $_TIMEOUT_BINARY ]]; then
     _SSH_ADD_BINARY="$_TIMEOUT_BINARY 1 ssh-add"
 else
