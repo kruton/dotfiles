@@ -98,3 +98,6 @@ NeoBundle 'kruton/vimstuff'
 
 " Completion
 NeoBundle 'Shougo/unite.vim'
+
+" Syntax for nginx config files
+NeoBundle 'yaroot/vim-nginx'
