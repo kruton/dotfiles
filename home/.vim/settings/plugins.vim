@@ -65,13 +65,18 @@ NeoBundle 'genindent.vim'
 NeoBundle 'sukima/xmledit'
 NeoBundle 'vim-scripts/bash-support.vim'
 
-" " YouCompleteMe
-" NeoBundle 'Valloric/YouCompleteMe', {
-"     \ 'build' : {
-"     \     'unix': './install.sh --clang-completer',
-"     \     'mac': './install.sh --clang-completer',
-"     \   },
-"     \ }
+" YouCompleteMe
+if filereadable(expand('~/.at_google.vim'))
+    " Google-only
+    source ~/.at_google.vim
+else
+    NeoBundle 'Valloric/YouCompleteMe', {
+        \ 'build' : {
+        \     'unix': './install.sh --clang-completer',
+        \     'mac': './install.sh --clang-completer',
+        \   },
+        \ }
+endif
 
 " Vimproc, asynchronous execution library
 NeoBundle 'Shougo/vimproc', {
