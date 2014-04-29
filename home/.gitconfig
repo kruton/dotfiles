@@ -1,0 +1,23 @@
+# vim: set ts=8 sw=8 noet :
+[include]
+	path = .gitconfig.local
+[color]
+	ui = auto
+[merge]
+	tool = fugitive
+	conflictstyle = diff3
+[core]
+	deltaBaseCacheLimit = 1G
+	excludesfile = /usr/local/google/home/kroot/.gitignore-global
+[mergetool "fugitive"]
+	cmd = gvim -f -c \"Gdiff\" \"$MERGED\"
+[alias]
+	br = branch
+	ci = commit
+	co = checkout
+	cp = cherry-pick
+	dump = cat-file -p
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	lp = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	st = status
+	type = cat-file -t
