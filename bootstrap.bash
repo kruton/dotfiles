@@ -163,7 +163,7 @@ fi
 
 source "$HOME/.bashrc"
 
-vim - +BundleInstall +BundleClean +qall < /dev/null
+vim - +NeoBundleInstall +NeoBundleClean +qall < /dev/null
 
 pushd "$HOME/.vim/bundle/YouCompleteMe"
 [ -x ./install.sh ] && ./install.sh
