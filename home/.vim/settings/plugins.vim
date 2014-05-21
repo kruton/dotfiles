@@ -29,10 +29,12 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'altercation/vim-colors-solarized'
 
 " This provides live-update webpage editing.
-NeoBundle 'Bogdanp/browser-connect.vim'
+NeoBundleLazy 'Bogdanp/browser-connect.vim', {
+    \ 'autoload': { 'filetypes': ['html'] }}
 
 " Searches for semantic C/C++ matches
-NeoBundle 'brookhong/cscope.vim'
+NeoBundleLazy 'brookhong/cscope.vim', {
+    \ 'autoload': { 'filetypes': ['c', 'cpp'] }}
 
 " Provides a class outline for files in a separate window
 NeoBundle 'majutsushi/tagbar'
@@ -41,7 +43,8 @@ NeoBundle 'majutsushi/tagbar'
 NeoBundle 'myusuf3/numbers.vim'
 
 " Syntax highlighting today
-NeoBundle 'rdolgushin/gitignore.vim'
+NeoBundleLazy 'rdolgushin/gitignore.vim', {
+    \ 'autoload': { 'filename_patterns': ['^\.gitignore$'] }}
 
 " Syntax checking plugin
 NeoBundle 'scrooloose/syntastic'
@@ -63,7 +66,8 @@ NeoBundle 'genindent.vim'
 
 " Filetype editing
 NeoBundle 'sukima/xmledit'
-NeoBundle 'vim-scripts/bash-support.vim'
+NeoBundleLazy 'vim-scripts/bash-support.vim', {
+    \ 'autoload': { 'filetypes': ['bash', 'sh'] }}
 
 " YouCompleteMe
 if filereadable(expand('~/.at_google.vim'))
@@ -89,10 +93,10 @@ NeoBundle 'Shougo/vimproc', {
       \ }
 
 " SnipMate
-NeoBundle "MarcWeber/vim-addon-mw-utils"
-NeoBundle "tomtom/tlib_vim"
-NeoBundle "garbas/vim-snipmate"
-NeoBundle "honza/vim-snippets"
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
+NeoBundle 'tomtom/tlib_vim'
+NeoBundle 'garbas/vim-snipmate'
+NeoBundle 'honza/vim-snippets'
 NeoBundle 'scrooloose/snipmate-snippets'
 
 " Color schemes
@@ -102,7 +106,16 @@ NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'kruton/vimstuff'
 
 " Completion
-NeoBundle 'Shougo/unite.vim'
+NeoBundleLazy 'Shougo/unite.vim', {
+    \ 'autoload': {
+    \   'commands': ['Unite', 'UniteWithBufferDir']
+    \ }}
 
 " Syntax for nginx config files
-NeoBundle 'yaroot/vim-nginx'
+NeoBundleLazy 'yaroot/vim-nginx', {
+    \ 'autoload': { 'filename_patterns': ['nginx'] }}
+
+" LaTeX automatic mode
+NeoBundleLazy 'git://git.code.sf.net/p/atp-vim/code', {
+    \ 'name': 'atp-vim',
+    \ 'autoload': { 'filetypes': ['tex'] }}
