@@ -65,7 +65,8 @@ NeoBundle 'CSApprox'
 NeoBundle 'genindent.vim'
 
 " Filetype editing
-NeoBundle 'sukima/xmledit'
+NeoBundleLazy 'sukima/xmledit', {
+    \ 'autoload': { 'filetypes': ['html', 'sgml', 'xml'] }}
 NeoBundleLazy 'vim-scripts/bash-support.vim', {
     \ 'autoload': { 'filetypes': ['bash', 'sh'] }}
 
@@ -78,19 +79,17 @@ else
         \ 'build' : {
         \     'unix': './install.sh --clang-completer',
         \     'mac': './install.sh --clang-completer',
-        \   },
-        \ }
+        \ }}
 endif
 
 " Vimproc, asynchronous execution library
-NeoBundle 'Shougo/vimproc', {
+NeoBundleLazy 'Shougo/vimproc', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
       \     'cygwin' : 'make -f make_cygwin.mak',
       \     'mac' : 'make -f make_mac.mak',
       \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
+      \ }}
 
 " SnipMate
 NeoBundle 'MarcWeber/vim-addon-mw-utils'
@@ -107,9 +106,8 @@ NeoBundle 'kruton/vimstuff'
 
 " Completion
 NeoBundleLazy 'Shougo/unite.vim', {
-    \ 'autoload': {
-    \   'commands': ['Unite', 'UniteWithBufferDir']
-    \ }}
+    \ 'autoload': { 'commands': ['Unite', 'UniteWithBufferDir'] },
+    \ 'depends': ['Shougo/vimproc.vim'] }
 
 " Syntax for nginx config files
 NeoBundleLazy 'yaroot/vim-nginx', {
