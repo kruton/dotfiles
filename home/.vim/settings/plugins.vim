@@ -114,6 +114,6 @@ NeoBundleLazy 'yaroot/vim-nginx', {
     \ 'autoload': { 'filename_patterns': ['nginx'] }}
 
 " LaTeX automatic mode
-NeoBundleLazy 'git://git.code.sf.net/p/atp-vim/code', {
+NeoBundleLazy 'coot/atp_vim', {
     \ 'name': 'atp-vim',
     \ 'autoload': { 'filetypes': ['tex'] }}
