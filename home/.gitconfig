@@ -8,7 +8,7 @@
 	conflictstyle = diff3
 [core]
 	deltaBaseCacheLimit = 1G
-	excludesfile = /usr/local/google/home/kroot/.gitignore-global
+	excludesfile = ~/.gitignore-global
 [mergetool "fugitive"]
 	cmd = gvim -f -c \"Gdiff\" \"$MERGED\"
 [alias]
