@@ -49,6 +49,11 @@ _powerline_local_prompt() {
 		--renderer_arg="local_theme=$5"
 }
 
+# In case powerline is missing from PATH or something else
+_powerline_fallback() {
+	PS1="[powerline?] \u@\h \w\$ "
+}
+
 _powerline_prompt() {
 	# Arguments: side, last_exit_code, jobnum
 	$POWERLINE_COMMAND shell $1 \
@@ -66,6 +71,9 @@ _powerline_set_prompt() {
         fi
 	local jobnum="$(jobs -p|wc -l)"
 	PS1="$(_powerline_prompt aboveleft $last_exit_code $jobnum)"
+	if [[ $? -ne 0 ]]; then
+		_powerline_fallback
+	fi
 	if test -n "$POWERLINE_SHELL_CONTINUATION$POWERLINE_BASH_CONTINUATION" ; then
 		PS2="$(_powerline_local_prompt left -r.bash $last_exit_code $jobnum continuation)"
 	fi
