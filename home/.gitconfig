@@ -21,3 +21,5 @@
 	lp = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 	st = status
 	type = cat-file -t
+[push]
+	default = simple
