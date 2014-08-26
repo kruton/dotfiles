@@ -1,23 +1,5 @@
 {
 	"default_module": "powerline.segments.common",
-	"segment_data": {
-		"uptime": {
-			"before": "⇑  "
-		},
-		"external_ip": {
-			"before": "ⓦ  "
-		},
-		"date": {
-			"before": "⌚ "
-		},
-		"email_imap_alert": {
-			"before": "✉ ",
-			"args": {
-				"username": "",
-				"password": ""
-			}
-		}
-	},
 	"segments": {
 		"right": [
 			{
@@ -29,7 +11,8 @@
 				"priority": 50
 			},
 			{
-				"name": "date"
+				"name": "date",
+				"before": ""
 			},
 			{
 				"name": "date",
