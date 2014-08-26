@@ -2,6 +2,7 @@
 	"segment_data": {
 		"hostname": {
 			"args": {
+				"exclude_domain": true,
 				"only_if_ssh": true
 			}
 		},
