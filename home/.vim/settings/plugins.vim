@@ -108,7 +108,9 @@ NeoBundle 'kruton/vimstuff'
 
 " Completion
 NeoBundleLazy 'Shougo/unite.vim', {
-    \ 'autoload': { 'commands': ['Unite', 'UniteWithBufferDir'] },
+    \ 'commands': [ { 'name': 'Unite',
+    \                 'complete': 'customlist,unite#complete_source' },
+    \               'UniteWithCursorWord', 'UniteWithInput' ],
     \ 'depends': ['Shougo/vimproc.vim'] }
 
 " Syntax for nginx config files
