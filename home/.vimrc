@@ -227,3 +227,6 @@ python del powerline_setup
 " SnipMate mappings
 :imap ,<Tab> <Plug>snipMateNextOrTrigger
 :smap ,<Tab> <Plug>snipMateNextOrTrigger
+
+" VimFiler as default file browser
+let g:vimfiler_as_default_explorer = 1
