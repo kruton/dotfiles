@@ -32,11 +32,13 @@ NeoBundle 'altercation/vim-colors-solarized'
 
 " This provides live-update webpage editing.
 NeoBundleLazy 'Bogdanp/browser-connect.vim', {
-    \ 'autoload': { 'filetypes': ['html'] }}
+    \ 'filetypes': 'html',
+    \ }
 
 " Searches for semantic C/C++ matches
 NeoBundleLazy 'brookhong/cscope.vim', {
-    \ 'autoload': { 'filetypes': ['c', 'cpp'] }}
+    \ 'filetypes': ['c', 'cpp'],
+    \ }
 
 " Provides a class outline for files in a separate window
 NeoBundle 'majutsushi/tagbar'
@@ -46,7 +48,8 @@ NeoBundle 'myusuf3/numbers.vim'
 
 " Syntax highlighting today
 NeoBundleLazy 'rdolgushin/gitignore.vim', {
-    \ 'autoload': { 'filename_patterns': ['^\.gitignore$'] }}
+    \ 'filename_patterns': '^\.gitignore$',
+    \ }
 
 " Syntax checking plugin
 NeoBundle 'scrooloose/syntastic'
@@ -68,9 +71,11 @@ NeoBundle 'genindent.vim'
 
 " Filetype editing
 NeoBundleLazy 'sukima/xmledit', {
-    \ 'autoload': { 'filetypes': ['html', 'sgml', 'xml'] }}
+    \ 'filetypes': ['html', 'sgml', 'xml'],
+    \ }
 NeoBundleLazy 'vim-scripts/bash-support.vim', {
-    \ 'autoload': { 'filetypes': ['bash', 'sh'] }}
+    \ 'filetypes': ['bash', 'sh'],
+    \ }
 
 " YouCompleteMe
 if filereadable(expand('~/.at_google.vim'))
@@ -111,16 +116,19 @@ NeoBundleLazy 'Shougo/unite.vim', {
     \ 'commands': [ { 'name': 'Unite',
     \                 'complete': 'customlist,unite#complete_source' },
     \               'UniteWithCursorWord', 'UniteWithInput' ],
-    \ 'depends': ['Shougo/vimproc.vim'] }
+    \ 'depends': ['Shougo/vimproc.vim'],
+    \ }
 
 " Syntax for nginx config files
 NeoBundleLazy 'yaroot/vim-nginx', {
-    \ 'autoload': { 'filename_patterns': ['nginx'] }}
+    \ 'filename_patterns': 'nginx',
+    \ }
 
 " LaTeX automatic mode
 NeoBundleLazy 'coot/atp_vim', {
     \ 'name': 'atp-vim',
-    \ 'autoload': { 'filetypes': ['tex'] }}
+    \ 'filetypes': 'tex',
+    \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle housekeeping - MUST BE AT END!
