@@ -111,9 +111,6 @@ NeoBundle 'garbas/vim-snipmate'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'scrooloose/snipmate-snippets'
 
-" Color schemes
-NeoBundle 'flazz/vim-colorschemes'
-
 " My syntax plugins and suff
 NeoBundle 'kruton/vimstuff'
 
