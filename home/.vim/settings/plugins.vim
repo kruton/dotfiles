@@ -61,7 +61,9 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-git'
 
-NeoBundle 'tpope/vim-repeat'
+NeoBundleLazy 'tpope/vim-repeat', {
+    \ 'mappings': '.',
+    \ }
 
 " Easily change quotings
 NeoBundle 'tpope/vim-surround'
