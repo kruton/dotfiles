@@ -85,7 +85,7 @@ else
 endif
 
 " Vimproc, asynchronous execution library
-NeoBundleLazy 'Shougo/vimproc', {
+NeoBundleLazy 'Shougo/vimproc.vim', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
       \     'cygwin' : 'make -f make_cygwin.mak',
