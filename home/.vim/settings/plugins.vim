@@ -6,8 +6,10 @@
 " For more help see the NeoBundle website:
 " https://github.com/Shougo/neobundle.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set runtimepath+=~/.vim/bundle/neobundle.vim/
-call neobundle#rc(expand('~/.vim/bundle/'))
+if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 " Homeshick manages this update now.
 NeoBundleFetch 'Shugo/neobundle.vim'
@@ -117,3 +119,11 @@ NeoBundleLazy 'yaroot/vim-nginx', {
 NeoBundleLazy 'coot/atp_vim', {
     \ 'name': 'atp-vim',
     \ 'autoload': { 'filetypes': ['tex'] }}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NeoBundle housekeeping - MUST BE AT END!
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call neobundle#end()
+filetype plugin indent on
+
+NeoBundleCheck
