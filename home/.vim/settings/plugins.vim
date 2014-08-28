@@ -138,22 +138,22 @@ NeoBundle 'altercation/vim-colors-solarized'
 
 " File browser
 NeoBundleLazy 'Shougo/vimfiler.vim', {
-      \ 'depends' : 'Shougo/unite.vim',
-      \ 'commands' : [
-      \         { 'name' : 'VimFiler',
-      \           'complete' : 'customlist,vimfiler#complete' },
-      \         { 'name' : 'VimFilerTab',
-      \           'complete' : 'customlist,vimfiler#complete' },
-      \         { 'name' : 'VimFilerExplorer',
-      \           'complete' : 'customlist,vimfiler#complete' },
-      \         { 'name' : 'Edit',
-      \           'complete' : 'customlist,vimfiler#complete' },
-      \         { 'name' : 'Write',
-      \           'complete' : 'customlist,vimfiler#complete' },
-      \         'Read', 'Source'],
-      \ 'mappings' : '<Plug>',
-      \ 'explorer' : 1,
-      \ }
+    \ 'depends' : 'Shougo/unite.vim',
+    \ 'commands' : [
+    \         { 'name' : 'VimFiler',
+    \           'complete' : 'customlist,vimfiler#complete' },
+    \         { 'name' : 'VimFilerTab',
+    \           'complete' : 'customlist,vimfiler#complete' },
+    \         { 'name' : 'VimFilerExplorer',
+    \           'complete' : 'customlist,vimfiler#complete' },
+    \         { 'name' : 'Edit',
+    \           'complete' : 'customlist,vimfiler#complete' },
+    \         { 'name' : 'Write',
+    \           'complete' : 'customlist,vimfiler#complete' },
+    \         'Read', 'Source'],
+    \ 'mappings' : '<Plug>',
+    \ 'explorer' : 1,
+    \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle housekeeping - MUST BE AT END!
