@@ -54,6 +54,11 @@ NeoBundleLazy 'rdolgushin/gitignore.vim', {
 " Syntax checking plugin
 NeoBundle 'scrooloose/syntastic'
 
+" Syntax highlighting for Ragel
+NeoBundleLazy 'arsenerei/vim-ragel', {
+    \ 'filetypes': ['ragel', 'rl'],
+    \ }
+
 " Allows quick comment in many languages
 NeoBundle 'tomtom/tcomment_vim'
 
