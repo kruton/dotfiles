@@ -109,12 +109,15 @@ NeoBundleLazy 'Shougo/vimproc.vim', {
       \     'unix' : 'make -f make_unix.mak',
       \ }}
 
-" SnipMate
-NeoBundle 'MarcWeber/vim-addon-mw-utils'
-NeoBundle 'tomtom/tlib_vim'
-NeoBundle 'garbas/vim-snipmate'
+" Snippets
+NeoBundleLazy 'Shougo/neosnippet.vim', {
+    \ 'depends' : ['Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim'],
+    \ 'insert' : 1,
+    \ 'filetypes' : 'snippet',
+    \ 'unite_sources' : [
+    \    'neosnippet', 'neosnippet/user', 'neosnippet/runtime'],
+    \ }
 NeoBundle 'honza/vim-snippets'
-NeoBundle 'scrooloose/snipmate-snippets'
 
 " My syntax plugins and suff
 NeoBundle 'kruton/vimstuff'
