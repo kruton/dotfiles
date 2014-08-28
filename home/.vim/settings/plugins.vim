@@ -66,8 +66,12 @@ NeoBundleLazy 'tpope/vim-repeat', {
     \ }
 
 " Easily change quotings
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-unimpaired'
+NeoBundleLazy 'tpope/vim-surround', {
+    \ 'mappings': [['nxo', 'cs', 'ds', 'yss'], ['v', 'S']],
+    \ }
+NeoBundleLazy 'tpope/vim-unimpaired', {
+    \ 'mappings': ['[', ']'],
+    \ }
 NeoBundle 'CSApprox'
 NeoBundle 'genindent.vim'
 
