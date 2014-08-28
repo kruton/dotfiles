@@ -105,8 +105,6 @@ if has('eval')
   let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
 endif
 
-set bg=dark
-
 " Old paste macros
 " nnoremap <F2> :set invpaste paste?<CR>
 " imap <F2> <C-O><F2>
@@ -215,11 +213,10 @@ au BufReadPost *.pl   set keywordprg=perldoc\ -f
 au BufReadPost *.vim  map K :exe ":help ".expand("<cword>")<CR>
 au BufReadPost .vimrc map K :exe ":help ".expand("<cword>")<CR>
 
-" rastafari colorscheme available at:
-"   http://dominique.pelle.free.fr/rastafari.vim
-"   http://dominique.pelle.free.fr/rastafari.vim.html
-:silent! colorscheme rastafari
-:silent! colorscheme spectro
+" Solarized color scheme setup
+let g:solarized_termcolors=256
+set background=dark
+colorscheme solarized
 
 " Powerline setup
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim

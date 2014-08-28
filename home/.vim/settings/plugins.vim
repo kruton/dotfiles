@@ -72,7 +72,7 @@ NeoBundleLazy 'tpope/vim-surround', {
 NeoBundleLazy 'tpope/vim-unimpaired', {
     \ 'mappings': ['[', ']'],
     \ }
-NeoBundle 'CSApprox'
+NeoBundle 'godlygeek/csapprox'
 NeoBundle 'genindent.vim'
 
 " Filetype editing
@@ -135,6 +135,9 @@ NeoBundleLazy 'coot/atp_vim', {
     \ 'name': 'atp-vim',
     \ 'filetypes': 'tex',
     \ }
+
+" Solarized colorscheme
+NeoBundle 'altercation/vim-colors-solarized'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle housekeeping - MUST BE AT END!
