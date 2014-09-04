@@ -3,24 +3,22 @@
 	"segments": {
 		"left": [
 			{
-				"module": "powerline.segments.shell",
-				"name": "jobnum"
+				"function": "powerline.segments.shell.jobnum"
 			},
 			{
-				"name": "hostname",
+				"function": "hostname",
 				"priority": 10
 			},
 			{
-				"name": "user",
+				"function": "user",
 				"priority": 30
 			},
 			{
-				"name": "virtualenv",
+				"function": "virtualenv",
 				"priority": 50
 			},
 			{
-				"module": "powerline.segments.shell",
-				"name": "cwd",
+				"function": "powerline.segments.shell.cwd",
 				"args": {
 					"use_path_separator": true,
 					"dir_limit_depth": 5
@@ -28,15 +26,14 @@
 				"priority": 10
 			},
 			{
-				"name": "branch",
+				"function": "branch",
 				"args": {
 					"status_colors": true
 				},
 				"priority": 40
 			},
 			{
-				"module": "powerline.segments.shell",
-				"name": "last_pipe_status"
+				"function": "powerline.segments.shell.last_pipe_status"
 			}
 		]
 	},

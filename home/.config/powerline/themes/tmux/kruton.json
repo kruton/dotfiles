@@ -3,17 +3,18 @@
 	"segments": {
 		"right": [
 			{
-				"name": "system_load",
+				"function": "system_load",
 				"priority": 50
 			},
 			{
-				"name": "date",
+				"function": "date",
 				"args": {
 				       "format": "%b %d"
 				}
 			},
 			{
-				"name": "date",
+				"function": "date",
+				"name": "time",
 				"args": {
 					"format": "%H:%M",
 					"istime": true
