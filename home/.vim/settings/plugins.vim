@@ -72,8 +72,8 @@ NeoBundleLazy 'tpope/vim-repeat', {
 
 " Easily change quotings
 NeoBundleLazy 'tpope/vim-surround', {
-    \ 'mappings': [['nxo', 'cs', 'ds', 'yss'], ['v', 'S']],
     \ }
+"   \ 'mappings': [['nxo', 'cs', 'ds', 'yss'], ['v', 'S']],
 NeoBundleLazy 'tpope/vim-unimpaired', {
     \ 'mappings': ['[', ']'],
     \ }
