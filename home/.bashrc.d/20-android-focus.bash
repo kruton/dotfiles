@@ -3,7 +3,7 @@
 # into one's .bashrc
 #
 # Author: Kenny Root <kenny@the-b.org>
-# Last change: Dec 10, 2012
+# Last change: Sep 9, 2014
 #
 
 focus() {
@@ -24,19 +24,25 @@ focus() {
 }
 
 _focus_match_device() {
-    local device cur casematch
+    local device cur
 
     device="$1"
     cur="$2"
 
     if [[ ${device} == ${cur}* ]]; then
-        printf '%s\n' "${device}"
+        return 0
+    else
+        return 1
     fi
 }
 
+# For tracking whether to display descriptions of devices.
+_focus__comment_last=1
+_focus__comment_pos=0
+
 _focus() {
-    local cur device nocasematch
-    local -a devices
+    local cur device nocasematch serial description
+    local -a devices descriptions
 
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
@@ -49,23 +55,37 @@ _focus() {
         # Either it's on or we need to set it
         (( nocasematch )) || shopt -s nocasematch
 
-        devices=( $(
-            adb devices | while read -r serial junk; do
-                if [[ -n ${serial} && ${serial} != List ]]; then
-                    _focus_match_device "${serial}" "${cur}"
-                fi
-            done
-            fastboot devices | while read -r serial junk; do
-                if [[ -n ${serial} ]]; then
-                    _focus_match_device "${serial}" "${cur}"
-                fi
-            done
-        ) )
+        while read -r serial description; do
+            if [[ -n $serial && $serial != List ]] && _focus_match_device "$serial" "$cur"; then
+                devices+=( "$serial" )
+                descriptions+=( "$description" )
+            fi
+        done < <(adb devices -l)
+        while read -r serial description; do
+            if [[ -n $serial ]] && _focus_match_device "$serial" "$cur"; then
+                devices+=( "$serial" )
+                descriptions+=( "$description" )
+            fi
+        done < <(fastboot devices -l)
 
         # Either it was on or we need to unset it
         (( nocasematch )) || shopt -u nocasematch
 
-        COMPREPLY=( "${devices[@]}" )
+        [[ $_focus__comment_pos -gt $COMP_POINT ]] && _focus__comment_pos=0
+
+        if [[ $_focus__comment_last == 0 && $_focus__comment_pos == $COMP_POINT ]]; then
+            local bold="$(tput bold)"
+            local nobold="$(tput sgr0)"
+            for i in "${!devices[@]}"; do
+                echo -ne "\n$bold${devices[$i]}$nobold - ${descriptions[$i]}"
+            done
+            _focus__comment_last=1
+            COMPREPLY=
+        else
+            COMPREPLY=( "${devices[@]}" )
+            _focus__comment_last=0
+        fi
+        _focus__comment_pos=$COMP_POINT
     fi
 }
 complete -F _focus focus
