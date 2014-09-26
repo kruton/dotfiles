@@ -5,9 +5,7 @@
 
 # Android target selection routine. Make sure you end the ANDROID_DIR
 # with a trailing slash.
-if [[ -z ${ANDROID_DIR} ]]; then
-    echo 'Error: ANDROID_DIR not set. Please set in ~/.bashrc.local.pre'
-elif [[ -n ${ANDROID_DIR##*/} ]]; then
+if [[ -n ${ANDROID_DIR##*/} ]]; then
     # add trailing slash
     ANDROID_DIR="${ANDROID_DIR}/"
 fi
@@ -60,9 +58,6 @@ if [[ ! -z ${ANDROID_DIR} && -d ${ANDROID_DIR} ]]; then
         . "${TOP}/build/envsetup.sh"
         popd > /dev/null 2>&1
     fi
-else
-    echo "Error: Invalid Android directory: ${ANDROID_DIR}"
-    echo "       Will not setup Android development environment"
 fi
 
 trap - EXIT SIGINT SIGQUIT SIGTERM
