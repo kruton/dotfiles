@@ -6,6 +6,11 @@
 env x='() { :;}; echo "WARNING: SHELLSHOCK DETECTED"' \
     bash --norc -c ':' 2>/dev/null;
  
+SHELLSHOCK_TEMP=$(mktemp shellshock.XXXXXXXXX)
+env X='() { (a)=>\' sh -c "$SHELLSHOCK_TEMP echo WARNING: SHELLSHOCK 2 DETECTED" 2>/dev/null
+cat $SHELLSHOCK_TEMP
+rm -f $SHELLSHOCK_TEMP
+
 # It will print to stdout if and only if your shell is vulnerable, and nothing
 # will be printed if your shell has been patched. It will take a little longer
 # to launch a new shell slightly, but for some, this may be worth it.
