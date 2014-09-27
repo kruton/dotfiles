@@ -20,23 +20,22 @@ clean_up() {
 
 if [[ ! -z ${ANDROID_DIR} && -d ${ANDROID_DIR} ]]; then
     declare -a targets
-    (( cnt = 0 ))
 
-    for dir in $(find ${ANDROID_DIR} -maxdepth 1 '(' -type d -or -type l ')' -and '!' -name '.*' -print); do
-        trimmed_dir="${dir#${ANDROID_DIR}}"
+    for dir in $(find $ANDROID_DIR -maxdepth 1 '(' -type d -or -type l ')' -and '!' -name '.*' -print); do
+        trimmed_dir="${dir#$ANDROID_DIR}"
         if [[ -n ${trimmed_dir} ]]; then
-            targets[$cnt]="${trimmed_dir}"
-            (( cnt++ ))
+            targets+=("$trimmed_dir")
         fi
     done
 
     target=""
-    if (( cnt == 1 )); then
+    if (( ${#targets[@]} == 1 )); then
         target="${targets[0]}"
     else
-        dialog_cmd="dialog --output-fd 5 --menu Targets: 15 40 $cnt "
-        for (( i = 0; i < ${#targets[@]}; i++ )); do
-            dialog_cmd="${dialog_cmd} $i ${targets[$i]}"
+        dialog_cmd="dialog --output-fd 5 --menu Targets: 15 40 ${#targets[@]} "
+        readarray -t sorted < <(printf '%s\0' "${targets[@]}" | sort -z | xargs -0n1)
+        for (( i = 0; i < ${#sorted[@]}; i++ )); do
+            dialog_cmd="${dialog_cmd} $i ${sorted[$i]}"
         done
         tmp_file="$(tempfile)"
         trap 'clean_up "${tmp_file}"' EXIT SIGINT SIGQUIT SIGTERM
@@ -47,7 +46,7 @@ if [[ ! -z ${ANDROID_DIR} && -d ${ANDROID_DIR} ]]; then
         if (( ret == 0 )); then
             clear
             read target_number < ${tmp_file}
-            target="${targets[$target_number]}"
+            target="${sorted[$target_number]}"
         fi
     fi
     if [[ -n ${target} ]]; then
