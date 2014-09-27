@@ -147,7 +147,7 @@ find_all_agent_sockets() {
 	find_live_osx_keychain_agents
 	find_live_gnubby_agents
 	_debug_print "$_LIVE_AGENT_LIST"
-	printf "%s\n" "$_LIVE_AGENT_LIST" | sed -e 's/ /\n/g' | sort -n -t: -k 2 -k 1
+	printf "%s\n" "$_LIVE_AGENT_LIST" | tr ' ' '\n' | sort -n -t: -k 2 -k 1
 }
 
 set_ssh_agent_socket() {
