@@ -1,2 +1,4 @@
-# Depends of ssh-find-agent
-set_ssh_agent_socket
+# Depends on ssh-find-agent
+if [[ -z $SSH_AUTH_SOCK ]]; then
+  set_ssh_agent_socket
+fi
