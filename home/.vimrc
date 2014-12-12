@@ -64,7 +64,6 @@ set cino:0
 set comments=sr:/*,mb:*,ex:*/
 set formatoptions=tcqor
 " set showfulltag
-if exists('+autochdir') | set autochdir | endif
 set visualbell
 if has('cmdline_info')
   set ruler
@@ -230,3 +229,9 @@ python del powerline_setup
 
 " VimFiler as default file browser
 let g:vimfiler_as_default_explorer = 1
+
+" Enable file operation commands.
+let g:vimfiler_safe_mode_by_default = 0
+
+nnoremap <silent> <Leader>e :<C-U>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
+nnoremap <silent> <Leader>E :<C-U>VimFiler<CR>
