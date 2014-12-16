@@ -20,6 +20,8 @@ focus() {
         echo "Cleared device focus${wasmsg}"
     fi
 
+    _focus_reset
+
     export ANDROID_SERIAL
 }
 
@@ -36,9 +38,12 @@ _focus_match_device() {
     fi
 }
 
-# For tracking whether to display descriptions of devices.
-_focus__comment_last=1
-_focus__comment_pos=0
+_focus_reset() {
+    # For tracking whether to display descriptions of devices.
+    _focus__comment_last=1
+    _focus__comment_pos=0
+}
+_focus_reset
 
 _focus() {
     local cur device nocasematch serial description
@@ -83,7 +88,11 @@ _focus() {
             COMPREPLY=
         else
             COMPREPLY=( "${devices[@]}" )
-            _focus__comment_last=0
+            if (( ${#devices[@]} == 1 )); then
+                _focus_reset
+            else \
+                _focus__comment_last=0
+            fi
         fi
         _focus__comment_pos=$COMP_POINT
     fi
