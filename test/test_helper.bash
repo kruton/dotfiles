@@ -3,17 +3,16 @@ if [[ $BATS_LOADED != 1 ]]; then
   export PATH="${BATS_TEST_DIRNAME}/libexec:$PATH"
 fi
 
+# Just so the terminal isn't an issue
+FOCUS_TEST_bold="$(tput bold)"
+FOCUS_TEST_nobold="$(tput sgr0)"
+
 fixtures() {
   FIXTURE_ROOT="${BATS_TEST_DIRNAME}/fixtures/$1"
   RELATIVE_FIXTURE_ROOT="$(bats_trim_filename "$FIXTURE_ROOT")"
 }
 
 device_setup() {
-  #local existing
-  #existing="$(expr "$PATH" : "\($FIXTURE_ROOT/[^:]*:\)" || true)"
-  #if [[ "$existing" != "" ]]; then
-  #  PATH="${PATH/$existing/}"
-  #fi
   export PATH="$FIXTURE_ROOT/$1:$PATH"
 }
 
@@ -35,8 +34,8 @@ assert_success() {
 
 assert_equal() {
   if [ "$1" != "$2" ]; then
-    { echo "expected: $1"
-      echo "actual:   $2"
+    { echo "expected: \"$1\""
+      echo "actual:   \"$2\""
     } | flunk
   fi
 }

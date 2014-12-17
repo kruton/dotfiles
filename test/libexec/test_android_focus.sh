@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+# Using this:
+#   test_android_focus.sh <string> <cursor pos> <word pos> [<string> <cursor pos> <word pos> ...]
+#
 REPO_DIR="$( cd -P "$( dirname $0 )/../.." && pwd )"
 FIXTURES_DIR="${REPO_DIR}/test/fixtures/"
 
@@ -25,9 +29,23 @@ assert_fixture fastboot
 source /etc/bash_completion
 source ${REPO_DIR}/home/.bashrc.d/20-android-focus.bash
 
-read -a COMP_WORDS <<< "$1"
-COMP_LINE="$1"
-COMP_COUNT="$2"
-COMP_CWORD="$3"
-_focus
-__print_completions
+if (( ($# % 3) != 0 )); then
+  echo "Expected multiples of 3 arguments but $# found."
+  exit 0
+fi
+
+loop=0
+while (( $# > 0 )); do
+  read -a COMP_WORDS <<< "$1"
+  COMP_LINE="$1"
+  COMP_COUNT="$2"
+  COMP_CWORD="$3"
+  shift 3
+
+  echo "[START $loop]"
+  _focus
+  echo "[COMPLETIONS $loop]"
+  __print_completions
+  echo "[END $loop]"
+  loop=$((loop+1))
+done
