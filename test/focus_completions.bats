@@ -18,7 +18,8 @@ EOF
   device_setup single-adb
   run test_android_focus.sh \
       "focus " 7 1 \
-      "focus " 7 1
+      "focus 23" 9 1 \
+      "focus 12345678 " 15 2
   assert_success
   assert_output <<EOF
 [START 0]
@@ -27,17 +28,20 @@ EOF
 [END 0]
 [START 1]
 [COMPLETIONS 1]
-12345678
 [END 1]
+[START 2]
+[COMPLETIONS 2]
+[END 2]
 EOF
 }
 
-@test "two ADB device" {
+@test "two ADB devices" {
   device_setup two-adb
   run test_android_focus.sh \
       "focus 1" 8 1 \
       "focus 1" 8 1 \
-      "focus 123456" 13 1
+      "focus 123456" 13 1 \
+      "focus 12345678 " 15 2
   assert_success
   assert_output <<EOF
 [START 0]
@@ -55,6 +59,74 @@ ${FOCUS_TEST_bold}123458823${FOCUS_TEST_nobold} - device usb:2-1.3.3 product:aos
 [COMPLETIONS 2]
 12345678
 [END 2]
+[START 3]
+[COMPLETIONS 3]
+[END 3]
+EOF
+}
+
+@test "one ADB device and one fastboot device" {
+    device_setup one-adb-one-fastboot
+    run test_android_focus.sh \
+        "focus " 7 1 \
+        "focus " 7 1 \
+        "focus 12" 9 1 \
+        "focus 23" 9 1 \
+        "focus 12345678 " 15 2
+    assert_success
+    assert_output <<EOF
+[START 0]
+[COMPLETIONS 0]
+12345678
+23456789
+[END 0]
+[START 1]
+
+${FOCUS_TEST_bold}12345678${FOCUS_TEST_nobold} - device usb:2-1.3.3 product:aosp_kroot model:AOSP_on_Kroot device:kroot
+${FOCUS_TEST_bold}23456789${FOCUS_TEST_nobold} - fastboot[COMPLETIONS 1]
+
+[END 1]
+[START 2]
+[COMPLETIONS 2]
+12345678
+[END 2]
+[START 3]
+[COMPLETIONS 3]
+23456789
+[END 3]
+[START 4]
+[COMPLETIONS 4]
+[END 4]
+EOF
+}
+
+@test "two fastboot devices" {
+  device_setup two-fastboot
+  run test_android_focus.sh \
+      "focus " 8 1 \
+      "focus " 8 1 \
+      "focus 23456" 12 1 \
+      "focus 23456789 " 15 2
+  assert_success
+  assert_output <<EOF
+[START 0]
+[COMPLETIONS 0]
+12345678
+23456789
+[END 0]
+[START 1]
+
+${FOCUS_TEST_bold}12345678${FOCUS_TEST_nobold} - fastboot1
+${FOCUS_TEST_bold}23456789${FOCUS_TEST_nobold} - fastboot2[COMPLETIONS 1]
+
+[END 1]
+[START 2]
+[COMPLETIONS 2]
+23456789
+[END 2]
+[START 3]
+[COMPLETIONS 3]
+[END 3]
 EOF
 }
 

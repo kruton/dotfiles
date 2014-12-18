@@ -4,3 +4,6 @@ if [[ $# != 2 || "$1" != "devices" || "$2" != "-l" ]]; then
   echo -e "FAIL-DEVICES-NOT-CALLED\tFAILFAILFAIL"
   exit 1
 fi
+
+echo "12345678 fastboot1"
+echo "23456789 fastboot2"

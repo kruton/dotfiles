@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [[ $# < 1 || $# > 2 || "$1" != "devices" ]]; then
+  echo -e "FAIL-DEVICES-NOT-CALLED\tFAILFAILFAIL"
+  exit 1
+fi
+
+if [[ $2 == -l ]]; then
+  echo -e "12345678\tdevice usb:2-1.3.3 product:aosp_kroot model:AOSP_on_Kroot device:kroot"
+else
+  echo -e "12345678\tdevice"
+fi

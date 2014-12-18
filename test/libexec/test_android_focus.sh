@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Using this:
 #   test_android_focus.sh <string> <cursor pos> <word pos> [<string> <cursor pos> <word pos> ...]
@@ -26,7 +26,12 @@ assert_fixture adb
 assert_fixture fastboot
 
 # Set up the completion environment
-source /etc/bash_completion
+command -v brew > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    source /usr/local/share/bash-completion/bash_completion
+else
+    source ${prefix}/etc/bash_completion
+fi
 source ${REPO_DIR}/home/.bashrc.d/20-android-focus.bash
 
 if (( ($# % 3) != 0 )); then
