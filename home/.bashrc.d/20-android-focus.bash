@@ -92,9 +92,11 @@ _focus() {
                 _focus_reset
             else \
                 _focus__comment_last=0
+                _focus__comment_pos=$COMP_POINT
             fi
         fi
-        _focus__comment_pos=$COMP_POINT
+    else
+        _focus_reset
     fi
 }
 complete -F _focus focus

@@ -8,9 +8,9 @@ fixtures focus
   run test_android_focus.sh "focus " 7 1
   assert_success
   assert_output <<EOF
-[START 0]
+[START 0: last=1,pos=0]
 [COMPLETIONS 0]
-[END 0]
+[END 0: last=0,pos=7]
 EOF
 }
 
@@ -22,16 +22,16 @@ EOF
       "focus 12345678 " 15 2
   assert_success
   assert_output <<EOF
-[START 0]
+[START 0: last=1,pos=0]
 [COMPLETIONS 0]
 12345678
-[END 0]
-[START 1]
+[END 0: last=1,pos=0]
+[START 1: last=1,pos=0]
 [COMPLETIONS 1]
-[END 1]
-[START 2]
+[END 1: last=0,pos=9]
+[START 2: last=0,pos=9]
 [COMPLETIONS 2]
-[END 2]
+[END 2: last=1,pos=0]
 EOF
 }
 
@@ -44,24 +44,24 @@ EOF
       "focus 12345678 " 15 2
   assert_success
   assert_output <<EOF
-[START 0]
+[START 0: last=1,pos=0]
 [COMPLETIONS 0]
 12345678
 123458823
-[END 0]
-[START 1]
+[END 0: last=0,pos=8]
+[START 1: last=0,pos=8]
 
 ${FOCUS_TEST_bold}12345678${FOCUS_TEST_nobold} - device usb:2-1.3.3 product:aosp_kroot model:AOSP_on_Kroot device:kroot
 ${FOCUS_TEST_bold}123458823${FOCUS_TEST_nobold} - device usb:2-1.3.3 product:aosp_grouper model:AOSP_on_Grouper device:grouper[COMPLETIONS 1]
 
-[END 1]
-[START 2]
+[END 1: last=1,pos=8]
+[START 2: last=1,pos=8]
 [COMPLETIONS 2]
 12345678
-[END 2]
-[START 3]
+[END 2: last=1,pos=0]
+[START 3: last=1,pos=0]
 [COMPLETIONS 3]
-[END 3]
+[END 3: last=1,pos=0]
 EOF
 }
 
@@ -75,28 +75,28 @@ EOF
         "focus 12345678 " 15 2
     assert_success
     assert_output <<EOF
-[START 0]
+[START 0: last=1,pos=0]
 [COMPLETIONS 0]
 12345678
 23456789
-[END 0]
-[START 1]
+[END 0: last=0,pos=7]
+[START 1: last=0,pos=7]
 
 ${FOCUS_TEST_bold}12345678${FOCUS_TEST_nobold} - device usb:2-1.3.3 product:aosp_kroot model:AOSP_on_Kroot device:kroot
 ${FOCUS_TEST_bold}23456789${FOCUS_TEST_nobold} - fastboot[COMPLETIONS 1]
 
-[END 1]
-[START 2]
+[END 1: last=1,pos=7]
+[START 2: last=1,pos=7]
 [COMPLETIONS 2]
 12345678
-[END 2]
-[START 3]
+[END 2: last=1,pos=0]
+[START 3: last=1,pos=0]
 [COMPLETIONS 3]
 23456789
-[END 3]
-[START 4]
+[END 3: last=1,pos=0]
+[START 4: last=1,pos=0]
 [COMPLETIONS 4]
-[END 4]
+[END 4: last=1,pos=0]
 EOF
 }
 
@@ -109,24 +109,24 @@ EOF
       "focus 23456789 " 15 2
   assert_success
   assert_output <<EOF
-[START 0]
+[START 0: last=1,pos=0]
 [COMPLETIONS 0]
 12345678
 23456789
-[END 0]
-[START 1]
+[END 0: last=0,pos=8]
+[START 1: last=0,pos=8]
 
 ${FOCUS_TEST_bold}12345678${FOCUS_TEST_nobold} - fastboot1
 ${FOCUS_TEST_bold}23456789${FOCUS_TEST_nobold} - fastboot2[COMPLETIONS 1]
 
-[END 1]
-[START 2]
+[END 1: last=1,pos=8]
+[START 2: last=1,pos=8]
 [COMPLETIONS 2]
 23456789
-[END 2]
-[START 3]
+[END 2: last=1,pos=0]
+[START 3: last=1,pos=0]
 [COMPLETIONS 3]
-[END 3]
+[END 3: last=1,pos=0]
 EOF
 }
 

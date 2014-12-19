@@ -43,14 +43,14 @@ loop=0
 while (( $# > 0 )); do
   read -a COMP_WORDS <<< "$1"
   COMP_LINE="$1"
-  COMP_COUNT="$2"
+  COMP_POINT="$2"
   COMP_CWORD="$3"
   shift 3
 
-  echo "[START $loop]"
+  echo "[START $loop: last=$_focus__comment_last,pos=$_focus__comment_pos]"
   _focus
   echo "[COMPLETIONS $loop]"
   __print_completions
-  echo "[END $loop]"
+  echo "[END $loop: last=$_focus__comment_last,pos=$_focus__comment_pos]"
   loop=$((loop+1))
 done
