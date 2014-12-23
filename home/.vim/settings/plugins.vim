@@ -122,6 +122,11 @@ NeoBundle 'honza/vim-snippets'
 " My syntax plugins and suff
 NeoBundle 'kruton/vimstuff'
 
+" Gradle syntax
+NeoBundleLazy 'tfnico/vim-gradle', {
+   \ 'filetypes': 'gradle'
+   \ }
+
 " Completion
 NeoBundleLazy 'Shougo/unite.vim', {
     \ 'commands': [ { 'name': 'Unite',
