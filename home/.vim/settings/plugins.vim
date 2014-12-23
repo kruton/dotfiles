@@ -140,6 +140,10 @@ NeoBundleLazy 'yaroot/vim-nginx', {
     \ 'filename_patterns': 'nginx',
     \ }
 
+" cscope
+NeoBundle "simplyzhao/cscope_maps.vim"
+NeoBundle "JCLiang/vim-cscope-utils"
+
 " LaTeX automatic mode
 NeoBundleLazy 'coot/atp_vim', {
     \ 'name': 'atp-vim',
