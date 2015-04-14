@@ -3,17 +3,17 @@
 	"segments": {
 		"right": [
 			{
-				"function": "system_load",
+				"function": "powerline.segments.common.sys.system_load",
 				"priority": 50
 			},
 			{
-				"function": "date",
+				"function": "powerline.segments.common.time.date",
 				"args": {
 				       "format": "%b %d"
 				}
 			},
 			{
-				"function": "date",
+				"function": "powerline.segments.common.time.date",
 				"name": "time",
 				"args": {
 					"format": "%H:%M",
