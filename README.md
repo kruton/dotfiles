@@ -1,6 +1,8 @@
 dotfiles
 ========
 
+[![Build Status](https://travis-ci.org/kruton/dotfiles.svg?branch=master)](https://travis-ci.org/kruton/dotfiles)
+
 My personal configuration files for my shell environment
 
 To bootstrap this into a new shell environment:
