@@ -2,7 +2,7 @@
 set fish_path $HOME/.oh-my-fish
 
 # Theme
-set fish_theme robbyrussell
+set fish_theme agnoster
 
 # All built-in plugins can be found at ~/.oh-my-fish/plugins/
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
