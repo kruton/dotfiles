@@ -1,7 +1,7 @@
 dotfiles
 ========
 
-[![Build Status](https://travis-ci.org/kruton/dotfiles.svg?branch=master)](https://travis-ci.org/kruton/dotfiles)
+[![Travis](https://img.shields.io/travis/kruton/dotfiles.svg?style=flat-square)](https://travis-ci.org/kruton/dotfiles)
 
 My personal configuration files for my shell environment
 
