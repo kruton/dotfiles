@@ -172,6 +172,11 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
     \ 'explorer' : 1,
     \ }
 
+" Sorting in visual mode; allows sorting lines based on a block.
+NeoBundle 'navicore/vissort.vim', {
+    \ 'commands' : [ 'Vissort' ]
+    \ }
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle housekeeping - MUST BE AT END!
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
