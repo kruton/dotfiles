@@ -2,6 +2,7 @@ dotfiles
 ========
 
 [![Build Status](https://travis-ci.org/kruton/dotfiles.svg?branch=master)](https://travis-ci.org/kruton/dotfiles)
+[![Coverage Status](https://coveralls.io/repos/kruton/dotfiles/badge.svg?branch=coverage&service=github)](https://coveralls.io/github/kruton/dotfiles?branch=coverage)
 
 My personal configuration files for my shell environment
 
