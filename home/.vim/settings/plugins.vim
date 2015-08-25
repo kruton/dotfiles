@@ -32,7 +32,7 @@ NeoBundle 'altercation/vim-colors-solarized'
 
 " This provides live-update webpage editing.
 NeoBundleLazy 'Bogdanp/browser-connect.vim', {
-    \ 'filetypes': 'html',
+    \ 'filetypes': ['html', 'xhtml'],
     \ }
 
 " Searches for semantic C/C++ matches
@@ -170,6 +170,11 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
     \         'Read', 'Source'],
     \ 'mappings' : '<Plug>',
     \ 'explorer' : 1,
+    \ }
+
+" Sorting in visual mode; allows sorting lines based on a block.
+NeoBundle 'navicore/vissort.vim', {
+    \ 'commands' : [ 'Vissort' ]
     \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
