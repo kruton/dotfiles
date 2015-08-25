@@ -27,9 +27,12 @@ assert_fixture fastboot
 
 # Set up the completion environment
 command -v brew > /dev/null 2>&1
-if [ $? -eq 0 ]; then
+if [ $? -eq 0 ]; then \
     source /usr/local/share/bash-completion/bash_completion
-else
+elif [ -f /usr/share/bash-completion/bash_completion ]; then \
+    source /usr/share/bash-completion/bash_completion
+else \
+    # Wait, why is there a prefix here?
     source ${prefix}/etc/bash_completion
 fi
 source ${REPO_DIR}/home/.bashrc.d/20-android-focus.bash
