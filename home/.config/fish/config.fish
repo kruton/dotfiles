@@ -18,4 +18,4 @@ set fish_custom $HOME/.homesick/dotfiles/oh-my-fish
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish
 
-source "$HOME/.homesick/repos/homeshick/homeshick.fish"
+. "$HOME/.homesick/repos/homeshick/homeshick.fish"
