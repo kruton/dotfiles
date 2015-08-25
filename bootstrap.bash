@@ -140,17 +140,10 @@ source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 
 homeshick list | grep -q dotfiles
 if (( $? != 0 )); then
-  ### Check for private key ###
-  if ssh-add -l > /dev/null 2>&1; then
-    repo="git@github.com:kruton/dotfiles"
-  else
-    echo ""
-    echo "*** WARNING: Install SSH key later and update dotfiles!"
-    echo ""
-    repo="https://github.com/kruton/dotfiles.git"
-  fi
-
-  homeshick --batch clone "${repo}"
+  homeshick --batch clone https://github.com/kruton/dotfiles.git
+  pushd $HOME/.homesick/repos/dotfiles
+  git remote set-url --push origin git@github.com:kruton/dotfiles.git
+  popd
 fi
 
 homeshick list | grep -q neobundle.vim || homeshick --batch clone https://github.com/Shougo/neobundle.vim.git
