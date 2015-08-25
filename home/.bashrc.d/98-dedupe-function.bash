@@ -2,7 +2,6 @@ dedupe_path_list() {
     local _raw_list="${1#*:}"
     local _deduped_list="${1%%:*}"
     local _next_entry
-    local _path_debug=0
     
     while [[ -n "$_raw_list" ]]; do
         if [[ "$_raw_list" =~ ":" ]]; then
@@ -14,10 +13,7 @@ dedupe_path_list() {
         fi
     
         case ":${_deduped_list}:" in
-            *:${_next_entry}:*)
-                if [[ $_path_debug == 1 ]]; then
-                    echo "duplicate in PATH: $_next_entry" >&2
-                fi ;;
+            *:${_next_entry}:*) ;; # discard
             *) _deduped_list="${_deduped_list}:${_next_entry}" ;;
         esac
     done
