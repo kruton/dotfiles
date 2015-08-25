@@ -3,9 +3,49 @@
 load test_helper
 fixtures focus
 
+@test "no serial but still clears" {
+  run test_android_focus_command.sh "" ""
+  assert_success
+  assert_output <<EOF
+[START serial=]
+Cleared device focus
+[END serial=]
+EOF
+}
+
+@test "no wanted focus clears previous serial" {
+  run test_android_focus_command.sh "1234" ""
+  assert_success
+  assert_output <<EOF
+[START serial=1234]
+Cleared device focus (was 1234)
+[END serial=]
+EOF
+}
+
+@test "wanted focus with no previous focus" {
+  run test_android_focus_command.sh "" "AABBCC"
+  assert_success
+  assert_output <<EOF
+[START serial=]
+Focused on AABBCC
+[END serial=AABBCC]
+EOF
+}
+
+@test "wanted focus with previous focus" {
+  run test_android_focus_command.sh "DEADBEEF" "00112233"
+  assert_success
+  assert_output <<EOF
+[START serial=DEADBEEF]
+Focused on 00112233 (was DEADBEEF)
+[END serial=00112233]
+EOF
+}
+
 @test "no devices" {
   device_setup none
-  run test_android_focus.sh "focus " 7 1
+  run test_android_focus_completion.sh "focus " 7 1
   assert_success
   assert_output <<EOF
 [START 0: last=1,pos=0]
@@ -16,7 +56,7 @@ EOF
 
 @test "single ADB device" {
   device_setup single-adb
-  run test_android_focus.sh \
+  run test_android_focus_completion.sh \
       "focus " 7 1 \
       "focus 23" 9 1 \
       "focus 12345678 " 15 2
@@ -37,7 +77,7 @@ EOF
 
 @test "two ADB devices" {
   device_setup two-adb
-  run test_android_focus.sh \
+  run test_android_focus_completion.sh \
       "focus 1" 8 1 \
       "focus 1" 8 1 \
       "focus 123456" 13 1 \
@@ -67,7 +107,7 @@ EOF
 
 @test "one ADB device and one fastboot device" {
     device_setup one-adb-one-fastboot
-    run test_android_focus.sh \
+    run test_android_focus_completion.sh \
         "focus " 7 1 \
         "focus " 7 1 \
         "focus 12" 9 1 \
@@ -102,7 +142,7 @@ EOF
 
 @test "two fastboot devices" {
   device_setup two-fastboot
-  run test_android_focus.sh \
+  run test_android_focus_completion.sh \
       "focus " 8 1 \
       "focus " 8 1 \
       "focus 23456" 12 1 \

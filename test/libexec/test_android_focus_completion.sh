@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Using this:
-#   test_android_focus.sh <string> <cursor pos> <word pos> [<string> <cursor pos> <word pos> ...]
+#   test_android_focus_completion.sh <string> <cursor pos> <word pos> [<string> <cursor pos> <word pos> ...]
 #
 REPO_DIR="$( cd -P "$( dirname $0 )/../.." && pwd )"
 FIXTURES_DIR="${REPO_DIR}/test/fixtures/"
