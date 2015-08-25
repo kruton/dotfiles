@@ -32,7 +32,7 @@ NeoBundle 'altercation/vim-colors-solarized'
 
 " This provides live-update webpage editing.
 NeoBundleLazy 'Bogdanp/browser-connect.vim', {
-    \ 'filetypes': 'html',
+    \ 'filetypes': ['html', 'xhtml'],
     \ }
 
 " Searches for semantic C/C++ matches
