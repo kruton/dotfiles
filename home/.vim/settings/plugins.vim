@@ -55,7 +55,7 @@ NeoBundleLazy 'rdolgushin/gitignore.vim', {
 NeoBundle 'scrooloose/syntastic'
 
 " Syntax highlighting for Ragel
-NeoBundleLazy 'arsenerei/vim-ragel', {
+NeoBundleLazy 'jneen/ragel.vim', {
     \ 'filetypes': ['ragel', 'rl'],
     \ }
 
