@@ -1,6 +1,6 @@
 if [[ $OSTYPE == darwin* ]]; then
     # Put Homebrew BASH completion in
-    if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
-        . $(brew --prefix)/share/bash-completion/bash_completion
+    if [ -f $(brew --prefix)/etc/profile.d/bash_completion.sh ]; then
+        . $(brew --prefix)/etc/profile.d/bash_completion.sh
     fi
 fi
