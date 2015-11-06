@@ -52,7 +52,7 @@ switch_android_tree() {
             for (( i = 0; i < ${#sorted[@]}; i++ )); do
                 dialog_cmd="${dialog_cmd} $i ${sorted[$i]}"
             done
-            tmp_file="$(tempfile)"
+            tmp_file="$(mktemp)"
             trap 'clean_up "${tmp_file}"' EXIT SIGINT SIGQUIT SIGTERM
             tput smcup
             eval $dialog_cmd 5> ${tmp_file}
