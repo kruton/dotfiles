@@ -95,8 +95,8 @@ if filereadable(expand('~/.at_google.vim'))
 else
     NeoBundle 'Valloric/YouCompleteMe', {
         \ 'build' : {
-        \     'unix': './install.sh --clang-completer',
-        \     'mac': './install.sh --clang-completer',
+        \     'unix': './install.py --clang-completer --gocode-completer',
+        \     'mac': './install.py --clang-completer --gocode-completer',
         \ }}
 endif
 
