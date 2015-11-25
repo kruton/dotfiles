@@ -54,17 +54,11 @@ NeoBundleLazy 'rdolgushin/gitignore.vim', {
 " Syntax checking plugin
 NeoBundle 'scrooloose/syntastic'
 
-" Syntax highlighting for Ragel
-NeoBundleLazy 'jneen/ragel.vim', {
-    \ 'filetypes': ['ragel', 'rl'],
-    \ }
-
 " Allows quick comment in many languages
 NeoBundle 'tomtom/tcomment_vim'
 
 " Git integration
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-git'
 
 NeoBundleLazy 'tpope/vim-repeat', {
     \ 'mappings': '.',
@@ -77,10 +71,17 @@ NeoBundleLazy 'tpope/vim-surround', {
 NeoBundleLazy 'tpope/vim-unimpaired', {
     \ 'mappings': ['[', ']'],
     \ }
+
+" Color scheme tweaks
 NeoBundle 'godlygeek/csapprox'
+
+" Generic indenting plugin that uses b:indent_block_start and
+" b:indent_block_end
 NeoBundle 'genindent.vim'
 
 " Filetype editing
+NeoBundle 'sheerun/vim-polyglot'
+
 NeoBundleLazy 'sukima/xmledit', {
     \ 'filetypes': ['html', 'sgml', 'xml'],
     \ }
@@ -133,11 +134,6 @@ NeoBundleLazy 'Shougo/unite.vim', {
     \                 'complete': 'customlist,unite#complete_source' },
     \               'UniteWithCursorWord', 'UniteWithInput' ],
     \ 'depends': ['Shougo/vimproc.vim'],
-    \ }
-
-" Syntax for nginx config files
-NeoBundleLazy 'yaroot/vim-nginx', {
-    \ 'filename_patterns': 'nginx',
     \ }
 
 " cscope
