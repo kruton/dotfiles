@@ -185,6 +185,21 @@ NeoBundle 'mhinz/vim-startify' "{{{
   nnoremap <F1> :Startify<cr>
 "}}}
 
+""" Testing utilities
+
+" Helps with running unit tests
+NeoBundleLazy 'janko-m/vim-test', {
+    \ 'depends': [ 'tpope/vim-dispatch' ],
+    \ 'commands': [ 'TestNearest',
+    \               'TestFile',
+    \               'TestSuite',
+    \               'TestLast',
+    \               'TestVisit',
+    \             ],
+    \ } "{{{
+  let test#strategy = "dispatch"
+"}}}
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle housekeeping - MUST BE AT END!
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
