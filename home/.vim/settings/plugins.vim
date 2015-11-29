@@ -109,6 +109,8 @@ NeoBundleLazy 'Shougo/vimproc.vim', {
       \     'mac' : 'make -f make_mac.mak',
       \     'unix' : 'make -f make_unix.mak',
       \ }}
+" Makes using vimproc easier
+NeoBundle 'osyo-manga/vim-reunions'
 
 " Snippets
 NeoBundleLazy 'Shougo/neosnippet.vim', {
