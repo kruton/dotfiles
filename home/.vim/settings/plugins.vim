@@ -173,6 +173,13 @@ NeoBundle 'navicore/vissort.vim', {
     \ 'commands' : [ 'Vissort' ]
     \ }
 
+" This gives a fancy starting screen when Vim starts up
+NeoBundle 'mhinz/vim-startify' "{{{
+  let g:startify_change_to_vcs_root = 1
+  let g:startify_show_sessions = 1
+  nnoremap <F1> :Startify<cr>
+"}}}
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle housekeeping - MUST BE AT END!
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
