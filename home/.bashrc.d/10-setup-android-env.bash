@@ -27,27 +27,27 @@ get_term_size_with_max() {
 
     read height width < <(stty size)
 
-    echo $(($height>$max_height?$max_height:$height)) $(($width>$max_width?$max_width:$width))
+    echo $((height>max_height?max_height:height)) $((width>max_width?max_width:width))
 }
 
 switch_android_tree() {
     local -a targets
     local trimmed_dir target dialog_cmd ret tmp_file
+    local dir
 
     if [[ -n ${ANDROID_DIR} && -d ${ANDROID_DIR} ]]; then
-
-        for dir in $(find $ANDROID_DIR -maxdepth 1 '(' -type d -or -type l ')' -and '!' -name '.*' -print); do
+        while IFS= read -r -d '' dir; do
             trimmed_dir="${dir#$ANDROID_DIR}"
             if [[ -n ${trimmed_dir} ]]; then
                 targets+=("$trimmed_dir")
             fi
-        done
+        done < <(find "$ANDROID_DIR" -maxdepth 1 '(' -type d -or -type l ')' -and '!' -name '.*' -print0)
 
         target=""
         if (( ${#targets[@]} == 1 )); then
             target="${targets[0]}"
         else
-          dialog_cmd="dialog --output-fd 5 --menu Targets: $(get_term_size_with_max $((${#targets[@]}+7)) 40) ${#targets[@]} "
+            dialog_cmd="dialog --output-fd 5 --menu Targets: $(get_term_size_with_max $((${#targets[@]}+7)) 40) ${#targets[@]} "
             readarray -t sorted < <(printf '%s\0' "${targets[@]}" | sort -z | xargs -0n1)
             for (( i = 0; i < ${#sorted[@]}; i++ )); do
                 dialog_cmd="${dialog_cmd} $i ${sorted[$i]}"
@@ -55,12 +55,12 @@ switch_android_tree() {
             tmp_file="$(mktemp)"
             trap 'clean_up "${tmp_file}"' EXIT SIGINT SIGQUIT SIGTERM
             tput smcup
-            eval $dialog_cmd 5> ${tmp_file}
+            eval "$dialog_cmd" 5> "$tmp_file"
             (( ret = $? ))
             tput rmcup
             if (( ret == 0 )); then
                 clear
-                read target_number < ${tmp_file}
+                read target_number < "$tmp_file"
                 target="${sorted[$target_number]}"
             fi
         fi
