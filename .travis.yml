@@ -7,7 +7,7 @@ addons:
 
 install:
   - gem install bashcov
-  - gem install coveralls
+  - gem install coveralls -v 0.8.9
 
 script: PATH="$PWD/bats/bin:$PATH" bashcov -- bats --tap test
 
