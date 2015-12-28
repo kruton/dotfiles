@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 #
 # merge_history.bash: merge bash history lines just like zsh merge_history
 # by pts@fazekas.hu at Fri Mar 25 15:14:43 CET 2011

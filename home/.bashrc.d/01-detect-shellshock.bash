@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # From: https://gist.github.com/wilkinson/9fedbacb6917c9cf6e36
 #
 # To anyone worried about using servers that may not have attentive admins --

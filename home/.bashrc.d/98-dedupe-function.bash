@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 dedupe_path_list() {
     local _raw_list="${1#*:}"
     local _deduped_list="${1%%:*}"

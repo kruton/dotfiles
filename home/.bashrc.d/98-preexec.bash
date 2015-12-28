@@ -1,5 +1,5 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
+#
 # By Glyph Lefkowitz
 
 # preexec.sh -- Bash support for ZSH-like 'preexec' and 'precmd' functions.

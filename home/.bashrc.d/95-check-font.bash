@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Checks to see whether PragmataPro font is installed
 
 if [[ -n $DISPLAY && -z $SSH_CLIENT ]]; then

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # This runs all the things that want to use preexec-like functionality
 
 function preexec() {

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Put MacPerts info in the path
 if [[ $OSTYPE == darwin* ]]; then
     export MP_PREFIX=$HOME/macports

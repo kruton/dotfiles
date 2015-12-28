@@ -1,5 +1,5 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
+#
 # By Glyph Lefkowitz
 # Modified by Alex Wood
 

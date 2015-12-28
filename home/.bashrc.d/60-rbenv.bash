@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # rbenv - Ruby Environment Manager
 
 if hash rbenv 2> /dev/null; then \

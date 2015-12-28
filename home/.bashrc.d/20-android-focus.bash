@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 #
 # Bash script to focus on certain Android devices. Intended to be included
 # into one's .bashrc

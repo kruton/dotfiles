@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # This just makes my username disappear with agnoster
 if [[ $HOSTNAME == kroot* ]]; then
     export DEFAULT_USER="kroot"

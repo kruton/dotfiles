@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 _powerline_columns_fallback() {
 	if which stty &>/dev/null ; then
 		local cols="$(stty size 2>/dev/null)"

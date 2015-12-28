@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
 # Android environment chooser script.
 #
 # Last updated 2014-02-07 by Kenny Root

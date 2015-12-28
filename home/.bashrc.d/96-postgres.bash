@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # PostgresApp on Mac
 
 if [[ -d /Applications/Postgres.app/Contents/Versions ]]; then \
