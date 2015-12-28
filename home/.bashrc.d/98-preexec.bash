@@ -74,7 +74,7 @@ function preexec_invoke_exec () {
             preexec_interactive_mode=""
         fi
     fi
-    if [[ preexec_invoke_cmd == $BASH_COMMAND ]]
+    if [[ preexec_invoke_cmd == "$BASH_COMMAND" ]]
     then
         # Sadly, there's no cleaner way to detect two prompts being displayed
         # one after another.  This makes it important that PROMPT_COMMAND
@@ -92,7 +92,8 @@ function preexec_invoke_exec () {
     # variable, but using history here is better in some ways: for example, "ps
     # auxf | less" will show up with both sides of the pipe if we use history,
     # but only as "ps auxf" if not. (The sed bit removes the history number)
-    local this_command=`history 1 | sed -e "s/^[ ]*[0-9]*[ ]*//g"`;
+    local this_command
+    this_command="$(history 1 | sed -e "s/^[ ]*[0-9]*[ ]*//g")"
 
     # If none of the previous checks have earlied out of this function, then
     # the command is in fact interactive and we should invoke the user's
