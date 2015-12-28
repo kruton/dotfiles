@@ -5,8 +5,8 @@ dedupe_path_list() {
     local _deduped_list="${1%%:*}"
     local _next_entry
     
-    while [[ -n "$_raw_list" ]]; do
-        if [[ "$_raw_list" =~ ":" ]]; then
+    while [[ -n $_raw_list ]]; do
+        if [[ $_raw_list =~ : ]]; then
             _next_entry="${_raw_list%%:*}"
             _raw_list="${_raw_list#*:}"
         else
