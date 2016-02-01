@@ -82,6 +82,11 @@ NeoBundle 'genindent.vim'
 " Filetype editing
 NeoBundle 'sheerun/vim-polyglot'
 
+" Cryptol files
+NeoBundleLazy 'victoredwardocallaghan/cryptol.vim', {
+    \ 'filetypes': ['cryptol'],
+    \ }
+
 NeoBundleLazy 'sukima/xmledit', {
     \ 'filetypes': ['html', 'sgml', 'xml'],
     \ }
