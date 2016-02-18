@@ -1,15 +1,12 @@
-# Path to your oh-my-fish.
-set fish_path $HOME/.oh-my-fish
+# Setup fisherman
+set fisher_home ~/.local/share/fisherman
+set fisher_config ~/.config/fisherman
+source $fisher_home/config.fish
 
 # No need for the welcome banner
 set fish_greeting
 
-# Path to your custom folder (default path is ~/.oh-my-fish/custom)
-set fish_custom $HOME/.homesick/repos/dotfiles/oh-my-fish
-
-# Load oh-my-fish configuration.
-. $fish_path/oh-my-fish.fish
-
+# Setup homeshick shortcuts
 . "$HOME/.homesick/repos/homeshick/homeshick.fish"
 
 set POWERLINE_COMMAND_ARGS -t kruton.segment_data.user.args.hide_user="$DEFAULT_USER"
