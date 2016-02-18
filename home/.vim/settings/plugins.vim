@@ -87,6 +87,11 @@ NeoBundleLazy 'victoredwardocallaghan/cryptol.vim', {
     \ 'filetypes': ['cryptol'],
     \ }
 
+" Fish (shell) files
+NeoBundleLazy 'dag/vim-fish', {
+    \ 'filetypes': ['fish'],
+    \ }
+
 NeoBundleLazy 'sukima/xmledit', {
     \ 'filetypes': ['html', 'sgml', 'xml'],
     \ }
