@@ -111,6 +111,11 @@ else
         \ }}
 endif
 
+" coverage report for Python
+NeoBundleLazy 'alfredodeza/coveragepy.vim', {
+      \ 'filetypes': ['python'],
+      \ }
+
 " Vimproc, asynchronous execution library
 NeoBundleLazy 'Shougo/vimproc.vim', {
       \ 'build' : {
