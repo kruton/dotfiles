@@ -1,5 +1,4 @@
 {
-	"default_module": "powerline.segments.common",
 	"segments": {
 		"left": [
 			{
@@ -36,7 +35,8 @@
 				"priority": 40
 			},
 			{
-				"function": "powerline.segments.shell.last_pipe_status"
+				"function": "powerline.segments.shell.last_status",
+				"priority": 10
 			}
 		]
 	},
