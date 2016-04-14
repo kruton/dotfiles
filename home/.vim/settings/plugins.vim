@@ -52,7 +52,9 @@ NeoBundleLazy 'rdolgushin/gitignore.vim', {
     \ }
 
 " Syntax checking plugin
-NeoBundle 'scrooloose/syntastic'
+NeoBundle 'scrooloose/syntastic' "{{{
+  let g:syntastic_java_javac_config_file_enabled = 1
+"}}}
 
 " Allows quick comment in many languages
 NeoBundle 'tomtom/tcomment_vim'
