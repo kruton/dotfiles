@@ -5,6 +5,7 @@ homeshick clone --quiet --batch git@github.com:kruton/dotfiles
 homeshick clone --quiet --batch https://github.com/Shougo/neobundle.vim.git
 homeshick clone --quiet --batch https://github.com/huyz/dircolors-solarized
 homeshick clone --quiet --batch https://github.com/fisherman/fisherman.git
+homeshick clone --quiet --batch https://github.com/powerline/powerline.git
 
 #homeshick clone --quiet --batch https://github.com/ndbroadbent/scm_breeze.git
 [ -d "$HOME/.homesick/repos/scm_breeze" ] && \
