@@ -9,8 +9,8 @@
 
 # Change the title of the xterm.
 function _preexec_xterm_title () {
-    local title="$1"
-    printf '\e]0;%q\007' "$title"
+    local title="${1//[[:cntrl:]]/}"
+    printf "\e]0;%s\007" "$title"
 }
 
 # Change the title of a screen
