@@ -10,7 +10,7 @@
 # Change the title of the xterm.
 function _preexec_xterm_title () {
     local title="$1"
-    echo -ne "\e]0;$title\007"
+    printf '\e]0;%q\007' "$title"
 }
 
 # Change the title of a screen
@@ -37,7 +37,7 @@ function _display_command () {
     local banned_commands=( 'ls' 'cd' 'bg' 'fg' 'pwd' 'pushd' 'popd' )
     for cmd in "${banned_commands[@]}"
     do
-        if [[ "$1" == $cmd ]]
+        if [[ $1 == "$cmd" ]]
         then
             return 1
         fi
@@ -47,14 +47,15 @@ function _display_command () {
 }
 
 function _precmd_title () {
-    local android_title=$(_android_title)
+    local android_title
+    android_title=$(_android_title)
     # Strip off everything past the first period in the hostname.  hostname -s will
     # do this, but using the bash built-in is faster.
     _preexec_xterm_title "${android_title}${android_title+ }${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}"
 
     if [[ $TERM == screen* ]]
     then
-        _preexec_screen_title "`_abbreviate_path`"
+        _preexec_screen_title "$(_abbreviate_path)"
     fi
 }
 
@@ -77,11 +78,14 @@ function _android_title () {
 function _preexec_title () {
     # Give me the command name sans any arguments
     local cutit="$1"
-    local cmdtitle="`echo "$cutit" | cut -d " " -f 1`"
+    local cmdtitle
+
+    cmdtitle="$(echo "$cutit" | cut -d " " -f 1)"
 
     if _display_command "$cmdtitle"
     then
-        local android_title="$(_android_title)"
+        local android_title
+        android_title="$(_android_title)"
         _preexec_xterm_title "$1 ${android_title}${android_title+ }(${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~})"
         if [[ $TERM == screen* ]]
         then
@@ -89,7 +93,8 @@ function _preexec_title () {
             # the value of $1 is exec which isn't very useful.
             if [[ "$cmdtitle" == "exec" ]]
             then
-                local cmdtitle="`echo "$cutit" | cut -d " " -f 2`"
+                local cmdtitle
+                cmdtitle="$(echo "$cutit" | cut -d " " -f 2)"
             fi
             _preexec_screen_title "$cmdtitle"
         fi
