@@ -2,7 +2,7 @@
 
 # rbenv - Ruby Environment Manager
 
-if [ -d "$HOME/.rbenv" ]; then
+if [ -d "$HOME/.rbenv/bin" ]; then
     export PATH="$PATH:$HOME/.rbenv/bin"
 fi
 
