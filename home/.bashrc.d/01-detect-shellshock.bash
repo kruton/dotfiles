@@ -8,7 +8,7 @@
 env x='() { :;}; echo "WARNING: SHELLSHOCK DETECTED"' \
     bash --norc -c ':' 2>/dev/null;
  
-SHELLSHOCK_TEMP=$(mktemp shellshock.XXXXXXXXX)
+SHELLSHOCK_TEMP=$(mktemp -t shellshock.XXXXXXXXX)
 env X='() { (a)=>\' bash --norc -c "$SHELLSHOCK_TEMP echo WARNING: SHELLSHOCK 2 DETECTED" 2>/dev/null
 cat $SHELLSHOCK_TEMP
 rm -f $SHELLSHOCK_TEMP
