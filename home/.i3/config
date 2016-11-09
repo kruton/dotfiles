@@ -148,3 +148,15 @@ bindsym $mod+w mode "resize"
 bar {
         status_command i3status
 }
+
+# Open up applications quickly
+set $mode_launcher Launch: google-[c]hrome [e]clipse
+bindsym $mod+p mode "$mode_launcher"
+
+mode "$mode_launcher" {
+        bindsym c exec google-chrome
+        bindsym e exec eclipse
+
+        bindsym Esc mode "default"
+        bindsym Return mode "default"
+}
