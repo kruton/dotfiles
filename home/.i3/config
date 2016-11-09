@@ -149,6 +149,9 @@ bar {
         status_command i3status
 }
 
+# Screensaver
+bindsym $mod+Shift+x exec xautolock -locknow
+
 # Open up applications quickly
 set $mode_launcher Launch: google-[c]hrome [e]clipse
 bindsym $mod+p mode "$mode_launcher"

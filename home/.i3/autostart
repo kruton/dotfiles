@@ -1,0 +1,11 @@
+#!/bin/bash
+xsetroot -solid '#101010' &
+
+# No beeps
+xset -b &
+
+# Screensaver
+xautolock -detectsleep -time 5 -locker 'i3lock -d -c 000070' -notify 30 -notifier 'notify-send -u critical -t 10000 -- "LOCKING in 30 seconds"' &
+
+# Clipboard manager
+parcellite &
