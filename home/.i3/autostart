@@ -9,3 +9,6 @@ xautolock -detectsleep -time 5 -locker 'i3lock -d -c 000070' -notify 30 -notifie
 
 # Clipboard manager
 parcellite &
+
+# Network Manager
+nm-applet &
