@@ -12,3 +12,7 @@ parcellite &
 
 # Network Manager
 nm-applet &
+
+if [ -f autostart.local ]; then
+  source autostart.local
+fi
