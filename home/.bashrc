@@ -47,7 +47,7 @@ if [ "$TERM" = "xterm" ] ; then
     fi
 fi
 
-SCREEN_COLORS="`tput colors`"
+SCREEN_COLORS="$(tput colors)"
 if [ -z "$SCREEN_COLORS" ] ; then
     case "$TERM" in
         screen-*color-bce)
@@ -63,7 +63,7 @@ if [ -z "$SCREEN_COLORS" ] ; then
             export TERM=xterm-256color
             ;;
     esac
-    SCREEN_COLORS=`tput colors`
+    SCREEN_COLORS="$(tput colors)"
 fi
 if [ -z "$SCREEN_COLORS" ] ; then
     case "$TERM" in
@@ -80,7 +80,7 @@ if [ -z "$SCREEN_COLORS" ] ; then
             export TERM=screen
             ;;
     esac
-    SCREEN_COLORS=`tput colors`
+    SCREEN_COLORS="$(tput colors)"
 fi
 
 # a million lines in file history
@@ -156,7 +156,7 @@ export GREP_COLORS="ms=01;32:mc=01;32:sl=:cx=:fn=1;34:ln=1;32:bn=1;32:se=1;36"
 if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then \
     [ -e "$HOME/.dircolors" ] && DIR_COLORS="$HOME/.dircolors"
     [ -e "$DIR_COLORS" ] || DIR_COLORS=""
-    eval "`dircolors -b $DIR_COLORS`"
+    eval "$(dircolors -b $DIR_COLORS)"
 
     alias ls='ls --color=auto'
     alias dir='dir --color=auto'
