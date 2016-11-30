@@ -182,3 +182,17 @@ mode "$mode_launcher" {
         bindsym Esc mode "default"
         bindsym Return mode "default"
 }
+
+# Startup
+
+exec --no-startup-id xsetroot -solid '#101010'
+exec --no-startup-id xset -b
+
+# Screensaver
+exec_always xautolock -detectsleep -time 5 -locker 'i3lock -d -c 000070' -notify 30 -notifier 'notify-send -u critical -t 10000 -- "LOCKING in 30 seconds"'
+
+# Clipboard manager
+exec_always parcellite
+
+# Network Manager
+exec-always nm-applet
