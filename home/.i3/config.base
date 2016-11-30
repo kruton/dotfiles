@@ -152,21 +152,10 @@ bindsym $mod+w mode "resize"
 bar {
         status_command i3status
         position top
-        colors {
-                background #002b36
-                statusline #839496
-                separator  #586e75
-                focused_workspace  #b58900 #b58900 #002b36
-                active_workspace   #586e75 #586e75 #002b36
-                inactive_workspace #073642 #002b36 #839496
-                urgent_workspace   #dc322f #dc322f #fdf6e3
-        }
+        # $i3-theme-bar
 }
 
-client.focused          #002b36 #586e75 #fdf6e3 #268bd2
-client.focused_inactive #002b36 #073642 #839496 #073642
-client.unfocused        #002b36 #073642 #839496 #073642
-client.urgent           #002b36 #dc322f #fdf6e3 #002b36
+# $i3-theme-window
 
 # Screensaver
 bindsym $mod+Shift+x exec xautolock -locknow
