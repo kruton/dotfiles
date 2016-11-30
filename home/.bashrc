@@ -144,12 +144,6 @@ export P4EDITOR=$EDITOR
 export PAGER="less"
 export LESS="-X -R -M --shift 5 -i"
 
-export USE_CCACHE=1
-
-export CCACHE_NLEVELS=4
-export CCACHE_SLOPPINESS="time_macros"
-export CCACHE_HARDLINK=1
-
 export GREP_COLORS="ms=01;32:mc=01;32:sl=:cx=:fn=1;34:ln=1;32:bn=1;32:se=1;36"
 
 # enable color support of ls and also add handy aliases
