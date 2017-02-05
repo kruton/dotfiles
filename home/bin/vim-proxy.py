@@ -22,7 +22,7 @@ def capture(*args):
     return output.strip()
 
 def is_running():
-    return SERVER_NAME in capture(VIM, '--serverlist')
+    return bytes(SERVER_NAME, 'utf-8') in capture(VIM, b'--serverlist')
 
 def open_vim(*args):
     run(VIM, '--servername', SERVER_NAME, *args)
