@@ -36,11 +36,14 @@ case $OSTYPE in
     ;;
   linux*)
     LSBRELEASE="$(which lsb_release)"
-    if [[ ! -x ${LSBRELEASE} ]]; then
-       echo "Unknown Linux distro: lsb_release not found in path!"
-       exit 1
+    if [[ -x ${LSBRELEASE} ]]; then
+      distro="$( ${LSBRELEASE} -si )"
+    elif [[ -f /etc/os-release ]]; then
+      distro="$(. /etc/os-release; echo $NAME)"
+    else
+      echo "Unknown Linux distro: lsb_release not found in path!"
+      exit 1
     fi
-    distro=$( ${LSBRELEASE} -si )
     case ${distro} in
        Fedora) platform="fedora" ;;
        Ubuntu) platform="ubuntu" ;;
