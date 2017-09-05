@@ -9,7 +9,7 @@
 _SOCAT_BINARY="$(which socat 2> /dev/null)"
 _TIMEOUT_BINARY="$(which timeout 2> /dev/null)"
 if [[ -x $_TIMEOUT_BINARY ]]; then
-	_SSH_ADD_BINARY="$_TIMEOUT_BINARY 1 ssh-add"
+	_SSH_ADD_BINARY="$_TIMEOUT_BINARY 2 ssh-add"
 else
 	_SSH_ADD_BINARY="$(which ssh-add)"
 fi
