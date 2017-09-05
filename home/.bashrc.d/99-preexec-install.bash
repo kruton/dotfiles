@@ -23,5 +23,3 @@ function precmd() {
     fi
     _powerline_set_prompt
 }
-
-preexec_install
