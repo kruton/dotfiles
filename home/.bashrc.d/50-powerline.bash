@@ -68,9 +68,12 @@ _powerline_prompt() {
 }
 
 _powerline_set_prompt() {
-        if [[ -z $last_exit_code ]]; then
+	if [[ -z $last_exit_code ]]; then
 	    local last_exit_code=$?
-        fi
+	fi
+	if [[ -n $POWERLINE_NO_SHELL_PROMPT$POWERLINE_NO_BASH_PROMPT ]]; then
+		return $last_exit_code
+	fi
 	local jobnum="$(jobs -p|wc -l)"
 	PS1="$(_powerline_prompt aboveleft $last_exit_code $jobnum)"
 	if [[ $? -ne 0 ]]; then
@@ -94,8 +97,10 @@ _powerline_setup_prompt() {
 #	test "x$PROMPT_COMMAND" != "x${PROMPT_COMMAND%_powerline_set_prompt*}" ||
 #		PROMPT_COMMAND=$'_powerline_set_prompt\n'"${PROMPT_COMMAND}"
 # END---kruton---kruton---kruton--- I use 99-prexec.sh instead of this
-	PS2="$(_powerline_local_prompt left -r.bash 0 0 continuation)"
-	PS3="$(_powerline_local_prompt left '' 0 0 select)"
+        if [[ -z $POWERLINE_NO_SHELL_PROMPT$POWERLINE_NO_BASH_PROMPT ]]; then
+		PS2="$(_powerline_local_prompt left -r.bash 0 0 continuation)"
+		PS3="$(_powerline_local_prompt left '' 0 0 select)"
+        fi
 }
 
 if test -z "${POWERLINE_CONFIG_COMMAND}" ; then
