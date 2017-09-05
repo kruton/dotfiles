@@ -12,3 +12,6 @@ fi
 if [ -d "${HOME}/bin" ] ; then
     PATH="${HOME}/bin:${PATH}"
 fi
+
+# Run any local .bash_profile stuff:
+[ -r "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
