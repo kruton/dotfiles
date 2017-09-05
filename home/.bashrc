@@ -103,7 +103,8 @@ shopt -s histappend
 shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+# This is broken in Gentoo portage which ChromiumOS uses.
+[ -x /usr/bin/lesspipe ] && [ -z "$LESSOPEN" ] && eval "$(lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
