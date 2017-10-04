@@ -15,14 +15,21 @@ PWD = os.path.abspath(os.path.curdir)
 SERVER_NAME = '/'.join(PWD.split('/')[-2:]).upper()
 
 def run(*args):
-    return subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return subprocess.Popen(args, stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE)
 
 def capture(*args):
-    output, error = run(*args).communicate()
+    output, _ = run(*args).communicate()
     return output.strip()
 
+def b(arg):
+    if isinstance(arg, bytes):
+        return arg.decode('utf-8')
+    return arg
+
 def is_running():
-    return bytes(SERVER_NAME, 'utf-8') in capture(VIM, b'--serverlist')
+    output = capture(VIM, b'--serverlist')
+    return b(SERVER_NAME) in output
 
 def open_vim(*args):
     run(VIM, '--servername', SERVER_NAME, *args)
@@ -30,10 +37,10 @@ def open_vim(*args):
 def parse_command(command):
     return ':' + command.lstrip('+') + '<CR>'
 
-def split_params(*params):
+def split_params(*args):
     files = []
     commands = []
-    for p in params:
+    for p in args:
         if p.startswith('-'):
             commands.append(p)
             continue
