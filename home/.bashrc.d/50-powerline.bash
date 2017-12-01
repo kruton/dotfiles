@@ -12,13 +12,18 @@ _powerline_columns_fallback() {
 	return 0
 }
 
+_powerline_tmux_pane() {
+	echo "${TMUX_PANE:-`TMUX="$_POWERLINE_TMUX" tmux display -p "#D"`}" | \
+		tr -d ' %'
+}
+
 _powerline_tmux_setenv() {
-	TMUX="$_POWERLINE_TMUX" tmux setenv -g TMUX_"$1"_`tmux display -p "#D" | tr -d %` "$2"
+	TMUX="$_POWERLINE_TMUX" tmux setenv -g TMUX_"$1"_`_powerline_tmux_pane` "$2"
 	TMUX="$_POWERLINE_TMUX" tmux refresh -S
 }
 
 _powerline_tmux_set_pwd() {
-	if test "x$_POWERLINE_SAVED_PWD" != "x$PWD" ; then
+	if test "$_POWERLINE_SAVED_PWD" != "$PWD" ; then
 		_POWERLINE_SAVED_PWD="$PWD"
 		_powerline_tmux_setenv PWD "$PWD"
 	fi
@@ -36,8 +41,8 @@ _powerline_init_tmux_support() {
 		trap '_powerline_tmux_set_columns' WINCH
 		_powerline_tmux_set_columns
 
-		test "x$PROMPT_COMMAND" != "x${PROMPT_COMMAND/_powerline_tmux_set_pwd}" ||
-			PROMPT_COMMAND="${PROMPT_COMMAND}"$'\n_powerline_tmux_set_pwd'
+		test "$PROMPT_COMMAND" != "${PROMPT_COMMAND/_powerline_tmux_set_pwd}" \
+			|| PROMPT_COMMAND="${PROMPT_COMMAND}"$'\n_powerline_tmux_set_pwd'
 	fi
 }
 
@@ -69,16 +74,13 @@ _powerline_prompt() {
 
 _powerline_set_prompt() {
 	if [[ -z $last_exit_code ]]; then
-	    local last_exit_code=$?
+		local last_exit_code=$?
 	fi
 	if [[ -n $POWERLINE_NO_SHELL_PROMPT$POWERLINE_NO_BASH_PROMPT ]]; then
 		return $last_exit_code
 	fi
 	local jobnum="$(jobs -p|wc -l)"
 	PS1="$(_powerline_prompt aboveleft $last_exit_code $jobnum)"
-	if [[ $? -ne 0 ]]; then
-		_powerline_fallback
-	fi
 	if test -n "$POWERLINE_SHELL_CONTINUATION$POWERLINE_BASH_CONTINUATION" ; then
 		PS2="$(_powerline_local_prompt left -r.bash $last_exit_code $jobnum continuation)"
 	fi
@@ -93,14 +95,12 @@ _powerline_setup_prompt() {
 	if test -z "${POWERLINE_COMMAND}" ; then
 		POWERLINE_COMMAND="$("$POWERLINE_CONFIG_COMMAND" shell command)"
 	fi
-# BEGIN---kruton---kruton---kruton--- I use 99-prexec.sh instead of this
-#	test "x$PROMPT_COMMAND" != "x${PROMPT_COMMAND%_powerline_set_prompt*}" ||
-#		PROMPT_COMMAND=$'_powerline_set_prompt\n'"${PROMPT_COMMAND}"
-# END---kruton---kruton---kruton--- I use 99-prexec.sh instead of this
-        if [[ -z $POWERLINE_NO_SHELL_PROMPT$POWERLINE_NO_BASH_PROMPT ]]; then
+	test "$PROMPT_COMMAND" != "${PROMPT_COMMAND%_powerline_set_prompt*}" \
+		|| PROMPT_COMMAND=$'_powerline_set_prompt\n'"${PROMPT_COMMAND}"
+	if [[ -z $POWERLINE_NO_SHELL_PROMPT$POWERLINE_NO_BASH_PROMPT ]]; then
 		PS2="$(_powerline_local_prompt left -r.bash 0 0 continuation)"
 		PS3="$(_powerline_local_prompt left '' 0 0 select)"
-        fi
+	fi
 }
 
 if test -z "${POWERLINE_CONFIG_COMMAND}" ; then

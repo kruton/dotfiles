@@ -21,5 +21,4 @@ function precmd() {
     if [[ $TERM_PROGRAM != Apple_Terminal && ( $TERM == xterm* || $TERM == screen* ) ]]; then
         _precmd_title "$cmd"
     fi
-    _powerline_set_prompt
 }
