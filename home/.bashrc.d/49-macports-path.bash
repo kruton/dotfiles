@@ -4,7 +4,7 @@
 if [[ $OSTYPE == darwin* ]]; then
     export MP_PREFIX=$HOME/macports
 
-    export PATH=$MP_PREFIX/bin:$MP_PREFIX/sbin:$PATH
+    export PATH=$MP_PREFIX/bin:$MP_PREFIX/sbin:$PATH:$MP_PREFIX/libexec/gnubin
     read -r _python_prefix <<< "$(python -c 'import site; print(site.PREFIXES[0])')"
     if [[ -d $_python_prefix/bin ]]; then
         PATH="$_python_prefix/bin:$PATH"
