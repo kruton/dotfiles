@@ -153,7 +153,7 @@ find_all_agent_sockets() {
 }
 
 set_ssh_agent_socket() {
-	if [ -n $TMUX ]; then \
+	if [[ -n $TMUX ]]; then \
 		local tmux_auth_sock="$(tmux show-environment SSH_AUTH_SOCK)"
 		SSH_AUTH_SOCK="${tmux_auth_sock#*=}"
 	else \
