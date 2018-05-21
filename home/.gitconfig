@@ -18,11 +18,11 @@
 	cp = cherry-pick
 	dump = cat-file -p
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	l = log --pretty=format:'%C(yellow)%h%C(white) %an <%ae> %>|(80)%ai%Creset%n%C(bold)%w(0,4,4)%s%C(reset)%n%+b'
+	lg = log
+	ll = log --stat
 	lp = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 	st = status
 	type = cat-file -t
-	l = log --pretty=format:'%C(yellow)%h%C(white) %an <%ae> %>|(80)%ai%Creset%n%C(bold)%w(0,4,4)%s%C(reset)%n%+b'
-	ll = log --stat
-	lg = log
 [push]
 	default = simple
