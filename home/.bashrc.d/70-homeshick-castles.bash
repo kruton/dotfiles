@@ -10,6 +10,7 @@ homeshick clone --quiet --batch https://github.com/powerline/powerline.git
 homeshick clone --quiet --batch https://github.com/okraits/j4-make-config
 homeshick clone --quiet --batch https://github.com/nornagon/git-rebase-all.git
 homeshick clone --quiet --batch https://github.com/autochthe/history.git
+homeshick clone --quiet --batch https://github.com/junegunn/fzf.git
 
 #homeshick clone --quiet --batch https://github.com/ndbroadbent/scm_breeze.git
 [ -d "$HOME/.homesick/repos/scm_breeze" ] && \
