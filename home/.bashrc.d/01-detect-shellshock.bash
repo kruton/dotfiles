@@ -9,9 +9,10 @@ env x='() { :;}; echo "WARNING: SHELLSHOCK DETECTED"' \
     bash --norc -c ':' 2>/dev/null;
  
 SHELLSHOCK_TEMP=$(mktemp -t shellshock.XXXXXXXXX)
+# shellcheck disable=SC1003
 env X='() { (a)=>\' bash --norc -c "$SHELLSHOCK_TEMP echo WARNING: SHELLSHOCK 2 DETECTED" 2>/dev/null
-cat $SHELLSHOCK_TEMP
-rm -f $SHELLSHOCK_TEMP
+cat "$SHELLSHOCK_TEMP"
+rm -f "$SHELLSHOCK_TEMP"
 
 shellshock_func='() { echo WARNING: SHELLSHOCK 3 DETECTED; }' bash --norc -c shellshock_func 2> /dev/null
 

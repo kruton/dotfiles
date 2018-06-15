@@ -13,7 +13,6 @@ function preexec() {
 }
 
 function precmd() {
-    local last_exit_code=$?
     local cmd="$1"
     if type -t _mrg_rdh > /dev/null; then
         _mrg_rdh

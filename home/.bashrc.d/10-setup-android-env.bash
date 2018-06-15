@@ -26,7 +26,7 @@ get_term_size_with_max() {
     max_height="$1"
     max_width="$2"
 
-    read height width < <(stty size)
+    read -r height width < <(stty size)
 
     echo $((height>max_height?max_height:height)) $((width>max_width?max_width:width))
 }
@@ -61,7 +61,7 @@ switch_android_tree() {
             tput rmcup
             if (( ret == 0 )); then
                 clear
-                read target_number < "$tmp_file"
+                read -r target_number < "$tmp_file"
                 target="${sorted[$target_number]}"
             fi
         fi
@@ -70,7 +70,10 @@ switch_android_tree() {
             export CCACHE_BASEDIR="${TOP}"
             export CDPATH="${CDPATH}:${ANDROID_DIR}"
             pushd "${TOP}" > /dev/null 2>&1
+
+            # shellcheck source=/dev/null
             . "${TOP}/build/envsetup.sh"
+
             popd > /dev/null 2>&1
         fi
     fi

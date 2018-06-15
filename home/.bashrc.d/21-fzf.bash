@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # set up fzf
 
 if [[ -d "$HOME/.fzf/bin" ]]; then \
@@ -13,7 +15,7 @@ if [[ -d "$HOME/.fzf/bin" ]]; then \
   # shellcheck source=/dev/null
   source "$HOME/.fzf/shell/key-bindings.bash"
 
-  if [ ! -z "$ALL_HISTORY_FILE" ] && [ -f "$ALL_HISTORY_FILE" ]; then
+  if [[ ! -z "$ALL_HISTORY_FILE" && -f "$ALL_HISTORY_FILE" ]]; then
     # Get history.sh working with fzf
     bind '"\C-r": "\C-x1\e^\er"'
     bind -x '"\C-x1": __fzf_history__';

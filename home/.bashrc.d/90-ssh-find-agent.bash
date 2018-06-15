@@ -6,12 +6,11 @@
 #
 # See LICENSE for details
 
-_SOCAT_BINARY="$(which socat 2> /dev/null)"
-_TIMEOUT_BINARY="$(which timeout 2> /dev/null)"
-if [[ -x $_TIMEOUT_BINARY ]]; then
-	_SSH_ADD_BINARY="$_TIMEOUT_BINARY 2 ssh-add"
-else
-	_SSH_ADD_BINARY="$(which ssh-add)"
+_SOCAT_BINARY="$(hash socat 2> /dev/null)"
+_TIMEOUT_BINARY="$(hash timeout 2> /dev/null)"
+_SSH_ADD_BINARY="$(hash ssh-add 2> /dev/null)"
+if [[ -x $_TIMEOUT_BINARY && -x $_SSH_ADD_BINARY ]]; then
+	_SSH_ADD_BINARY="$_TIMEOUT_BINARY 2 $_SSH_ADD_BINARY"
 fi
 
 _LIVE_AGENT_LIST=""
@@ -23,32 +22,32 @@ _debug_print() {
 	fi
 }
 
-find_all_ssh_agent_sockets() {
+_find_all_ssh_agent_sockets() {
 	_SSH_AGENT_SOCKETS="$(find /tmp/ -type s -name agent.\* 2> /dev/null | grep '/tmp/ssh-.*/agent.*')"
 	_debug_print "$_SSH_AGENT_SOCKETS"
 }
 
-find_all_gpg_agent_sockets() {
+_find_all_gpg_agent_sockets() {
 	_GPG_AGENT_SOCKETS="$(find /tmp/ -type s -name S.gpg-agent.ssh 2> /dev/null | grep '/tmp/gpg-.*/S.gpg-agent.ssh')"
 	_debug_print "$_GPG_AGENT_SOCKETS"
 }
 
-find_all_gnome_keyring_agent_sockets() {
+_find_all_gnome_keyring_agent_sockets() {
 	_GNOME_KEYRING_AGENT_SOCKETS="$(find /tmp/ -type s -name ssh 2> /dev/null | grep '/tmp/keyring-.*/ssh$')"
 	_debug_print "$_GNOME_KEYRING_AGENT_SOCKETS"
 }
 
-find_all_osx_keychain_agent_sockets() {
+_find_all_osx_keychain_agent_sockets() {
 	_OSX_KEYCHAIN_AGENT_SOCKETS="$(find /tmp/ -type s -regex '.*/launch-.*/Listeners$'  2> /dev/null)"
 	_debug_print "$_OSX_KEYCHAIN_AGENT_SOCKETS"
 }
 
-find_all_gnubby_agent_sockets() {
+_find_all_gnubby_agent_sockets() {
 	_GNUBBY_AGENT_SOCKETS="$(find /tmp/ -type s -name agent.\* 2> /dev/null | grep "/tmp/agent.$USER.local/agent.*")"
 	_debug_print "$_GNUBBY_AGENT_SOCKETS"
 }
 
-test_agent_socket() {
+_test_agent_socket() {
 	local SOCKET=$1
 	SSH_AUTH_SOCK=$SOCKET $_SSH_ADD_BINARY -l 2> /dev/null > /dev/null
 	result=$?
@@ -81,7 +80,7 @@ test_agent_socket() {
 	return 1
 }
 
-test_agent_socket_socat() {
+_test_agent_socket_socat() {
 	local SOCKET="$1"
 	if [[ -x ${_SOCAT_BINARY} ]]
 	then
@@ -101,63 +100,62 @@ test_agent_socket_socat() {
 	return 1
 }
 
-find_live_gnome_keyring_agents() {
+_find_live_gnome_keyring_agents() {
 	for i in $_GNOME_KEYRING_AGENT_SOCKETS
 	do
 		test_agent_socket "$i"
 	done
 }
 
-find_live_osx_keychain_agents() {
+_find_live_osx_keychain_agents() {
 	for i in $_OSX_KEYCHAIN_AGENT_SOCKETS
 	do
 		test_agent_socket "$i"
 	done
 }
 
-find_live_gnubby_agents() {
+_find_live_gnubby_agents() {
 	for i in $_GNUBBY_AGENT_SOCKETS
 	do
 		test_agent_socket_socat "$i"
 	done
 }
 
-find_live_gpg_agents() {
+_find_live_gpg_agents() {
 	for i in $_GPG_AGENT_SOCKETS
 	do
 		test_agent_socket "$i"
 	done
 }
 
-find_live_ssh_agents() {
+_find_live_ssh_agents() {
 	for i in $_SSH_AGENT_SOCKETS
 	do
 		test_agent_socket "$i"
 	done
 }
 
-find_all_agent_sockets() {
+_find_all_agent_sockets() {
 	_LIVE_AGENT_LIST=
-	find_all_ssh_agent_sockets
-	find_all_gpg_agent_sockets
-	find_all_gnome_keyring_agent_sockets
-	find_all_osx_keychain_agent_sockets
-	find_all_gnubby_agent_sockets
-	find_live_ssh_agents
-	find_live_gpg_agents
-	find_live_gnome_keyring_agents
-	find_live_osx_keychain_agents
-	find_live_gnubby_agents
+	_find_all_ssh_agent_sockets
+	_find_all_gpg_agent_sockets
+	_find_all_gnome_keyring_agent_sockets
+	_find_all_osx_keychain_agent_sockets
+	_find_all_gnubby_agent_sockets
+	_find_live_ssh_agents
+	_find_live_gpg_agents
+	_find_live_gnome_keyring_agents
+	_find_live_osx_keychain_agents
+	_find_live_gnubby_agents
 	_debug_print "$_LIVE_AGENT_LIST"
 	printf "%s\n" "$_LIVE_AGENT_LIST" | tr ' ' '\n' | sort -n -t: -k 2 -k 1
 }
 
 set_ssh_agent_socket() {
-	if [[ -n $TMUX ]]; then \
-		local tmux_auth_sock="$(tmux show-environment SSH_AUTH_SOCK)"
-		SSH_AUTH_SOCK="${tmux_auth_sock#*=}"
-	else \
-		SSH_AUTH_SOCK="$(find_all_agent_sockets | tail -n 1 | awk -F: '{print $1}')"
+	if [[ -n $TMUX ]]; then
+		IFS='=' read -r _ SSH_AUTH_SOCK <<< "$(tmux show-environment SSH_AUTH_SOCK)"
+	else
+		IFS=':' read -r SSH_AUTH_SOCK _ <<< "$(_find_all_agent_sockets | tail -n 1)"
 	fi
 	export SSH_AUTH_SOCK
 }

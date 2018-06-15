@@ -48,19 +48,20 @@ _focus_reset() {
 _focus_reset
 
 _focus() {
-    local cur device nocasematch serial description
+    local cur device nocasematch_set serial description
     local -a devices descriptions
 
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
 
     # complete only if the user is typing the first word of the command
-    if (( $COMP_CWORD == 1 )); then
+    if (( COMP_CWORD == 1 )); then
         # See whether we need to toggle nocasematch
-        shopt -q nocasematch; (( nocasematch = !$? ))
-
-        # Either it's on or we need to set it
-        (( nocasematch )) || shopt -s nocasematch
+        if shopt -q nocasematch; then
+            nocasematch_set=yes
+        else
+            shopt -s nocasematch
+        fi
 
         while read -r serial description; do
             if [[ -n $serial && $serial != List ]] && _focus_match_device "$serial" "$cur"; then
@@ -75,19 +76,23 @@ _focus() {
             fi
         done < <(fastboot devices -l)
 
-        # Either it was on or we need to unset it
-        (( nocasematch )) || shopt -u nocasematch
+        if [[ $nocasematch_set != "yes" ]]; then
+            shopt -u nocasematch
+        fi
 
         [[ $_focus__comment_pos -gt $COMP_POINT ]] && _focus__comment_pos=0
 
-        if [[ $_focus__comment_last == 0 && $_focus__comment_pos == $COMP_POINT ]]; then
-            local bold="$(tput bold)"
-            local nobold="$(tput sgr0)"
+        if [[ $_focus__comment_last == 0 && $_focus__comment_pos == "$COMP_POINT" ]]; then
+            local bold
+            local nobold
+
+            bold="$(tput bold)"
+            nobold="$(tput sgr0)"
             for i in "${!devices[@]}"; do
                 echo -ne "\n$bold${devices[$i]}$nobold - ${descriptions[$i]}"
             done
             _focus__comment_last=1
-            COMPREPLY=
+            COMPREPLY=()
         else
             COMPREPLY=( "${devices[@]}" )
             if (( ${#devices[@]} == 1 )); then
