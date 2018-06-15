@@ -93,7 +93,6 @@ EOF
 
 ${FOCUS_TEST_bold}12345678${FOCUS_TEST_nobold} - device usb:2-1.3.3 product:aosp_kroot model:AOSP_on_Kroot device:kroot
 ${FOCUS_TEST_bold}123458823${FOCUS_TEST_nobold} - device usb:2-1.3.3 product:aosp_grouper model:AOSP_on_Grouper device:grouper[COMPLETIONS 1]
-
 [END 1: last=1,pos=8]
 [START 2: last=1,pos=8]
 [COMPLETIONS 2]
@@ -124,7 +123,6 @@ EOF
 
 ${FOCUS_TEST_bold}12345678${FOCUS_TEST_nobold} - device usb:2-1.3.3 product:aosp_kroot model:AOSP_on_Kroot device:kroot
 ${FOCUS_TEST_bold}23456789${FOCUS_TEST_nobold} - fastboot[COMPLETIONS 1]
-
 [END 1: last=1,pos=7]
 [START 2: last=1,pos=7]
 [COMPLETIONS 2]
@@ -158,7 +156,6 @@ EOF
 
 ${FOCUS_TEST_bold}12345678${FOCUS_TEST_nobold} - fastboot1
 ${FOCUS_TEST_bold}23456789${FOCUS_TEST_nobold} - fastboot2[COMPLETIONS 1]
-
 [END 1: last=1,pos=8]
 [START 2: last=1,pos=8]
 [COMPLETIONS 2]
