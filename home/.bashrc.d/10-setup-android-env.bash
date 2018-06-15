@@ -82,4 +82,6 @@ switch_android_tree() {
     clean_up "${tmp_file}"
 }
 
-switch_android_tree
+if [[ -z $RUNNING_PERF ]]; then
+    switch_android_tree
+fi
