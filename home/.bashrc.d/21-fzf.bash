@@ -19,7 +19,11 @@ if [[ -d "$HOME/.fzf/bin" ]]; then \
     bind -x '"\C-x1": __fzf_history__';
 
     __fzf_history__() {
-      __ehc__ "$(cut -f4 -d$'\t' < "$ALL_HISTORY_FILE" | fzf --tac --tiebreak=index)"
+      __ehc__ "$(
+        while IFS=$'\t' read -r -d $'\0' _ _ _ cmd; do
+          printf "%s" "$cmd"
+        done < "$ALL_HISTORY_FILE" | fzf --tac --tiebreak=index
+      )"
     }
 
     __ehc__() {
