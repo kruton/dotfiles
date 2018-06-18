@@ -5,6 +5,8 @@ LOG="$TEMPDIR/log"
 TIMING="$TEMPDIR/timing"
 JOINED="$TEMPDIR/joined"
 
+echo Start > "$LOG"
+
 env -i \
   HOME="$HOME" \
   LC_CTYPE="${LC_ALL:-${LC_CTYPE:-$LANG}}" \
@@ -12,7 +14,7 @@ env -i \
   USER="$USER" \
   RUNNING_PERF="yes" \
   bash -l -i -x exit 2> >(
-    tee "$LOG" | sed -u 's/^.*$/now/' | date -f - +%s.%N > "$TIMING"
+    tee -a "$LOG" | sed -u 's/^.*$/now/' | date -f - +%s.%N > "$TIMING"
   )
 
 paste <(
