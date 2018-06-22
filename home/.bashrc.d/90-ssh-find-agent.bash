@@ -18,7 +18,7 @@ _LIVE_AGENT_LIST=""
 _debug_print() {
 	if [[ $_DEBUG -gt 0 ]]
 	then
-		printf "%s\n" "$1"
+		printf '%s\n' "$1"
 	fi
 }
 
@@ -103,35 +103,35 @@ _test_agent_socket_socat() {
 _find_live_gnome_keyring_agents() {
 	for i in $_GNOME_KEYRING_AGENT_SOCKETS
 	do
-		test_agent_socket "$i"
+		_test_agent_socket "$i"
 	done
 }
 
 _find_live_osx_keychain_agents() {
 	for i in $_OSX_KEYCHAIN_AGENT_SOCKETS
 	do
-		test_agent_socket "$i"
+		_test_agent_socket "$i"
 	done
 }
 
 _find_live_gnubby_agents() {
 	for i in $_GNUBBY_AGENT_SOCKETS
 	do
-		test_agent_socket_socat "$i"
+		_test_agent_socket_socat "$i"
 	done
 }
 
 _find_live_gpg_agents() {
 	for i in $_GPG_AGENT_SOCKETS
 	do
-		test_agent_socket "$i"
+		_test_agent_socket "$i"
 	done
 }
 
 _find_live_ssh_agents() {
 	for i in $_SSH_AGENT_SOCKETS
 	do
-		test_agent_socket "$i"
+		_test_agent_socket "$i"
 	done
 }
 
@@ -148,7 +148,7 @@ _find_all_agent_sockets() {
 	_find_live_osx_keychain_agents
 	_find_live_gnubby_agents
 	_debug_print "$_LIVE_AGENT_LIST"
-	printf "%s\n" "$_LIVE_AGENT_LIST" | tr ' ' '\n' | sort -n -t: -k 2 -k 1
+	printf '%s\n' "$_LIVE_AGENT_LIST" | tr ' ' $'\n' | sort -n -t: -k 2 -k 1
 }
 
 set_ssh_agent_socket() {
