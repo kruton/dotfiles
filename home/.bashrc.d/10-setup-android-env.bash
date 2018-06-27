@@ -46,7 +46,7 @@ switch_android_tree() {
 
         target=""
         if command -v fzf > /dev/null; then
-            target=$(fzf-tmux +m -0 -1 --read0 < <(printf "%s\0" "${targets[@]}"))
+            target=$(fzf-tmux +m -0 -1 --read0 --layout=reverse < <(printf "%s\0" "${targets[@]}"))
         else
             if (( ${#targets[@]} == 1 )); then
                 target="${targets[0]}"
