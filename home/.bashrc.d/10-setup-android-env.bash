@@ -45,12 +45,12 @@ switch_android_tree() {
         done < <(shopt -s nullglob; for f in $ANDROID_DIR/*; do printf "%s\0" "$f"; done)
 
         target=""
-        if (( ${#targets[@]} == 1 )); then
-            target="${targets[0]}"
+        if command -v fzf > /dev/null; then
+            target=$(fzf-tmux +m -0 -1 --read0 < <(printf "%s\0" "${targets[@]}"))
         else
-            if command -v fzf > /dev/null; then
-                target=$(fzf-tmux +m -0 -1 --read0 < <(printf "%s\0" "${targets[@]}"))
-            else
+            if (( ${#targets[@]} == 1 )); then
+                target="${targets[0]}"
+            elif (( ${#targets[@]} > 0 )); then
                 local dialog_cmd
                 local tmp_file
 
