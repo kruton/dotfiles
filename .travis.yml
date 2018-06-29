@@ -4,6 +4,7 @@ addons:
   apt:
     packages:
       - bash-completion
+      - fish
 
 install:
   - gem install bashcov
