@@ -1,8 +1,3 @@
-# Setup fisherman
-set fisher_home ~/.local/share/fisherman
-set fisher_config ~/.config/fisherman
-source $fisher_home/config.fish
-
 # No need for the welcome banner
 set fish_greeting
 
