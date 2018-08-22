@@ -17,7 +17,7 @@
 ((sudo=0))
 
 # Argument parsing
-while getopts "-:" optchar; do
+while getopts -- "-:" optchar; do
   case "${optchar}" in
     -)
       case "${OPTARG}" in
@@ -47,6 +47,7 @@ case $OSTYPE in
     case ${distro} in
        Fedora) platform="fedora" ;;
        Ubuntu) platform="ubuntu" ;;
+       Debian) platform="ubuntu" ;;
        *)
          echo "Unknown distro: ${distro}"
          exit 1
@@ -120,12 +121,7 @@ if [[ ${platform} == ubuntu ]]; then
       curl -sL https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python /dev/stdin --user
     fi
   else
-    if [[ ! -f /etc/apt-fast.conf ]]; then
-      sudo add-apt-repository ppa:apt-fast/stable
-      sudo apt-get update
-      sudo apt-get install apt-fast
-    fi
-    sudo apt-fast install python-pip git vim cmake python-dev default-jdk
+    sudo apt-get install python-pip git vim cmake python-dev default-jdk
   fi
 fi
 
