@@ -50,7 +50,7 @@ _powerline_init_tmux_support() {
 _powerline_local_prompt() {
 	# Arguments: side, renderer_module arg, last_exit_code, jobnum, local theme
 	"$POWERLINE_COMMAND" "${POWERLINE_COMMAND_ARGS[@]}" shell "$1" \
-		"$2" \
+		$2 \
 		--last-exit-code="$3" \
 		--jobnum="$4" \
 		--renderer-arg="client_id=$$" \
@@ -80,8 +80,10 @@ _powerline_set_prompt() {
 	if [[ -n $POWERLINE_NO_SHELL_PROMPT$POWERLINE_NO_BASH_PROMPT ]]; then
 		return $last_exit_code
 	fi
-	local jobnum
-        jobnum="$(jobs -p|wc -l)"
+	local jobnum=0
+	while read -r _; do
+		jobnum=$((jobnum + 1))
+	done < <(jobs -p)
 	PS1="$(_powerline_prompt aboveleft $last_exit_code "$jobnum")"
 	if test -n "$POWERLINE_SHELL_CONTINUATION$POWERLINE_BASH_CONTINUATION" ; then
 		PS2="$(_powerline_local_prompt left -r.bash $last_exit_code "$jobnum" continuation)"
