@@ -217,6 +217,20 @@ NeoBundleLazy 'janko-m/vim-test', {
   let test#strategy = "dispatch"
 "}}}
 
+" Erlang
+NeoBundleLazy 'vim-erlang/vim-erlang-runtime', {
+   \ 'filetypes': 'erl'
+   \ }
+NeoBundleLazy 'vim-erlang/vim-erlang-compiler', {
+   \ 'filetypes': 'erl'
+   \ }
+NeoBundleLazy 'vim-erlang/vim-erlang-omnicomplete', {
+   \ 'filetypes': 'erl'
+   \ }
+NeoBundleLazy 'vim-erlang/vim-erlang-tags', {
+   \ 'filetypes': 'erl'
+   \ }
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle housekeeping - MUST BE AT END!
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
