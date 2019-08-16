@@ -1,0 +1,20 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.x'
+    - name: Install Ruby prerequisites
+      run: |
+        gem install bashcov
+        gem install coveralls
+    - name: Run the tests
+      run: bashcov -- ./bats/bin/bats --tap test
