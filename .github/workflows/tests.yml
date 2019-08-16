@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       with:
-        submodule: true
+        submodules: true
     - uses: actions/setup-ruby@v1
       with:
         ruby-version: '2.x'
