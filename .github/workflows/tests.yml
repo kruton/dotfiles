@@ -14,4 +14,4 @@ jobs:
     - name: Run the tests
       env:
         REPO_TOKEN: ${{ secrets.CoverallsRepoToken }}
-      run: docker run --rm --security-opt seccomp=unconfined -v $(pwd):/source kcov/kcov kcov --coveralls-id=$REPO_TOKEN coverage ./bats/bin/bats --tap test
+      run: docker run --rm --security-opt seccomp=unconfined -v $(pwd):/source kcov/kcov kcov --coveralls-id=$REPO_TOKEN coverage -- ./bats/bin/bats --tap test
