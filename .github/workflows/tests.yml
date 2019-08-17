@@ -17,6 +17,6 @@ jobs:
       run: |
         mkdir -p coverage
         docker pull kcov/kcov
-        docker run --rm --security-opt seccomp=unconfined -v $(pwd):/source kcov/kcov -e TERM=xterm \
+        docker run --rm --security-opt seccomp=unconfined -v $(pwd):/source -e TERM=xterm kcov/kcov \
           kcov --clean --bash-dont-parse-binary-dir --coveralls-id=$REPO_TOKEN /source/coverage --include-path=/source -- \
           /source/bats/bin/bats --tap /source/test
