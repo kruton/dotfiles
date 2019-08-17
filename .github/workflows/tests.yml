@@ -17,20 +17,7 @@ jobs:
     - name: Install Ruby prerequisites
       run: |
         gem install coveralls
-    - name: Setup kcov
-      run: |
-        wget https://github.com/SimonKagstrom/kcov/archive/master.tar.gz &&
-        tar xzf master.tar.gz &&
-        cd kcov-master &&
-        mkdir build &&
-        cd build &&
-        cmake .. &&
-        make &&
-        sudo make install &&
-        cd ../.. &&
-        rm -rf kcov-master &&
-        mkdir -p coverage
     - name: Run the tests
       env:
         REPO_TOKEN: ${{ secrets.CoverallsRepoToken }}
-      run: kcov --coveralls-id=$REPO_TOKEN coverage ./bats/bin/bats --tap test
+      run: docker run -it --rm --security-opt seccomp=unconfined -v $(pwd):/source kcov/kcov kcov --coveralls-id=$REPO_TOKEN coverage ./bats/bin/bats --tap test
