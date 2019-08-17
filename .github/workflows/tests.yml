@@ -15,6 +15,7 @@ jobs:
       env:
         REPO_TOKEN: ${{ secrets.CoverallsRepoToken }}
       run: |
+        apt-get install bash-completion
         mkdir -p coverage
         docker pull kcov/kcov
         docker run --rm --security-opt seccomp=unconfined -v $(pwd):/source -e TERM=xterm kcov/kcov \
