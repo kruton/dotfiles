@@ -31,6 +31,6 @@ jobs:
         rm -rf kcov-master &&
         mkdir -p coverage
     - name: Run the tests
-      run: kcov coverage ./bats/bin/bats --tap test
-    - name: Upload coverage results
-      run: coveralls push
+      env:
+        REPO_TOKEN: ${{ secrets.CoverallsRepoToken }}
+      run: kcov --coveralls-id=$REPO_TOKEN coverage ./bats/bin/bats --tap test
