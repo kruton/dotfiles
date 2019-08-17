@@ -1,0 +1,27 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: true
+    - name: Pull the kcov image
+      run: docker pull kcov/kcov
+    - name: Prepare the container
+      run: |
+        docker build test/kcov --tag kcov:latest
+        mkdir -p coverage
+    - name: Run the tests
+      env:
+        REPO_TOKEN: ${{ secrets.CoverallsRepoToken }}
+      run: |
+        docker run --rm --security-opt seccomp=unconfined -v $(pwd):/source \
+          -e TERM=xterm \
+          kcov kcov --coveralls-id=$REPO_TOKEN /source/coverage --include-path=/source -- \
+          /source/bats/bin/bats --tap /source/test
