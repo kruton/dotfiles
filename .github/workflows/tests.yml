@@ -14,10 +14,9 @@ jobs:
     - name: Run the tests
       env:
         REPO_TOKEN: ${{ secrets.CoverallsRepoToken }}
-        TERM: xterm # for tests we need to have bold colors
       run: |
         mkdir -p coverage
         docker pull kcov/kcov
-        docker run --rm --security-opt seccomp=unconfined -v $(pwd):/source kcov/kcov \
+        docker run --rm --security-opt seccomp=unconfined -v $(pwd):/source kcov/kcov -e TERM=xterm \
           kcov --clean --bash-dont-parse-binary-dir --coveralls-id=$REPO_TOKEN /source/coverage --include-path=/source -- \
           /source/bats/bin/bats --tap /source/test
