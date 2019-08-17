@@ -22,7 +22,7 @@ jobs:
           -v /etc/bash_completion:/etc/bash_completion \
           -e TERM=xterm \
           kcov/kcov sleep 3600
-        docker exec kcov bash -c 'apt-get update && apt-get install fish'
+        docker exec kcov bash -c 'apt-get update && apt-get install -y fish'
     - name: Run the tests
       env:
         REPO_TOKEN: ${{ secrets.CoverallsRepoToken }}
