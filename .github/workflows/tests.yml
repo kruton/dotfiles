@@ -16,7 +16,21 @@ jobs:
         ruby-version: '2.x'
     - name: Install Ruby prerequisites
       run: |
-        gem install bashcov
-        gem install coveralls -v 0.8.21 # bashcov requires 0.15.x
+        gem install coveralls
+    - name: Setup kcov
+      run: |
+        wget https://github.com/SimonKagstrom/kcov/archive/master.tar.gz &&
+        tar xzf master.tar.gz &&
+        cd kcov-master &&
+        mkdir build &&
+        cd build &&
+        cmake .. &&
+        make &&
+        sudo make install &&
+        cd ../.. &&
+        rm -rf kcov-master &&
+        mkdir -p coverage
     - name: Run the tests
-      run: bashcov -- ./bats/bin/bats --tap test
+      run: kcov coverage ./bats/bin/bats --tap test
+    - name: Upload coverage results
+      run: coveralls push
