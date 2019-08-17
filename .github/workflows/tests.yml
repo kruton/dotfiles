@@ -11,13 +11,7 @@ jobs:
     - uses: actions/checkout@v1
       with:
         submodules: true
-    - uses: actions/setup-ruby@v1
-      with:
-        ruby-version: '2.x'
-    - name: Install Ruby prerequisites
-      run: |
-        gem install coveralls
     - name: Run the tests
       env:
         REPO_TOKEN: ${{ secrets.CoverallsRepoToken }}
-      run: docker run -it --rm --security-opt seccomp=unconfined -v $(pwd):/source kcov/kcov kcov --coveralls-id=$REPO_TOKEN coverage ./bats/bin/bats --tap test
+      run: docker run --rm --security-opt seccomp=unconfined -v $(pwd):/source kcov/kcov kcov --coveralls-id=$REPO_TOKEN coverage ./bats/bin/bats --tap test
