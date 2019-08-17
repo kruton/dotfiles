@@ -15,19 +15,13 @@ jobs:
       run: docker pull kcov/kcov
     - name: Prepare the container
       run: |
+        docker build test/kcov --tag kcov:$(date +%s)
         mkdir -p coverage
-        docker run -d --name kcov --rm --security-opt seccomp=unconfined -v $(pwd):/source \
-          -v /usr/bin/fish:/usr/bin/fish \
-          -v /usr/share/bash-completion:/usr/share/bash-completion \
-          -v /etc/bash_completion:/etc/bash_completion \
-          -e TERM=xterm \
-          kcov/kcov sleep 3600
-        docker exec kcov bash -c 'apt-get update && apt-get install -y fish'
     - name: Run the tests
       env:
         REPO_TOKEN: ${{ secrets.CoverallsRepoToken }}
       run: |
-        docker exec kcov /usr/local/bin/kcov --coveralls-id=$REPO_TOKEN /source/coverage --include-path=/source -- \
+        docker run -d --rm --security-opt seccomp=unconfined -v $(pwd):/source \
+          -e TERM=xterm \
+          kcov/kcov kcov --coveralls-id=$REPO_TOKEN /source/coverage --include-path=/source -- \
           /source/bats/bin/bats --tap /source/test
-    - name: Clean up container
-      run: docker rm kcov
