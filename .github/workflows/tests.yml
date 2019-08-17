@@ -15,7 +15,7 @@ jobs:
       run: docker pull kcov/kcov
     - name: Prepare the container
       run: |
-        docker build test/kcov --tag kcov:$(date +%s)
+        docker build test/kcov --tag kcov:latest
         mkdir -p coverage
     - name: Run the tests
       env:
