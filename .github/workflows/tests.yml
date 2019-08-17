@@ -26,6 +26,7 @@ jobs:
     - name: Run the tests
       env:
         REPO_TOKEN: ${{ secrets.CoverallsRepoToken }}
+      run: |
         docker exec kcov /usr/local/bin/kcov --coveralls-id=$REPO_TOKEN /source/coverage --include-path=/source -- \
           /source/bats/bin/bats --tap /source/test
     - name: Clean up container
