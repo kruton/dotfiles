@@ -11,18 +11,22 @@ jobs:
     - uses: actions/checkout@v1
       with:
         submodules: true
-    - name: Install Fish shell
-      run: sudo apt-get update && sudo apt-get install fish
-    - name: Run the tests
-      env:
-        REPO_TOKEN: ${{ secrets.CoverallsRepoToken }}
+    - name: Pull the kcov image
+      run: docker pull kcov/kcov
+    - name: Prepare the container
       run: |
         mkdir -p coverage
-        docker pull kcov/kcov
-        docker run --rm --security-opt seccomp=unconfined -v $(pwd):/source \
+        docker run -d --name kcov --rm --security-opt seccomp=unconfined -v $(pwd):/source \
           -v /usr/bin/fish:/usr/bin/fish \
           -v /usr/share/bash-completion:/usr/share/bash-completion \
           -v /etc/bash_completion:/etc/bash_completion \
           -e TERM=xterm \
-          kcov/kcov kcov --coveralls-id=$REPO_TOKEN /source/coverage --include-path=/source -- \
+          kcov/kcov sleep 3600
+        docker exec bash -c 'apt-get update && apt-get install fish'
+    - name: Run the tests
+      env:
+        REPO_TOKEN: ${{ secrets.CoverallsRepoToken }}
+        docker exec kcov /usr/local/bin/kcov --coveralls-id=$REPO_TOKEN /source/coverage --include-path=/source -- \
           /source/bats/bin/bats --tap /source/test
+    - name: Clean up container
+      run: docker rm kcov
