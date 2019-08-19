@@ -18,10 +18,12 @@ jobs:
         docker build test/kcov --tag kcov:latest
         mkdir -p coverage
     - name: Run the tests
-      env:
-        REPO_TOKEN: ${{ secrets.CoverallsRepoToken }}
       run: |
         docker run --rm --security-opt seccomp=unconfined -v $(pwd):/source \
           -e TERM=xterm \
-          kcov kcov --coveralls-id=$REPO_TOKEN /source/coverage --include-path=/source -- \
+          kcov kcov /source/coverage --include-path=/source -- \
           /source/bats/bin/bats --tap /source/test
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.CoverallsRepoToken }}
