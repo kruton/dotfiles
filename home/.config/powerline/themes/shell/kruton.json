@@ -20,6 +20,14 @@
 				"priority": 50
 			},
 			{
+				"function": "powerline.segments.common.env.environment",
+				"args": {
+					"variable": "TARGET_PRODUCT"
+				},
+				"before": "📱",
+				"priority": 50
+			},
+			{
 				"function": "powerline.segments.shell.cwd",
 				"args": {
 					"use_path_separator": true,
