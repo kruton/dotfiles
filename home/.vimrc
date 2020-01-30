@@ -217,11 +217,16 @@ let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
 
+" Python universality
+let s:python_until_eof = has("python3") ? "python3 << EOF" : "python << EOF"
+
 " Powerline setup
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+exec s:python_until_eof
+from powerline.vim import setup as powerline_setup
+powerline_setup()
+del powerline_setup
+EOF
 
 " SnipMate mappings
 :imap ,<Tab> <Plug>snipMateNextOrTrigger

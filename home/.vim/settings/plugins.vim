@@ -35,11 +35,6 @@ NeoBundleLazy 'Bogdanp/browser-connect.vim', {
     \ 'filetypes': ['html', 'xhtml'],
     \ }
 
-" Searches for semantic C/C++ matches
-NeoBundleLazy 'brookhong/cscope.vim', {
-    \ 'filetypes': ['c', 'cpp'],
-    \ }
-
 " Provides a class outline for files in a separate window
 NeoBundle 'majutsushi/tagbar'
 
@@ -157,7 +152,7 @@ NeoBundleLazy 'Shougo/unite.vim', {
 
 " cscope
 NeoBundle "simplyzhao/cscope_maps.vim"
-NeoBundle "JCLiang/vim-cscope-utils"
+NeoBundle "qytz/vim-cscope-utils"
 
 " LaTeX automatic mode
 NeoBundleLazy 'coot/atp_vim', {
