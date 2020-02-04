@@ -6,9 +6,9 @@
 #
 # See LICENSE for details
 
-_SOCAT_BINARY="$(hash socat 2> /dev/null)"
-_TIMEOUT_BINARY="$(hash timeout 2> /dev/null)"
-_SSH_ADD_BINARY="$(hash ssh-add 2> /dev/null)"
+_SOCAT_BINARY="$(command -v socat 2> /dev/null)"
+_TIMEOUT_BINARY="$(command -v timeout 2> /dev/null)"
+_SSH_ADD_BINARY="$(command -v ssh-add 2> /dev/null)"
 if [[ -x $_TIMEOUT_BINARY && -x $_SSH_ADD_BINARY ]]; then
 	_SSH_ADD_BINARY="$_TIMEOUT_BINARY 2 $_SSH_ADD_BINARY"
 fi
