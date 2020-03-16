@@ -112,7 +112,7 @@ if test -z "${POWERLINE_CONFIG_COMMAND}" ; then
 	if which powerline-config >/dev/null ; then
 		POWERLINE_CONFIG_COMMAND=powerline-config
 	else
-		POWERLINE_CONFIG_COMMAND="$(dirname "${BASH_SOURCE[0]}")/../../../scripts/powerline-config"
+		POWERLINE_CONFIG_COMMAND="$(dirname "${BASH_SOURCE[0]}")/../../../powerline/scripts/powerline-config"
 	fi
 fi
 
