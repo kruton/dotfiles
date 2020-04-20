@@ -1,4 +1,4 @@
-FROM kcov/kcov:38
+FROM kcov/kcov:latest
 
 ARG UID=1000
 ARG GID=1000
