@@ -8,22 +8,30 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
       with:
         submodules: true
+
     - name: Pull the kcov image
       run: docker pull kcov/kcov
+
     - name: Prepare the container
       run: |
-        docker build test/kcov --tag kcov:latest
+        ./test/docker-build.sh
         mkdir -p coverage
+
     - name: Run the tests
       run: |
-        docker run --rm --security-opt seccomp=unconfined -v $(pwd):/source \
-          -e TERM=xterm \
-          kcov kcov /source/coverage --include-path=/source -- \
+        docker run --rm --security-opt seccomp=unconfined -v ${{ github.workspace }}:/source \
+          -e TERM=xterm kcov \
           /source/bats/bin/bats --tap /source/test
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
+
+    - name: Publish code coverage
+      uses: paambaati/codeclimate-action@v2.5.7
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CodeClimateReporterId }}
       with:
-        github-token: ${{ secrets.CoverallsRepoToken }}
+        coverageCommand: ./test/docker-run.sh
+        coverageLocations:
+          "${{ github.workspace }}/coverage/bats/cobertura.xml:cobertura"
+        prefix: ${{ github.workspace }}
