@@ -197,6 +197,9 @@ NeoBundle 'mhinz/vim-startify' "{{{
   nnoremap <F1> :Startify<cr>
 "}}}
 
+NeoBundle 'google/vim-maktaba'
+NeoBundle 'bazelbuild/vim-bazel'
+
 """ Testing utilities
 
 " Helps with running unit tests
