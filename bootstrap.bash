@@ -80,7 +80,7 @@ if [[ ${platform} == darwin ]]; then
 
   # Install Homebrew
   if ! which brew; then
-    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   fi
   
   # Make sure Homebrew is first on the list
