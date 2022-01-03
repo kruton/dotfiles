@@ -42,6 +42,11 @@ _find_all_osx_keychain_agent_sockets() {
 	_debug_print "$_OSX_KEYCHAIN_AGENT_SOCKETS"
 }
 
+_find_all_secretive_agent_sockets() {
+	_SECRETIVE_AGENT_SOCKETS="$HOME/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh"
+	_debug_print "$_SECRETIVE_AGENT_SOCKETS"
+}
+
 _find_all_gnubby_agent_sockets() {
 	_GNUBBY_AGENT_SOCKETS="$(find /tmp/ -type s -name agent.\* 2> /dev/null | grep "/tmp/agent.$USER.local/agent.*")"
 	_debug_print "$_GNUBBY_AGENT_SOCKETS"
@@ -107,6 +112,13 @@ _find_live_gnome_keyring_agents() {
 	done
 }
 
+_find_live_secretive_agents() {
+	for i in $_SECRETIVE_AGENT_SOCKETS
+	do
+		_test_agent_socket "$i"
+	done
+}
+
 _find_live_osx_keychain_agents() {
 	for i in $_OSX_KEYCHAIN_AGENT_SOCKETS
 	do
@@ -142,11 +154,13 @@ _find_all_agent_sockets() {
 	_find_all_gnome_keyring_agent_sockets
 	_find_all_osx_keychain_agent_sockets
 	_find_all_gnubby_agent_sockets
+	_find_all_secretive_agent_sockets
 	_find_live_ssh_agents
 	_find_live_gpg_agents
 	_find_live_gnome_keyring_agents
 	_find_live_osx_keychain_agents
 	_find_live_gnubby_agents
+	_find_live_secretive_agents
 	_debug_print "$_LIVE_AGENT_LIST"
 	printf '%s\n' "$_LIVE_AGENT_LIST" | tr ' ' $'\n' | sort -n -t: -k 2 -k 1
 }
