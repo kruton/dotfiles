@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 # Put Homebrew in the PATH
-if [[ $OSTYPE == darwin* ]]; then
-    export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+if [[ $OSTYPE == darwin* && -d /opt/homebrew ]]; then
+    export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
 fi
