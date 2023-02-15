@@ -78,8 +78,13 @@ switch_android_tree() {
             export CDPATH="${CDPATH}:${ANDROID_DIR}"
             pushd "${TOP}" > /dev/null 2>&1
 
-            # shellcheck source=/dev/null
-            . "${TOP}/build/envsetup.sh"
+            if [[ -f ${TOP}/build/envsetup.sh ]]; then
+                # shellcheck source=/dev/null
+                . "${TOP}/build/envsetup.sh"
+            elif [[ -f ${TOP}/trusty/vendor/google/aosp/scripts/envsetup.sh ]]; then
+                # shellcheck source=/dev/null
+                . "${TOP}/trusty/vendor/google/aosp/scripts/envsetup.sh"
+            fi
 
             popd > /dev/null 2>&1
         fi
