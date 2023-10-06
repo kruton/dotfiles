@@ -10,7 +10,7 @@
 	deltaBaseCacheLimit = 1G
 	excludesfile = ~/.gitignore-global
 [mergetool "fugitive"]
-	cmd = gvim -f -c \"Gdiff\" \"$MERGED\"
+	cmd = gvim -f -c \"Gdiffsplit!\" \"$MERGED\"
 [alias]
 	br = branch
 	ci = commit
@@ -27,3 +27,5 @@
 	up = pull --rebase --autostash
 [push]
 	default = simple
+[init]
+	defaultBranch = main
