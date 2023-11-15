@@ -3,7 +3,3 @@ set fish_greeting
 
 # Setup homeshick shortcuts
 . "$HOME/.homesick/repos/homeshick/homeshick.fish"
-
-set POWERLINE_COMMAND_ARGS -t kruton.segment_data.user.args.hide_user="$DEFAULT_USER"
-set fish_function_path $fish_function_path "$HOME/.vim/bundle/powerline/powerline/bindings/fish"
-powerline-setup
