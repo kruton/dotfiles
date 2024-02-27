@@ -23,8 +23,8 @@ def capture(*args):
     return output.strip()
 
 def b(arg):
-    if isinstance(arg, bytes):
-        return arg.decode('utf-8')
+    if not isinstance(arg, bytes):
+        return arg.encode('utf-8')
     return arg
 
 def is_running():
