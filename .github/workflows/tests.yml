@@ -27,7 +27,7 @@ jobs:
           /source/bats/bin/bats --tap /source/test
 
     - name: Publish code coverage
-      uses: paambaati/codeclimate-action@v2.7.5
+      uses: paambaati/codeclimate-action@v9.0.0
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CodeClimateReporterId }}
       with:
