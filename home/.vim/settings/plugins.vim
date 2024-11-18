@@ -19,9 +19,6 @@ NeoBundleFetch 'Shugo/neobundle.vim'
 " My bundles
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Gives me a nice status line
-NeoBundle 'Lokaltog/powerline'
-
 NeoBundle 'Lokaltog/vim-easymotion'
 
 " Shows git status in the 'gutter'
