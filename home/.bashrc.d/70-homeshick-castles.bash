@@ -5,7 +5,6 @@ homeshick clone --quiet --batch git@github.com:kruton/dotfiles
 homeshick clone --quiet --batch https://github.com/rcaloras/bash-preexec.git
 homeshick clone --quiet --batch https://github.com/Shougo/neobundle.vim.git
 homeshick clone --quiet --batch https://github.com/huyz/dircolors-solarized
-homeshick clone --quiet --batch https://github.com/powerline/powerline.git
 homeshick clone --quiet --batch https://github.com/okraits/j4-make-config
 homeshick clone --quiet --batch https://github.com/nornagon/git-rebase-all.git
 homeshick clone --quiet --batch https://github.com/autochthe/history.git
@@ -26,3 +25,8 @@ homeshick clone --quiet --batch https://github.com/jorgebucaran/fisher.git
 #homeshick clone --quiet --batch https://github.com/fisherman/fisherman.git
 [ -d "$HOME/.homesick/repos/fisherman" ] && \
     rm -rf "$HOME/.homesick/repos/fisherman"
+
+# Powerline became too slow and now I just use starship
+#homeshick clone --quiet --batch https://github.com/powerline/powerline.git
+[ -d "$HOME/.homesick/repos/powerline" ] && \
+    rm -rf "$HOME/.homesick/repos/powerline"
