@@ -8,7 +8,7 @@
     {
       "customType": "regex",
       "fileMatch": [
-        "home/bashrc\\.d/.*\\.bash$"
+        "home/\\.bashrc\\.d/.*\\.bash$"
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (?:packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[^\\s]+?))?(?: extractVersion=(?<extractVersion>[^\\s]+?))?\\s+local ?[A-Za-z0-9_]+?_version\\s*:\\s*[\"']?(?<currentValue>.+?)[\"']?\\s"
