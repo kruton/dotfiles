@@ -28,11 +28,22 @@ _gen_fzf_default_opts() {
     "
 }
 
-if [[ -d "$HOME/.fzf/bin" ]]; then \
+_check_fzf_version() {
+  # renovate: datasource=github-releases depName=junegunn/fzf
+  local __fzf_version=0.56.3
+
   if [[ ! -x "$HOME/.fzf/bin/fzf" ]]; then \
     "$HOME/.fzf/install" --bin
+  else \
+    local __local_version="$($HOME/.fzf/bin/fzf --version)"
+    if [[ ${__local_version% *} != $__fzf_version ]]; then \
+      "$HOME/.fzf/install" --bin
+    fi
   fi
+}
 
+if [[ -d "$HOME/.fzf/bin" ]]; then \
+  _check_fzf_version
   export PATH="$PATH:$HOME/.fzf/bin"
 
   # shellcheck source=/dev/null
@@ -69,3 +80,5 @@ if [[ -d "$HOME/.fzf/bin" ]]; then \
     }
   fi
 fi
+
+unset -f _check_fzf_version
