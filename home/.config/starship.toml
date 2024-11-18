@@ -1,0 +1,63 @@
+format = """\
+$hostname\
+[](fg:#465a61 bg:#fdf6e3)\
+$username\
+[](bg:#073642 fg:#fdf6e3)\
+$directory\
+[](bg:#708183 fg:#073642)\
+$git_branch\
+$git_status\
+[](fg:#708183 bg:#06969A)\
+$docker_context\
+[ ](fg:#06969A)\
+"""
+
+# Disable the blank line at the start of the prompt
+add_newline = false
+
+# You can also replace your username with a neat symbol like   or disable this
+# and use the os module below
+[username]
+show_always = false
+style_user = "fg:#022222 bg:#fcf4dc"
+style_root = "fg:#dc322f bg:#fdf6e3"
+format = '[ $user ]($style)'
+disabled = false
+
+[hostname]
+style = "fg:#fcf4dc bg:#465a61"
+ssh_symbol = ''
+format = '[ $ssh_symbol$hostname ]($style)'
+disabled = false
+
+[directory]
+style = 'bg:#073642'
+format = '[ $path ]($style)'
+truncation_length = 3
+truncation_symbol = "…/"
+
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+[directory.substitutions]
+"Documents" = "\U000F0219 "
+"Downloads" = "\uf019 "
+# Keep in mind that the order matters. For example:
+# "Important Documents" = " 󰈙 "
+# will not be replaced, because "Documents" was already substituted before.
+# So either put "Important Documents" before "Documents" or use the substituted version:
+# "Important 󰈙 " = " 󰈙 "
+
+[docker_context]
+symbol = "\ue7b0"
+style = "bg:#06969A"
+format = '[ $symbol $context ]($style) $path'
+
+[git_branch]
+symbol = "\ue0a0"
+style = "bg:#708183 fg:#001e26"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "bg:#708183 fg:#001e26"
+format = '[$all_status$ahead_behind ]($style)'
+
