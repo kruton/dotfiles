@@ -52,7 +52,7 @@ if [[ -d "$HOME/.fzf/bin" ]]; then \
       __ehc__ "$(
         while IFS=$'\t' read -r -d $'\0' _ _ _ cmd; do
           printf "%s" "$cmd"
-        done < "$ALL_HISTORY_FILE" | fzf --tac --tiebreak=index
+        done < "$ALL_HISTORY_FILE" | fzf --tac --scheme=history --bind=ctrl-r:toggle-sort --wrap-sign '"$'\t'"↳ ' --highlight-line +m
       )"
     }
 
