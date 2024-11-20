@@ -1,15 +1,10 @@
 format = """\
-$hostname\
-[](fg:#465a61 bg:#fdf6e3)\
-$username\
-[](bg:#073642 fg:#fdf6e3)\
-$directory\
-[](bg:#708183 fg:#073642)\
-$git_branch\
-$git_status\
-[](fg:#708183 bg:#06969A)\
-$docker_context\
-[ ](fg:#06969A)\
+($hostname)\
+($username)\
+($directory)\
+($git_branch$git_status)\
+($docker_context)\
+[\ue0b0 ](fg:prev_bg)\
 """
 
 # Disable the blank line at the start of the prompt
@@ -21,18 +16,18 @@ add_newline = false
 show_always = false
 style_user = "fg:#022222 bg:#fcf4dc"
 style_root = "fg:#dc322f bg:#fdf6e3"
-format = '[ $user ]($style)'
+format = "[\ue0b0](fg:prev_bg bg:#fcf4dc)[ $user ]($style)"
 disabled = false
 
 [hostname]
 style = "fg:#fcf4dc bg:#465a61"
 ssh_symbol = ''
-format = '[ $ssh_symbol$hostname ]($style)'
+format = "[ $ssh_symbol$hostname ]($style)"
 disabled = false
 
 [directory]
-style = 'bg:#073642'
-format = '[ $path ]($style)'
+style = 'bg:#073642 fg:#fdf6e3'
+format = "[\ue0b0](fg:prev_bg bg:#073642)[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
@@ -50,14 +45,14 @@ truncation_symbol = "…/"
 [docker_context]
 symbol = "\ue7b0"
 style = "bg:#06969A"
-format = '[ $symbol $context ]($style) $path'
+format = "[\ue0b0](fg:prev_bg bg:#06969A)[ $symbol $context ]($style) $path"
 
 [git_branch]
 symbol = "\ue0a0"
 style = "bg:#708183 fg:#001e26"
-format = '[ $symbol $branch ]($style)'
+format = "[\ue0b0](fg:prev_bg bg:#708183)[ $symbol $branch ]($style)"
 
 [git_status]
 style = "bg:#708183 fg:#001e26"
-format = '[$all_status$ahead_behind ]($style)'
+format = "[$all_status$ahead_behind ]($style)"
 
