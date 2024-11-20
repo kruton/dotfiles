@@ -23,6 +23,7 @@ disabled = false
 style = "fg:#fcf4dc bg:#465a61"
 ssh_symbol = ''
 format = "[ $ssh_symbol$hostname ]($style)"
+detect_env_vars = ['!TMUX', 'SSH_CONNECTION']
 disabled = false
 
 [directory]
