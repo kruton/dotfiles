@@ -17,7 +17,8 @@ show_always = false
 style_user = "fg:#022222 bg:#fcf4dc"
 style_root = "fg:#dc322f bg:#fdf6e3"
 format = "[\ue0b0](fg:prev_bg bg:#fcf4dc)[ $user ]($style)"
-disabled = false
+detect_env_vars = ['!TMUX', 'SSH_CONNECTION']
+disabled = true
 
 [hostname]
 style = "fg:#fcf4dc bg:#465a61"
