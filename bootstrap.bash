@@ -125,12 +125,6 @@ if [[ ${platform} == ubuntu ]]; then
   fi
 fi
 
-# if Mac with Homebrew, omit --user
-if [[ ${platform} != darwin ]]; then
-  PIPFLAGS="--user"
-fi
-pip install ${PIPFLAGS} git+https://github.com/kruton/powerline
-
 ### Install homeshick ###
 if [[ ! -e $HOME/.homesick/repos/homeshick ]]; then
   git clone https://github.com/andsens/homeshick.git "$HOME/.homesick/repos/homeshick"
