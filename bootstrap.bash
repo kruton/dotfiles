@@ -110,7 +110,7 @@ if [[ ${platform} == fedora ]]; then
     exit 1
   fi
 
-  sudo dnf install -y python-pip git cmake gcc gcc-c++ python-devel
+  sudo dnf install -y python-pip git vim cmake gcc gcc-c++ python-devel
 fi
 
 ### Prepare Ubuntu machines ###
