@@ -45,7 +45,7 @@ case $OSTYPE in
       exit 1
     fi
     case ${distro} in
-       Fedora) platform="fedora" ;;
+       Fedora*) platform="fedora" ;;
        Ubuntu) platform="ubuntu" ;;
        Debian) platform="ubuntu" ;;
        *)
