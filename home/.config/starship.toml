@@ -1,4 +1,5 @@
 format = """\
+[](bg:#000)\
 ($hostname)\
 ($username)\
 ($directory)\
