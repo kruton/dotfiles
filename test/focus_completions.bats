@@ -1,7 +1,11 @@
 #!/usr/bin/env bats
 
-load test_helper.bash
-fixtures focus
+setup() {
+    load 'test_helper/bats-support/load'
+    load 'test_helper/bats-assert/load'
+    load test_helper.bash
+    fixtures focus
+}
 
 @test "no serial but still clears" {
   run test_android_focus_command.sh "" ""

@@ -12,6 +12,6 @@ docker run --rm --security-opt seccomp=unconfined \
     --exclude-path="$REPO_BASE/test/,$REPO_BASE/bats/" \
     --strip-path="$REPO_BASE" \
     . \
-    "$REPO_BASE/bats/bin/bats" --tap "$REPO_BASE/test"
+    "$REPO_BASE/test/bats/bin/bats" --tap "$REPO_BASE/test"
 
 perl -pi -e 's,/(</source>),\1,g' $REPO_BASE/coverage/bats/cobertura.xml
