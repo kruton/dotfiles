@@ -1,7 +1,11 @@
 #!/usr/bin/env bats
 
-load test_helper.bash
-load ../home/.bashrc.d/98-dedupe-function
+setup() {
+    load 'test_helper/bats-support/load'
+    load 'test_helper/bats-assert/load'
+    DIR="$( cd "$( dirname "$BATS_TEST_FILENAME" )" >/dev/null 2>&1 && pwd )"
+    load "$DIR/../home/.bashrc.d/98-dedupe-function"
+}
 
 @test "empty list dedupe" {
     run dedupe_path_list ""

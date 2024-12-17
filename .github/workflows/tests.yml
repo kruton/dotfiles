@@ -24,7 +24,7 @@ jobs:
       run: |
         docker run --rm --security-opt seccomp=unconfined -v ${{ github.workspace }}:/source \
           -e TERM=xterm kcov \
-          /source/bats/bin/bats --tap /source/test
+          /source/test/bats/bin/bats --tap /source/test
 
     - name: Publish code coverage
       uses: paambaati/codeclimate-action@v9.0.0
