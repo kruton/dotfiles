@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-load test_helper
+load test_helper.bash
 fixtures focus
 
 @test "no serial but still clears" {

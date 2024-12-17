@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-load test_helper
+load test_helper.bash
 load ../home/.bashrc.d/98-dedupe-function
 
 @test "empty list dedupe" {
