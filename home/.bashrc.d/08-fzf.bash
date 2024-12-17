@@ -35,7 +35,8 @@ _check_fzf_version() {
   if [[ ! -x "$HOME/.fzf/bin/fzf" ]]; then \
     "$HOME/.fzf/install" --bin
   else \
-    local __local_version="$($HOME/.fzf/bin/fzf --version)"
+    local __local_version
+    read -r __local_version _ < <("$HOME/.fzf/bin/fzf" --version)
     if [[ ${__local_version% *} != $__fzf_version ]]; then \
       "$HOME/.fzf/install" --bin
     fi
