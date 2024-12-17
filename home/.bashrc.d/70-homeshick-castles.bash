@@ -7,7 +7,6 @@ homeshick clone --quiet --batch https://github.com/Shougo/neobundle.vim.git
 homeshick clone --quiet --batch https://github.com/huyz/dircolors-solarized
 homeshick clone --quiet --batch https://github.com/okraits/j4-make-config
 homeshick clone --quiet --batch https://github.com/nornagon/git-rebase-all.git
-homeshick clone --quiet --batch https://github.com/autochthe/history.git
 homeshick clone --quiet --batch https://github.com/junegunn/fzf.git
 homeshick clone --quiet --batch https://github.com/lincheney/fzf-tab-completion.git
 homeshick clone --quiet --batch https://github.com/jorgebucaran/fisher.git
@@ -30,3 +29,8 @@ homeshick clone --quiet --batch https://github.com/jorgebucaran/fisher.git
 #homeshick clone --quiet --batch https://github.com/powerline/powerline.git
 [ -d "$HOME/.homesick/repos/powerline" ] && \
     rm -rf "$HOME/.homesick/repos/powerline"
+
+# merge history is obsoleted by atuin
+#homeshick clone --quiet --batch https://github.com/autochthe/history.git
+[ -d "$HOME/.homesick/repos/history" ] && \
+    rm -rf "$HOME/.homesick/repos/history"
