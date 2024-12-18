@@ -14,7 +14,7 @@ _check_atuin_version() {
 
 if [[ -x $HOME/bin/atuin ]]; then \
     _check_atuin_version
-    eval "$("$HOME/bin/atuin" init bash)"
+    eval "$("$HOME/bin/atuin" init bash --disable-up-arrow)"
 fi
 
 unset -f _check_atuin_version
