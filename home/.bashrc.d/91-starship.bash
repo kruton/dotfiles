@@ -1,6 +1,6 @@
 _check_starship_version() {
     # renovate: datasource=github-releases depName=starship/starship
-    local starship_version=1.21.1
+    local starship_version=1.22.1
     local current_version
 
     read -r _ current_version < <(starship --version)
