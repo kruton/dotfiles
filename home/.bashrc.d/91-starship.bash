@@ -5,7 +5,7 @@ _check_starship_version() {
 
     read -r _ current_version < <(starship --version)
     if [[ $current_version != "$starship_version" ]]; then \
-        curl -sL "https://github.com/starship/starship/releases/download/v1.21.1/starship-x86_64-unknown-linux-gnu.tar.gz" | tar zxvfC - "$HOME/bin"
+        curl -sL "https://github.com/starship/starship/releases/download/v${starship_version}/starship-x86_64-unknown-linux-gnu.tar.gz" | tar zxvfC - "$HOME/bin"
     fi
 }
 

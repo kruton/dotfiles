@@ -12,9 +12,6 @@ _fetch_atuin() {
             ;;
     esac
     case "$HOSTTYPE" in
-        x86_64)
-            proc_type="amd64"
-        ;;
         i*86)
             proc_type="x86"
         ;;
