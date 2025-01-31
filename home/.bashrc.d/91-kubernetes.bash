@@ -16,7 +16,7 @@ _check_flux_version() {
     __current_version="$("$HOME/bin/flux" --version)"
     if [[ $__flux_version != "${__current_version#flux version }" && $OSTYPE == linux-gnu ]]; then \
         url="https://github.com/fluxcd/flux2/releases/download/v${__flux_version}/flux_${__flux_version}_linux_amd64.tar.gz"
-        curl -sL "$url" | tar zxvfC - "$HOME/bin"
+        curl -sL "$url" | tar zxfC - "$HOME/bin"
     fi
 }
 

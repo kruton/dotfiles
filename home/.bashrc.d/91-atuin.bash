@@ -25,7 +25,7 @@ _fetch_atuin() {
 
     if asset_url="$(curl -sL -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/atuinsh/atuin/releases | \
               jq -er '[.[] | select(.tag_name == "v'"$tag_name"'")][0].assets[] | select(.name | endswith("'"${proc_type}-${os_double}"'.tar.gz")).browser_download_url' 2> /dev/null)"; then \
-        if ! curl -sL "$asset_url" | tar zxvfC - "$HOME/bin" --strip-components=1 '*/atuin'; then \
+        if ! curl -sL "$asset_url" | tar zxfC - "$HOME/bin" --strip-components=1 '*/atuin'; then \
             echo "atuin: error extracting ${asset_url}"
         fi
     else \
