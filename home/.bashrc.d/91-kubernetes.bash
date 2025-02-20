@@ -10,7 +10,7 @@ fi
 
 _check_flux_version() {
     # renovate: datasource=github-releases depName=fluxcd/flux2 versioning=semver-coerced
-    local __flux_version=2.4.0
+    local __flux_version=2.5.0
 
     local __current_version
     __current_version="$("$HOME/bin/flux" --version)"
