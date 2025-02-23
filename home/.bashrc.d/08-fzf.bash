@@ -30,7 +30,7 @@ _gen_fzf_default_opts() {
 
 _check_fzf_version() {
   # renovate: datasource=github-releases depName=junegunn/fzf
-  local __fzf_version=0.60.1
+  local __fzf_version=0.60.2
 
   if [[ ! -x "$HOME/.fzf/bin/fzf" ]]; then \
     "$HOME/.fzf/install" --bin
