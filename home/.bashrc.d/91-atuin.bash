@@ -35,7 +35,7 @@ _fetch_atuin() {
 
 _check_atuin_version() {
     # renovate: datasource=github-releases depName=atuinsh/atuin
-    local __atuin_version=18.4.0
+    local __atuin_version=18.5.0
 
     if [[ -x "$HOME/bin/atuin" ]]; then \
         local __local_version
