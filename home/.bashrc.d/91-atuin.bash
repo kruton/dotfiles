@@ -40,7 +40,7 @@ _check_atuin_version() {
     if [[ -x "$HOME/bin/atuin" ]]; then \
         local __local_version
         read -r _ __local_version < <("$HOME/bin/atuin" --version)
-        if [[ ${__local_version% *} != "$__atuin_version" ]]; then \
+        if [[ ! $__atuin_version =~ v?${__local_version% *} ]]; then \
             echo "atuin: new version available: $__atuin_version"
             _fetch_atuin "$__atuin_version"
         fi
