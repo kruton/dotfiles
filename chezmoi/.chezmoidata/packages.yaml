@@ -1,0 +1,21 @@
+packages:
+  darwin:
+    brews:
+      - 'python'
+      - 'macvim'
+  fedora:
+    - 'python-pip'
+    - 'git'
+    - 'vim'
+    - 'cmake'
+    - 'gcc'
+    - 'gcc-c++'
+    - 'python-devel'
+  debian:
+    - 'python-pip'
+    - 'git'
+    - 'vim'
+    - 'cmake'
+    - 'python-dev'
+    - 'default-jdk'
+

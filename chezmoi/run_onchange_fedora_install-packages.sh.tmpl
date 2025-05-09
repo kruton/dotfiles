@@ -1,0 +1,8 @@
+{{ if eq .osid "linux-fedora" -}}
+#!/bin/bash
+
+sudo dnf install -y {{ range .packages.fedora -}}
+{{ . | quote -}}{{ " " -}}
+{{ end }}
+{{ end -}}
+
