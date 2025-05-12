@@ -19,7 +19,7 @@ else \
     source ${prefix}/etc/bash_completion
 fi
 # shellcheck source=/dev/null
-source "${REPO_DIR}/home/.bashrc.d/20-android-focus.bash"
+source "${REPO_DIR}/dot_bashrc.d/20-android-focus.bash"
 
 ANDROID_SERIAL=$1
 echo "[START serial=$ANDROID_SERIAL]"

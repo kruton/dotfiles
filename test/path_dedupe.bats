@@ -4,7 +4,7 @@ setup() {
     load 'test_helper/bats-support/load'
     load 'test_helper/bats-assert/load'
     DIR="$( cd "$( dirname "$BATS_TEST_FILENAME" )" >/dev/null 2>&1 && pwd )"
-    load "$DIR/../home/.bashrc.d/98-dedupe-function"
+    load "$DIR/../dot_bashrc.d/98-dedupe-function"
 }
 
 @test "empty list dedupe" {

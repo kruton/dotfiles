@@ -38,7 +38,7 @@ else \
     source "${prefix}/etc/bash_completion"
 fi
 # shellcheck source=/dv/null
-source "${REPO_DIR}/home/.bashrc.d/20-android-focus.bash"
+source "${REPO_DIR}/dot_bashrc.d/20-android-focus.bash"
 
 if (( ($# % 3) != 0 )); then
   echo "Expected multiples of 3 arguments but $# found."
