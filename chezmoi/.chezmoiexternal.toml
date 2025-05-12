@@ -47,6 +47,11 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
+["bin/projectdo"]
+    type = "archive-file"
+    url = "https://github.com/paldepind/projectdo/archive/refs/heads/master.zip"
+    stripComponents = 1
+    path = "projectdo"
 
 # https://github.com/jorgebucaran/fisher.git
 
