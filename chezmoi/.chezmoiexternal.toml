@@ -57,7 +57,6 @@
 [".rbenv"]
     type = "archive"
     url = "https://github.com/rbenv/rbenv/archive/refs/tags/v{{ $rbenvVersion }}.zip"
-    exact = true
     stripComponents = 1
     refreshPeriod = "168h"
 [".ruby-build"]
