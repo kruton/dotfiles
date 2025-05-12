@@ -1,3 +1,6 @@
+# by default system-wide settings are ignored when local ~/.inputrc exists
+$include /etc/inputrc
+
 # Tab completions ignore case
 set completion-ignore-case on
 
