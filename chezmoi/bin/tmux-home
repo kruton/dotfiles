@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+PATH=$PATH:/usr/bin
+
+usage() {
+    echo "Usage: $0 [stop]"
+    exit 0
+}
+
+if [[ $# -gt 1 ]]; then \
+    usage
+elif [[ $# -eq 1 ]]; then \
+    if [[ $1 == "stop" ]]; then \
+        tmux kill-session -t home
+        exit 0
+    else \
+        usage
+    fi
+fi
+
+tmux has-session -t home 2> /dev/null
+if [[ $? = 1 ]]; then \
+    echo "Creating initial home session..."
+    tmux new-session -s home -d
+    tmux source-file ~/.tmux/home.session
+fi
+
+# We don't want to attach if this is running in systemd
+if [[ $STARTED_BY_SYSTEMD != yes ]]; then \
+    tmux attach-session -t home
+fi

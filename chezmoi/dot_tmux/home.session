@@ -1,0 +1,8 @@
+# MUD/MOO connection
+new-window -k -t home:1 -n tf ~/bin/tf
+set-window-option -t home:1 monitor-activity off
+select-window -t home:1
+
+# IRC via Weechat
+new-window -k -t home:2 -n weechat weechat
+set-window-option -t home:2 monitor-activity off

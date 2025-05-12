@@ -1,0 +1,14 @@
+[Unit]
+Description=tmux default session (detached)
+Documentation=man:tmux(1)
+
+[Service]
+Type=forking
+Environment="STARTED_BY_SYSTEMD=yes"
+ExecStart=/home/kenny/bin/tmux-home
+ExecStop=/home/kenny/bin/tmux-home stop
+KillMode=none
+RestartSec=2
+
+[Install]
+WantedBy=default.target
