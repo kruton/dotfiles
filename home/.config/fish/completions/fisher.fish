@@ -1,1 +1,0 @@
-../../../../../fisher/completions/fisher.fish
