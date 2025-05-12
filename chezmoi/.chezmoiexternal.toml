@@ -1,9 +1,36 @@
 # renovate: datasource=github-releases depName=junegunn/fzf
 {{ $fzfVersion := "0.62.0" -}}
+
 [".fzf"]
     type = "archive"
     url = "https://github.com/junegunn/fzf/archive/refs/tags/v{{ $fzfVersion }}.tar.gz"
+    exact = true
     stripComponents = 1
 [".fzf/bin"]
     type = "archive"
+    exact = true
     url = "https://github.com/junegunn/fzf/releases/download/v{{ $fzfVersion }}/fzf-{{ $fzfVersion }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+[".fzf-tab-completion"]
+    type = "archive"
+    url = "https://github.com/lincheney/fzf-tab-completion/archive/refs/heads/master.zip"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+[".bash-preexec"]
+    type = "archive"
+    url = "https://github.com/rcaloras/bash-preexec/archive/refs/heads/master.zip"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+[".dircolors-solarized"]
+    type = "archive"
+    url = "https://github.com/seebi/dircolors-solarized/archive/refs/heads/master.zip"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+# https://github.com/Shougo/neobundle.vim.git
+# https://github.com/okraits/j4-make-config
+# https://github.com/nornagon/git-rebase-all.git
+# https://github.com/jorgebucaran/fisher.git
+
