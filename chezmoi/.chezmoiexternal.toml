@@ -30,7 +30,6 @@
     refreshPeriod = "168h"
 
 # https://github.com/Shougo/neobundle.vim.git
-# https://github.com/okraits/j4-make-config
 # https://github.com/nornagon/git-rebase-all.git
 # https://github.com/jorgebucaran/fisher.git
 
