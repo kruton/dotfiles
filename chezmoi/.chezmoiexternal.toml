@@ -34,8 +34,12 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
+["bin/git-rebase-all"]
+    type = "archive-file"
+    url = "https://github.com/nornagon/git-rebase-all/archive/refs/heads/master.zip"
+    stripComponents = 1
+    path = "git-rebase-all"
 
 # https://github.com/Shougo/neobundle.vim.git
-# https://github.com/nornagon/git-rebase-all.git
 # https://github.com/jorgebucaran/fisher.git
 
