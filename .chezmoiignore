@@ -4,3 +4,7 @@
 bin/tmux-home
 {{- end }}
 
+README.md
+perf
+renovate.json5
+test
