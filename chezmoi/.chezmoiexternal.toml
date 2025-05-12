@@ -1,0 +1,8 @@
+{{ $fzfVersion := "0.62.0" -}}
+[".fzf"]
+    type = "archive"
+    url = "https://github.com/junegunn/fzf/archive/refs/tags/v{{ $fzfVersion }}.tar.gz"
+    stripComponents = 1
+[".fzf/bin"]
+    type = "archive"
+    url = "https://github.com/junegunn/fzf/releases/download/v{{ $fzfVersion }}/fzf-{{ $fzfVersion }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
