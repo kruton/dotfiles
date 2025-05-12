@@ -5,6 +5,7 @@ bin/tmux-home
 {{- end }}
 
 README.md
+home
 perf
 renovate.json5
 test
