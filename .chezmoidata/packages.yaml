@@ -3,6 +3,8 @@ packages:
     brews:
       - 'python'
       - 'macvim'
+    casks:
+      - 'iterm2'
   fedora:
     - 'python-pip'
     - 'git'
