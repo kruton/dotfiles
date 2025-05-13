@@ -1,6 +1,7 @@
 packages:
   darwin:
     brews:
+      - 'coreutils'
       - 'python'
       - 'macvim'
     casks:

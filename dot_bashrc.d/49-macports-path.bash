@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Put MacPerts info in the path
-if [[ $OSTYPE == darwin* ]]; then
+if [[ $OSTYPE == darwin* ]] && [[ -d $HOME/macports ]]; then
     export MP_PREFIX=$HOME/macports
 
     export PATH=$MP_PREFIX/bin:$MP_PREFIX/sbin:$PATH:$MP_PREFIX/libexec/gnubin
