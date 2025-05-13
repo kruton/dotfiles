@@ -1,30 +1,29 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
   ],
-  "git-submodules": {
-    "enabled": true
+  'git-submodules': {
+    enabled: true,
   },
-  "customManagers": [
-    // custom manager to update variables in bash scripts
+  customManagers: [
     {
-      "customType": "regex",
-      "fileMatch": [
-        "home/\\.bashrc\\.d/.*\\.bash$"
+      customType: 'regex',
+      managerFilePatterns: [
+        '/home/\\.bashrc\\.d/.*\\.bash$/',
       ],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (?:packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[^\\s]+?))?(?: extractVersion=(?<extractVersion>[^\\s]+?))?\\s+local ?[A-Za-z0-9_]+?_version\\s*=\\s*[\"']?(?<currentValue>.+?)[\"']?\\s"
-      ]
+      matchStrings: [
+        '# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (?:packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[^\\s]+?))?(?: extractVersion=(?<extractVersion>[^\\s]+?))?\\s+local ?[A-Za-z0-9_]+?_version\\s*=\\s*["\']?(?<currentValue>.+?)["\']?\\s',
+      ],
     },
     {
-      "customType": "regex",
-      "fileMatch": [
-        "\\.chezmoiexternal\\.toml$"
+      customType: 'regex',
+      managerFilePatterns: [
+        '/\\.chezmoiexternal\\.toml$/',
       ],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (?:packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[^\\s]+?))?(?: extractVersion=(?<extractVersion>[^\\s]+?))?\\s+{{-?\\s*\\$[A-Za-z0-9_]+?Version\\s*:=\\s*[\"']?(?<currentValue>.+?)[\"']?\\s*-?}}"
-      ]
-    }
-  ]
+      matchStrings: [
+        '# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (?:packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[^\\s]+?))?(?: extractVersion=(?<extractVersion>[^\\s]+?))?\\s+{{-?\\s*\\$[A-Za-z0-9_]+?Version\\s*:=\\s*["\']?(?<currentValue>.+?)["\']?\\s*-?}}',
+      ],
+    },
+  ],
 }
