@@ -83,11 +83,17 @@ if filereadable(expand('~/.at_google.vim'))
     " Google-only
     source ~/.at_google.vim
 else
-    Plug 'Valloric/YouCompleteMe', {
-        \ 'build' : {
-        \     'unix': './install.py --clang-completer --gocode-completer',
-        \     'mac': './install.py --clang-completer --gocode-completer',
-        \ }}
+    function! BuildYCM(info)
+      " info is a dictionary with 3 fields
+      " - name:   name of the plugin
+      " - status: 'installed', 'updated', or 'unchanged'
+      " - force:  set on PlugInstall! or PlugUpdate!
+      if a:info.status == 'installed' || a:info.force
+        !./install.py
+      endif
+    endfunction
+
+    Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 endif
 
 " coverage report for Python
