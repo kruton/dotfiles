@@ -1,96 +1,81 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NeoBundle configuration
-"
-" :Unite neobundle/upgrade
-"
-" For more help see the NeoBundle website:
-" https://github.com/Shougo/neobundle.vim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Homeshick manages this update now.
-NeoBundleFetch 'Shugo/neobundle.vim'
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " My bundles
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-NeoBundle 'Lokaltog/vim-easymotion'
+call plug#begin('~/.vim/plugged')
+
+Plug 'Lokaltog/vim-easymotion'
 
 " Shows git status in the 'gutter'
-NeoBundle 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 
 " Solarized color scheme
-NeoBundle 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 
 " This provides live-update webpage editing.
-NeoBundleLazy 'Bogdanp/browser-connect.vim', {
-    \ 'filetypes': ['html', 'xhtml'],
+Plug 'Bogdanp/browser-connect.vim', {
+    \ 'for': ['html', 'xhtml'],
     \ }
 
 " Provides a class outline for files in a separate window
-NeoBundle 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
 " Gives better numbering depending on what mode you're in.
-NeoBundle 'myusuf3/numbers.vim'
+Plug 'myusuf3/numbers.vim'
 
 " Syntax highlighting today
-NeoBundleLazy 'rdolgushin/gitignore.vim', {
+Plug 'rdolgushin/gitignore.vim', {
     \ 'filename_patterns': '^\.gitignore$',
     \ }
 
 " Syntax checking plugin
-NeoBundle 'scrooloose/syntastic' "{{{
+Plug 'scrooloose/syntastic' "{{{
   let g:syntastic_java_javac_config_file_enabled = 1
 "}}}
 
 " Allows quick comment in many languages
-NeoBundle 'tomtom/tcomment_vim'
+Plug 'tomtom/tcomment_vim'
 
 " Git integration
-NeoBundle 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
-NeoBundleLazy 'tpope/vim-repeat', {
-    \ 'mappings': '.',
+Plug 'tpope/vim-repeat', {
     \ }
+"   \ 'mappings': '.',
 
 " Easily change quotings
-NeoBundleLazy 'tpope/vim-surround', {
+Plug 'tpope/vim-surround', {
     \ }
 "   \ 'mappings': [['nxo', 'cs', 'ds', 'yss'], ['v', 'S']],
-NeoBundleLazy 'tpope/vim-unimpaired', {
-    \ 'mappings': ['[', ']'],
+Plug 'tpope/vim-unimpaired', {
     \ }
+"   \ 'mappings': ['[', ']'],
 
 " Color scheme tweaks
-NeoBundle 'godlygeek/csapprox'
+Plug 'godlygeek/csapprox'
 
 " Generic indenting plugin that uses b:indent_block_start and
 " b:indent_block_end
-NeoBundle 'genindent.vim'
+Plug 'vim-scripts/genindent.vim'
 
 " Filetype editing
-NeoBundle 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 
 " Cryptol files
-NeoBundleLazy 'victoredwardocallaghan/cryptol.vim', {
-    \ 'filetypes': ['cryptol'],
+Plug 'victoredwardocallaghan/cryptol.vim', {
+    \ 'for': ['cryptol'],
     \ }
 
 " Fish (shell) files
-NeoBundleLazy 'dag/vim-fish', {
-    \ 'filetypes': ['fish'],
+Plug 'dag/vim-fish', {
+    \ 'for': ['fish'],
     \ }
 
-NeoBundleLazy 'sukima/xmledit', {
-    \ 'filetypes': ['html', 'sgml', 'xml'],
+Plug 'sukima/xmledit', {
+    \ 'for': ['html', 'sgml', 'xml'],
     \ }
-NeoBundleLazy 'vim-scripts/bash-support.vim', {
-    \ 'filetypes': ['bash', 'sh'],
+Plug 'vim-scripts/bash-support.vim', {
+    \ 'for': ['bash', 'sh'],
     \ }
 
 " YouCompleteMe
@@ -98,7 +83,7 @@ if filereadable(expand('~/.at_google.vim'))
     " Google-only
     source ~/.at_google.vim
 else
-    NeoBundle 'Valloric/YouCompleteMe', {
+    Plug 'Valloric/YouCompleteMe', {
         \ 'build' : {
         \     'unix': './install.py --clang-completer --gocode-completer',
         \     'mac': './install.py --clang-completer --gocode-completer',
@@ -106,12 +91,12 @@ else
 endif
 
 " coverage report for Python
-NeoBundleLazy 'alfredodeza/coveragepy.vim', {
-      \ 'filetypes': ['python'],
+Plug 'alfredodeza/coveragepy.vim', {
+      \ 'for': ['python'],
       \ }
 
 " Vimproc, asynchronous execution library
-NeoBundleLazy 'Shougo/vimproc.vim', {
+Plug 'Shougo/vimproc.vim', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
       \     'cygwin' : 'make -f make_cygwin.mak',
@@ -119,73 +104,67 @@ NeoBundleLazy 'Shougo/vimproc.vim', {
       \     'unix' : 'make -f make_unix.mak',
       \ }}
 " Makes using vimproc easier
-NeoBundle 'osyo-manga/vim-reunions'
+Plug 'osyo-manga/vim-reunions'
 
 " Snippets
-NeoBundleLazy 'Shougo/neosnippet.vim', {
-    \ 'depends' : ['Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim'],
+Plug 'Shougo/neosnippet.vim', {
     \ 'insert' : 1,
-    \ 'filetypes' : 'snippet',
+    \ 'for' : 'snippet',
     \ 'unite_sources' : [
     \    'neosnippet', 'neosnippet/user', 'neosnippet/runtime'],
     \ }
-NeoBundle 'honza/vim-snippets'
+  Plug 'Shougo/neosnippet-snippets'
+  Plug 'Shougo/context_filetype.vim'
+
+Plug 'honza/vim-snippets'
 
 " My syntax plugins and suff
-NeoBundle 'kruton/vimstuff'
+Plug 'kruton/vimstuff'
 
 " Gradle syntax
-NeoBundleLazy 'tfnico/vim-gradle', {
-   \ 'filetypes': 'gradle'
+Plug 'tfnico/vim-gradle', {
+   \ 'for': 'gradle'
    \ }
 
 " Completion
-NeoBundleLazy 'Shougo/unite.vim', {
-    \ 'commands': [ { 'name': 'Unite',
-    \                 'complete': 'customlist,unite#complete_source' },
-    \               'UniteWithCursorWord', 'UniteWithInput' ],
-    \ 'depends': ['Shougo/vimproc.vim'],
+Plug 'Shougo/unite.vim', {
+    \ 'on': [ 'Unite',
+    \         'UniteWithCursorWord', 'UniteWithInput' ]
     \ }
+  Plug 'Shougo/vimproc.vim'
 
 " cscope
-NeoBundle "simplyzhao/cscope_maps.vim"
-NeoBundle "qytz/vim-cscope-utils"
+Plug 'simplyzhao/cscope_maps.vim'
+Plug 'qytz/vim-cscope-utils'
 
 " LaTeX automatic mode
-NeoBundleLazy 'coot/atp_vim', {
+Plug 'coot/atp_vim', {
     \ 'name': 'atp-vim',
-    \ 'filetypes': 'tex',
+    \ 'for': 'tex',
     \ }
 
 " Solarized colorscheme
-NeoBundle 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 
 " File browser
-NeoBundleLazy 'Shougo/vimfiler.vim', {
-    \ 'depends' : 'Shougo/unite.vim',
-    \ 'commands' : [
-    \         { 'name' : 'VimFiler',
-    \           'complete' : 'customlist,vimfiler#complete' },
-    \         { 'name' : 'VimFilerTab',
-    \           'complete' : 'customlist,vimfiler#complete' },
-    \         { 'name' : 'VimFilerExplorer',
-    \           'complete' : 'customlist,vimfiler#complete' },
-    \         { 'name' : 'Edit',
-    \           'complete' : 'customlist,vimfiler#complete' },
-    \         { 'name' : 'Write',
-    \           'complete' : 'customlist,vimfiler#complete' },
+Plug 'Shougo/vimfiler.vim', {
+    \ 'on' : [
+    \         'VimFiler',
+    \         'VimFilerTab',
+    \         'VimFilerExplorer',
+    \         'Edit',
+    \         'Write',
     \         'Read', 'Source'],
-    \ 'mappings' : '<Plug>',
-    \ 'explorer' : 1,
     \ }
+"   \ 'mappings' : '<Plug>',
 
 " Sorting in visual mode; allows sorting lines based on a block.
-NeoBundle 'navicore/vissort.vim', {
-    \ 'commands' : [ 'Vissort' ]
+Plug 'navicore/vissort.vim', {
+    \ 'on' : [ 'Vissort' ]
     \ }
 
 " This gives a fancy starting screen when Vim starts up
-NeoBundle 'mhinz/vim-startify' "{{{
+Plug 'mhinz/vim-startify' "{{{
   let g:startify_change_to_vcs_root = 1
   let g:startify_show_sessions = 1
   let g:startify_session_delete_buffers = 1
@@ -194,42 +173,39 @@ NeoBundle 'mhinz/vim-startify' "{{{
   nnoremap <F1> :Startify<cr>
 "}}}
 
-NeoBundle 'google/vim-maktaba'
-NeoBundle 'bazelbuild/vim-bazel'
+Plug 'google/vim-maktaba'
+Plug 'bazelbuild/vim-bazel'
 
 """ Testing utilities
 
 " Helps with running unit tests
-NeoBundleLazy 'janko-m/vim-test', {
-    \ 'depends': [ 'tpope/vim-dispatch' ],
-    \ 'commands': [ 'TestNearest',
-    \               'TestFile',
-    \               'TestSuite',
-    \               'TestLast',
-    \               'TestVisit',
-    \             ],
+Plug 'janko-m/vim-test', {
+    \ 'on': [ 'TestNearest',
+    \         'TestFile',
+    \         'TestSuite',
+    \         'TestLast',
+    \         'TestVisit',
+    \       ],
     \ } "{{{
   let test#strategy = "dispatch"
 "}}}
+  Plug 'tpope/vim-dispatch'
 
 " Erlang
-NeoBundleLazy 'vim-erlang/vim-erlang-runtime', {
-   \ 'filetypes': 'erl'
+Plug 'vim-erlang/vim-erlang-runtime', {
+   \ 'for': 'erl'
    \ }
-NeoBundleLazy 'vim-erlang/vim-erlang-compiler', {
-   \ 'filetypes': 'erl'
+Plug 'vim-erlang/vim-erlang-compiler', {
+   \ 'for': 'erl'
    \ }
-NeoBundleLazy 'vim-erlang/vim-erlang-omnicomplete', {
-   \ 'filetypes': 'erl'
+Plug 'vim-erlang/vim-erlang-omnicomplete', {
+   \ 'for': 'erl'
    \ }
-NeoBundleLazy 'vim-erlang/vim-erlang-tags', {
-   \ 'filetypes': 'erl'
+Plug 'vim-erlang/vim-erlang-tags', {
+   \ 'for': 'erl'
    \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NeoBundle housekeeping - MUST BE AT END!
+" Plug housekeeping - MUST BE AT END!
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call neobundle#end()
-filetype plugin indent on
-
-NeoBundleCheck
+call plug#end()
