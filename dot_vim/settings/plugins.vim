@@ -102,13 +102,8 @@ Plug 'alfredodeza/coveragepy.vim', {
       \ }
 
 " Vimproc, asynchronous execution library
-Plug 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \ }}
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
 " Makes using vimproc easier
 Plug 'osyo-manga/vim-reunions'
 
