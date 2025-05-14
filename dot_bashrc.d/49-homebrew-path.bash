@@ -2,8 +2,10 @@
 
 _add_homebrew_path() {
     local hb_path
-    [ -d /opt/homebrew ] && hb_path=/opt/homebrew ||
-        [ -d $HOME/homebrew ] && hb_path=$HOME/homebrew
+    [ -d /opt/homebrew ] && hb_path=/opt/homebrew
+    [ -d $HOME/homebrew ] && hb_path=$HOME/homebrew
+
+    [[ -z $hb_path ]] && return
 
     export PATH=$hb_path/bin:$hb_path/sbin:$PATH
 
@@ -13,7 +15,7 @@ _add_homebrew_path() {
 }
 
 # Put Homebrew in the PATH
-if [[ $OSTYPE == darwin* ]] && [[ -d /opt/homebrew || -d $HOME/homebrew ]]; then
+if [[ $OSTYPE == darwin* ]]; then \
     _add_homebrew_path
 fi
 
