@@ -37,6 +37,8 @@ _check_atuin_version() {
     # renovate: datasource=github-releases depName=atuinsh/atuin
     local __atuin_version=v18.6.1
 
+    [[ -n $DEVSERVER ]] && return
+
     if [[ -x "$HOME/bin/atuin" ]]; then \
         local __local_version
         read -r _ __local_version < <("$HOME/bin/atuin" --version)

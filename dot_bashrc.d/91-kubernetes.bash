@@ -12,6 +12,8 @@ _check_flux_version() {
     # renovate: datasource=github-releases depName=fluxcd/flux2 versioning=semver-coerced
     local __flux_version=2.5.1
 
+    [[ -n $DEVSERVER ]] && return
+
     local __current_version
     __current_version="$("$HOME/bin/flux" --version)"
     if [[ $__flux_version != "${__current_version#flux version }" && $OSTYPE == linux-gnu ]]; then \
