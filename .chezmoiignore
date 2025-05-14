@@ -4,6 +4,12 @@
 bin/tmux-home
 {{- end }}
 
+{{- if .devserver }}
+.bashrc
+{{- else }}
+.bashrc.dev
+{{- end }}
+
 README.md
 home
 perf
