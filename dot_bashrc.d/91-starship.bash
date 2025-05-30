@@ -18,6 +18,10 @@ _check_starship_version() {
     fi
 }
 
+if [[ $OSTYPE == linux-gnu ]] && ! command -v starship > /dev/null; then \
+    _download_starship
+fi
+
 if command -v starship > /dev/null; then \
     if [[ $OSTYPE == linux-gnu ]]; then \
         _check_starship_version
