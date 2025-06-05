@@ -4,7 +4,14 @@
 {{ $rbenvVersion := "1.3.2" -}}
 # renovate: datasource=github-releases depName=rbenv/ruby-build
 {{ $rubyBuildVersion := "20250516" -}}
+# renovate: datasource=github-releases depName=jdx/mise
+{{ $miseVersion := "v2025.6.0" -}}
 
+[".local/bin/mise"]
+    type = "archive-file"
+    url = "https://github.com/jdx/mise/releases/download/{{ $miseVersion }}/mise-{{ $miseVersion }}-{{ .chezmoi.os }}-{{ .chezmoi.arch | replaceAllRegex "amd64" "x64" }}.tar.gz"
+    stripComponents = 1
+    path = "bin/mise"
 [".fzf"]
     type = "archive"
     url = "https://github.com/junegunn/fzf/archive/refs/tags/v{{ $fzfVersion }}.tar.gz"
