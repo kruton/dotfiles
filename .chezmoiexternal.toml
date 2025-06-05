@@ -9,7 +9,7 @@
 
 [".local/bin/mise"]
     type = "archive-file"
-    url = "https://github.com/jdx/mise/releases/download/{{ $miseVersion }}/mise-{{ $miseVersion }}-{{ .chezmoi.os }}-{{ .chezmoi.arch | replaceAllRegex "amd64" "x64" }}.tar.gz"
+    url = "https://github.com/jdx/mise/releases/download/{{ $miseVersion }}/mise-{{ $miseVersion }}-{{ .chezmoi.os | replaceAllRegex "darwin" "macos" }}-{{ .chezmoi.arch | replaceAllRegex "amd64" "x64" }}.tar.gz"
     stripComponents = 1
     path = "bin/mise"
 [".fzf"]
