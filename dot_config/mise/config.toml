@@ -1,5 +1,6 @@
 [tools]
 age = "1.2.1"
+cosign = "2.5.0"
 dprint = "0.50.0"
 flux2 = "2.6.1"
 fzf = "0.62.0"
