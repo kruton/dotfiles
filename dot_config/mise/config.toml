@@ -1,0 +1,3 @@
+[tools]
+dprint = "latest"
+jq = "latest"
