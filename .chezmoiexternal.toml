@@ -3,7 +3,7 @@
 {{/* renovate: datasource=github-releases depName=rbenv/rbenv */}}
 {{- $rbenvVersion := "1.3.2" -}}
 {{/* renovate: datasource=github-releases depName=rbenv/ruby-build */}}
-{{- $rubyBuildVersion := "20250529.1" -}}
+{{- $rubyBuildVersion := "20250610" -}}
 {{/* renovate: datasource=github-releases depName=jdx/mise */}}
 {{- $miseVersion := "v2025.6.1" -}}
 
