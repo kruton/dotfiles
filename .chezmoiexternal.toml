@@ -5,7 +5,7 @@
 {{/* renovate: datasource=github-releases depName=rbenv/ruby-build */}}
 {{- $rubyBuildVersion := "20250610" -}}
 {{/* renovate: datasource=github-releases depName=jdx/mise */}}
-{{- $miseVersion := "v2025.6.1" -}}
+{{- $miseVersion := "v2025.6.7" -}}
 
 [".local/bin/mise"]
     type = "archive-file"
