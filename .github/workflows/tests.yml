@@ -25,13 +25,9 @@ jobs:
         docker run --rm --security-opt seccomp=unconfined -v ${{ github.workspace }}:/source \
           -e TERM=xterm kcov \
           /source/test/bats/bin/bats --tap /source/test
-
-    - name: Publish code coverage
-      uses: paambaati/codeclimate-action@v9.0.0
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CodeClimateReporterId }}
+    - name: Upload coverage to Qlty
+      uses: qltysh/qlty-action/coverage@a19242102d17e497f437d7466aa01b528537e899 # v2.2.0
       with:
-        coverageCommand: ./test/docker-run.sh
-        coverageLocations:
-          "${{ github.workspace }}/coverage/bats/cobertura.xml:cobertura"
-        prefix: ${{ github.workspace }}
+        token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+        format: cobertura
+        files: ${{ github.workspace }}/coverage/bats/cobertura.xml
