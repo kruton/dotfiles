@@ -15,10 +15,10 @@ packages:
     - 'gcc-c++'
     - 'python-devel'
   debian:
-    - 'python-pip'
+    - 'python3-pip'
     - 'git'
     - 'vim'
     - 'cmake'
-    - 'python-dev'
+    - 'python3-dev'
     - 'default-jdk'
 
