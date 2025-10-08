@@ -1,5 +1,6 @@
 [settings]
 idiomatic_version_file_enable_tools = []
+experimental = true
 
 [tools]
 age = "1.2.1"
@@ -12,9 +13,12 @@ python = "3.12.7"
 ripgrep = "14.1.1"
 starship = "1.23.0"
 usage = "2.1.1"
+just = "1.43.0"
 
 {{- if eq .chezmoi.username "kenny" }}
 flux2 = "2.6.1"
+gh = "2.75.0"
+krew = "0.4.5"
 kubectl = "1.27.16"
 kubeseal = "0.30.0"
 {{- end }}
