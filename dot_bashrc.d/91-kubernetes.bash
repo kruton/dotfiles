@@ -10,5 +10,5 @@ fi
 
 if command -v flux > /dev/null; then
     # shellcheck disable=SC1090
-    . <("$HOME/bin/flux" completion bash)
+    . <(flux completion bash)
 fi
