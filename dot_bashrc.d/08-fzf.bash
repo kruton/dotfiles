@@ -28,10 +28,6 @@ _gen_fzf_default_opts() {
     "
 }
 
-if [[ -d "$HOME/.fzf/bin" ]]; then \
-  export PATH="$PATH:$HOME/.fzf/bin"
-
+if command -v fzf > /dev/null; then \
   _gen_fzf_default_opts
 fi
-
-unset -f _check_fzf_version
