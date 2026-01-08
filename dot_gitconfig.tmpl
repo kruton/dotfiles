@@ -29,3 +29,11 @@
 	default = simple
 [init]
 	defaultBranch = main
+{{- if eq .chezmoi.username "kenny" }}
+[credential "https://github.com"]
+	helper = 
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !gh auth git-credential
+{{- end }}
