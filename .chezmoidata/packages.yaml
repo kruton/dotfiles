@@ -1,6 +1,7 @@
 packages:
   darwin:
     brews:
+      - 'btop'
       - 'coreutils'
       - 'python'
       - 'macvim'
