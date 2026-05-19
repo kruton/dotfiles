@@ -132,7 +132,6 @@ Plug 'Shougo/unite.vim', {
     \ 'on': [ 'Unite',
     \         'UniteWithCursorWord', 'UniteWithInput' ]
     \ }
-  Plug 'Shougo/vimproc.vim'
 
 " cscope
 Plug 'simplyzhao/cscope_maps.vim'
@@ -143,9 +142,6 @@ Plug 'coot/atp_vim', {
     \ 'name': 'atp-vim',
     \ 'for': 'tex',
     \ }
-
-" Solarized colorscheme
-Plug 'altercation/vim-colors-solarized'
 
 " File browser
 Plug 'Shougo/vimfiler.vim', {

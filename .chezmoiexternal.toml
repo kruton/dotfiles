@@ -16,8 +16,6 @@
 {{- $tpmVersion := "v3.1.0" -}}
 {{/* renovate: datasource=git-refs depName=nornagon/git-rebase-all packageName=https://github.com/nornagon/git-rebase-all currentValue=master */}}
 {{- $gitRebaseAllCommit := "a8639a142dd5d672586a6c3b67c1b9288dab586b" -}}
-{{/* renovate: datasource=github-tags depName=Shougo/neobundle.vim */}}
-{{- $neobundleVimVersion := "ver.4.0" -}}
 {{/* renovate: datasource=github-tags depName=paldepind/projectdo */}}
 {{- $projectdoVersion := "v1.0.0" -}}
 {{/* renovate: datasource=github-tags depName=junegunn/vim-plug */}}
@@ -64,11 +62,6 @@
     url = "https://github.com/nornagon/git-rebase-all/archive/{{ $gitRebaseAllCommit }}.zip"
     stripComponents = 1
     path = "git-rebase-all"
-[".neobundle.vim"]
-    type = "archive"
-    url = "https://github.com/Shougo/neobundle.vim/archive/refs/tags/{{ $neobundleVimVersion }}.zip"
-    exact = true
-    stripComponents = 1
 ["bin/projectdo"]
     type = "archive-file"
     url = "https://github.com/paldepind/projectdo/archive/refs/tags/{{ $projectdoVersion }}.zip"
