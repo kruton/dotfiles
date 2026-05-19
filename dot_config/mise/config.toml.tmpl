@@ -19,10 +19,14 @@ python = "3.12.7"
 "aqua:ajeetdsouza/zoxide" = "0.9.9"
 
 {{- if eq .chezmoi.username "kenny" }}
+"aqua:rhysd/actionlint" = "latest"
 "aqua:fluxcd/flux2" = "2.6.1"
 "aqua:cli/cli" = "2.75.0"
+"core:java" = "temurin-21"
+"asdf:mise-plugins/mise-kotlin" = { version = "latest", asset_pattern = "kotlin-compiler-*.zip", bin_path = "kotlinc/bin" }
 "aqua:kubernetes-sigs/krew" = "0.4.5"
 "aqua:kubernetes/kubernetes/kubectl" = "1.27.16"
+"aqua:anomalyco/opencode" = "latest"
 "aqua:bitnami-labs/sealed-secrets" = "0.30.0"
 "aqua:mikefarah/yq" = "4.52.4"
 "aqua:yannh/kubeconform" = "0.7.0"
