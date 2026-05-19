@@ -1,6 +1,6 @@
 name: CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -11,6 +11,7 @@ jobs:
     - uses: actions/checkout@v6
       with:
         submodules: true
+        fetch-depth: 0
 
     - name: Pull the kcov image
       run: docker pull kcov/kcov
@@ -26,6 +27,32 @@ jobs:
           dot_bashrc dot_bash_profile dot_bashrc.d/*.bash \
           run_*.sh bin/*.sh test/*.bats test/*.bash test/*.sh test/libexec/*.sh \
           perf/*.sh
+
+    - name: Check Bash startup performance
+      env:
+        EVENT_NAME: ${{ github.event_name }}
+        BASE_REF: ${{ github.base_ref }}
+      run: |
+        case "$EVENT_NAME" in
+          pull_request)
+            git fetch --no-tags --depth=1 origin \
+              "+refs/heads/${BASE_REF}:refs/remotes/origin/${BASE_REF}"
+            base_ref="origin/${BASE_REF}"
+            ;;
+          push)
+            if ! git rev-parse --verify HEAD^ > /dev/null; then
+              echo "No parent commit available; skipping performance comparison."
+              exit 0
+            fi
+            base_ref="HEAD^"
+            ;;
+          *)
+            echo "Unsupported event for performance comparison: $EVENT_NAME"
+            exit 0
+            ;;
+        esac
+
+        perf/run-perf.sh --compare "$base_ref" HEAD --samples 3
 
     - name: Run the tests
       run: |
