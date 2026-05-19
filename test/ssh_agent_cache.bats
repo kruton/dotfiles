@@ -11,10 +11,12 @@ setup() {
     load "$BATS_TEST_DIRNAME/../dot_bashrc.d/90-ssh-find-agent.bash"
 
     _test_agent_socket() {
+        # shellcheck disable=SC2317
         [[ $1 == "$BATS_TEST_TMPDIR/agent.sock" ]]
     }
 
     _ssh_agent_socket_exists() {
+        # shellcheck disable=SC2317
         [[ -e $1 ]]
     }
 }

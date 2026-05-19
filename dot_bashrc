@@ -113,9 +113,9 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # Use vim if it's available. Otherwise fall back to "vi"
-if [ ! -z "$(type -p vim)" ]; then \
+if [ -n "$(type -p vim)" ]; then \
     export EDITOR="vim"
-elif [ ! -z "$(type -p vi)" ]; then \
+elif [ -n "$(type -p vi)" ]; then \
     export EDITOR="vi"
 fi
 
