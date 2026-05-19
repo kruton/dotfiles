@@ -1,17 +1,27 @@
 # ~/.bash_profile: executed by bash(1) for login shells.
+# shellcheck shell=bash
 
 # the default umask is set in /etc/login.defs
 #umask 022
 
+# set PATH so it includes user's private bin if it exists
+if [ -d "${HOME}/bin" ] ; then
+    case ":$PATH:" in
+        *:"${HOME}/bin":*) ;;
+        *) PATH="${HOME}/bin:${PATH}" ;;
+    esac
+fi
+
 # include .bashrc if it exists
 if [ -f ~/.bashrc ]; then
+    # shellcheck source=/dev/null
     . ~/.bashrc
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "${HOME}/bin" ] ; then
-    PATH="${HOME}/bin:${PATH}"
-fi
-
 # Run any local .bash_profile stuff:
+# shellcheck source=/dev/null
 [ -r "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
+
+if type -t dedupe_path_list > /dev/null; then
+    PATH="$(dedupe_path_list "$PATH")"
+fi
