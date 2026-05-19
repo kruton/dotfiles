@@ -6,6 +6,24 @@
 {{- $rubyBuildVersion := "20251225" -}}
 {{/* renovate: datasource=github-releases depName=jdx/mise */}}
 {{- $miseVersion := "v2026.5.7" -}}
+{{/* renovate: datasource=git-refs depName=lincheney/fzf-tab-completion packageName=https://github.com/lincheney/fzf-tab-completion currentValue=master */}}
+{{- $fzfTabCompletionCommit := "8ba35e65bb3792759bf17c134ce04120e5940555" -}}
+{{/* renovate: datasource=github-tags depName=rcaloras/bash-preexec */}}
+{{- $bashPreexecVersion := "0.6.0" -}}
+{{/* renovate: datasource=git-refs depName=seebi/dircolors-solarized packageName=https://github.com/seebi/dircolors-solarized currentValue=master */}}
+{{- $dircolorsSolarizedCommit := "38971d217512a23391139fcee2a520eba7cddf37" -}}
+{{/* renovate: datasource=github-tags depName=tmux-plugins/tpm */}}
+{{- $tpmVersion := "v3.1.0" -}}
+{{/* renovate: datasource=git-refs depName=nornagon/git-rebase-all packageName=https://github.com/nornagon/git-rebase-all currentValue=master */}}
+{{- $gitRebaseAllCommit := "a8639a142dd5d672586a6c3b67c1b9288dab586b" -}}
+{{/* renovate: datasource=github-tags depName=Shougo/neobundle.vim */}}
+{{- $neobundleVimVersion := "ver.4.0" -}}
+{{/* renovate: datasource=github-tags depName=paldepind/projectdo */}}
+{{- $projectdoVersion := "v1.0.0" -}}
+{{/* renovate: datasource=github-tags depName=junegunn/vim-plug */}}
+{{- $vimPlugVersion := "0.14.0" -}}
+{{/* renovate: datasource=git-refs depName=altercation/vim-colors-solarized packageName=https://github.com/altercation/vim-colors-solarized currentValue=master */}}
+{{- $vimColorsSolarizedCommit := "528a59f26d12278698bb946f8fb82a63711eec21" -}}
 
 [".local/bin/mise"]
     type = "archive-file"
@@ -23,42 +41,37 @@
     url = "https://github.com/junegunn/fzf/releases/download/v{{ $fzfVersion }}/fzf-{{ $fzfVersion }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
 [".fzf-tab-completion"]
     type = "archive"
-    url = "https://github.com/lincheney/fzf-tab-completion/archive/refs/heads/master.zip"
+    url = "https://github.com/lincheney/fzf-tab-completion/archive/{{ $fzfTabCompletionCommit }}.zip"
     exact = true
     stripComponents = 1
-    refreshPeriod = "168h"
 [".bash-preexec"]
     type = "archive"
-    url = "https://github.com/rcaloras/bash-preexec/archive/refs/heads/master.zip"
+    url = "https://github.com/rcaloras/bash-preexec/archive/refs/tags/{{ $bashPreexecVersion }}.zip"
     exact = true
     stripComponents = 1
-    refreshPeriod = "168h"
 [".dircolors-solarized"]
     type = "archive"
-    url = "https://github.com/seebi/dircolors-solarized/archive/refs/heads/master.zip"
+    url = "https://github.com/seebi/dircolors-solarized/archive/{{ $dircolorsSolarizedCommit }}.zip"
     exact = true
     stripComponents = 1
-    refreshPeriod = "168h"
 [".tmux/plugins/tpm"]
     type = "archive"
-    url = "https://github.com/tmux-plugins/tpm/archive/refs/heads/master.zip"
+    url = "https://github.com/tmux-plugins/tpm/archive/refs/tags/{{ $tpmVersion }}.zip"
     exact = true
     stripComponents = 1
-    refreshPeriod = "168h"
 ["bin/git-rebase-all"]
     type = "archive-file"
-    url = "https://github.com/nornagon/git-rebase-all/archive/refs/heads/master.zip"
+    url = "https://github.com/nornagon/git-rebase-all/archive/{{ $gitRebaseAllCommit }}.zip"
     stripComponents = 1
     path = "git-rebase-all"
 [".neobundle.vim"]
     type = "archive"
-    url = "https://github.com/Shougo/neobundle.vim/archive/refs/heads/master.zip"
+    url = "https://github.com/Shougo/neobundle.vim/archive/refs/tags/{{ $neobundleVimVersion }}.zip"
     exact = true
     stripComponents = 1
-    refreshPeriod = "168h"
 ["bin/projectdo"]
     type = "archive-file"
-    url = "https://github.com/paldepind/projectdo/archive/refs/heads/master.zip"
+    url = "https://github.com/paldepind/projectdo/archive/refs/tags/{{ $projectdoVersion }}.zip"
     stripComponents = 1
     path = "projectdo"
 [".rbenv"]
@@ -74,12 +87,9 @@
     refreshPeriod = "168h"
 [".vim/autoload/plug.vim"]
     type = "file"
-    url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    refreshPeriod = "168h"
+    url = "https://raw.githubusercontent.com/junegunn/vim-plug/{{ $vimPlugVersion }}/plug.vim"
 [".vim/colors/solarized.vim"]
     type = "file"
-    url = "https://raw.githubusercontent.com/altercation/vim-colors-solarized/refs/heads/master/colors/solarized.vim"
-    refreshPeriod = "1680h"
+    url = "https://raw.githubusercontent.com/altercation/vim-colors-solarized/{{ $vimColorsSolarizedCommit }}/colors/solarized.vim"
 
 # https://github.com/jorgebucaran/fisher.git
-

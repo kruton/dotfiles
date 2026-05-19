@@ -25,5 +25,15 @@
         '({{-?\\s*/\\*|#) renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (?:packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[^\\s]+?))?(?: extractVersion=(?<extractVersion>[^\\s]+?))?(\\s+\\*/\\s*-?}})?\\s+{{-?\\s*\\$[A-Za-z0-9_]+?Version\\s*:=\\s*["\']?(?<currentValue>.+?)["\']?\\s*-?}}',
       ],
     },
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '/\\.chezmoiexternal\\.toml$/',
+      ],
+      matchStrings: [
+        '{{/\\* renovate: datasource=git-refs depName=(?<depName>[^\\s]+?) packageName=(?<packageName>[^\\s]+?) currentValue=(?<currentValue>[^\\s]+?) \\*/}}\\s+{{-?\\s*\\$[A-Za-z0-9_]+?Commit\\s*:=\\s*["\']?(?<currentDigest>[a-f0-9]{40})["\']?\\s*-?}}',
+      ],
+      datasourceTemplate: 'git-refs',
+    },
   ],
 }
