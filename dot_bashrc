@@ -1,4 +1,5 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
+# shellcheck shell=bash
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -119,7 +120,7 @@ elif [ ! -z "$(type -p vi)" ]; then \
 fi
 
 # Use gvim if we have a DISPLAY and it's available.
-if [ ! -z "${DISPLAY}" -a ! -z "$(type -p gvim)" ]; then
+if [ -n "${DISPLAY}" ] && [ -n "$(type -p gvim)" ]; then
     export VISUAL="gvim --nofork"
 fi
 
@@ -135,7 +136,11 @@ export GREP_COLORS="ms=01;32:mc=01;32:sl=:cx=:fn=1;34:ln=1;32:bn=1;32:se=1;36"
 if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then \
     [ -e "$HOME/.dircolors" ] && DIR_COLORS="$HOME/.dircolors"
     [ -e "$DIR_COLORS" ] || DIR_COLORS=""
-    eval "$(dircolors -b $DIR_COLORS)"
+    if [ -n "$DIR_COLORS" ]; then
+        eval "$(dircolors -b "$DIR_COLORS")"
+    else
+        eval "$(dircolors -b)"
+    fi
 
     alias ls='ls --color=auto'
     alias dir='dir --color=auto'

@@ -16,7 +16,8 @@ elif [ -f /usr/share/bash-completion/bash_completion ]; then \
 else \
     # Wait, why is there a prefix here?
     # shellcheck source=/dev/null
-    source ${prefix}/etc/bash_completion
+    prefix="${prefix:-/usr/local}"
+    source "${prefix}/etc/bash_completion"
 fi
 # shellcheck source=/dev/null
 source "${REPO_DIR}/dot_bashrc.d/20-android-focus.bash"

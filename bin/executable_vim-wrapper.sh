@@ -4,7 +4,7 @@
 #
 
 if [[ -n $DISPLAY ]] && hash gvim 2> /dev/null; then \
-    exec gvim --nofork $*
+    exec gvim --nofork "$@"
 else \
-    exec vim $*
+    exec vim "$@"
 fi

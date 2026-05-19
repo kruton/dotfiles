@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DETECTED_BASE="$(readlink -e "$(dirname $0)/..")"
+DETECTED_BASE="$(readlink -e "$(dirname "$0")/..")"
 REPO_BASE="${1:-$DETECTED_BASE}"
 
 docker run --rm --security-opt seccomp=unconfined \
@@ -14,4 +14,4 @@ docker run --rm --security-opt seccomp=unconfined \
     . \
     "$REPO_BASE/test/bats/bin/bats" --tap "$REPO_BASE/test"
 
-perl -pi -e 's,/(</source>),\1,g' $REPO_BASE/coverage/bats/cobertura.xml
+perl -pi -e 's,/(</source>),\1,g' "$REPO_BASE"/coverage/bats/cobertura.xml

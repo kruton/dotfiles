@@ -1,4 +1,5 @@
 #!/usr/bin/env bats
+# shellcheck disable=SC2154
 
 setup() {
     load 'test_helper/bats-support/load'
@@ -170,4 +171,3 @@ ${FOCUS_TEST_bold}23456789${FOCUS_TEST_nobold} - fastboot2 usb:2-3.4.6[COMPLETIO
 [END 3: last=1,pos=0]
 EOF
 }
-

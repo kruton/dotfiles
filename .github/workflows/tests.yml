@@ -20,6 +20,13 @@ jobs:
         ./test/docker-build.sh
         mkdir -p coverage
 
+    - name: Run ShellCheck
+      run: |
+        shellcheck -s bash -e SC1090,SC1091 \
+          dot_bashrc dot_bash_profile dot_bashrc.d/*.bash \
+          run_*.sh bin/*.sh test/*.bats test/*.bash test/*.sh test/libexec/*.sh \
+          perf/*.sh
+
     - name: Run the tests
       run: |
         docker run --rm --security-opt seccomp=unconfined -v ${{ github.workspace }}:/source \

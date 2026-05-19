@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DETECTED_BASE="$(readlink -e "$(dirname $0)/..")"
+DETECTED_BASE="$(readlink -e "$(dirname "$0")/..")"
 REPO_BASE="${1:-$DETECTED_BASE}"
 
 docker build "$REPO_BASE/test/kcov" \

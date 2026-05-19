@@ -38,11 +38,11 @@ switch_android_tree() {
 
     if [[ -n $ANDROID_DIR && -d $ANDROID_DIR ]]; then
         while IFS= read -r -d $'\0' dir; do
-            trimmed_dir="${dir#$ANDROID_DIR/}"
+            trimmed_dir="${dir#"$ANDROID_DIR"/}"
             if [[ -n ${trimmed_dir} ]]; then
                 targets+=("$trimmed_dir")
             fi
-        done < <(shopt -s nullglob; for f in $ANDROID_DIR/*; do printf "%s\0" "$f"; done)
+        done < <(shopt -s nullglob; for f in "$ANDROID_DIR"/*; do printf "%s\0" "$f"; done)
 
         target=""
         if command -v fzf > /dev/null; then
@@ -76,7 +76,7 @@ switch_android_tree() {
             export TOP="${ANDROID_DIR}${target}"
             export CCACHE_BASEDIR="${TOP}"
             export CDPATH="${CDPATH}:${ANDROID_DIR}"
-            pushd "${TOP}" > /dev/null 2>&1
+            pushd "${TOP}" > /dev/null 2>&1 || return
 
             if [[ -f ${TOP}/build/envsetup.sh ]]; then
                 # shellcheck source=/dev/null
@@ -86,7 +86,7 @@ switch_android_tree() {
                 . "${TOP}/trusty/vendor/google/aosp/scripts/envsetup.sh"
             fi
 
-            popd > /dev/null 2>&1
+            popd > /dev/null 2>&1 || return
         fi
     fi
 
