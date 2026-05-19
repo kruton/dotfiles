@@ -3,6 +3,5 @@
 if command -v mise > /dev/null; then \
     eval "$(mise activate bash --shims)"
 
-    # shellcheck disable=SC1090
-    . <(mise completion bash)
+    _lazy_completion_register mise '. <(mise completion bash)'
 fi
