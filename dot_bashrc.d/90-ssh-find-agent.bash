@@ -12,6 +12,7 @@ _SSH_ADD_BINARY="$(command -v ssh-add 2> /dev/null)"
 if [[ -x $_TIMEOUT_BINARY && -x $_SSH_ADD_BINARY ]]; then
 	_SSH_ADD_BINARY="$_TIMEOUT_BINARY 2 $_SSH_ADD_BINARY"
 fi
+_SSH_AGENT_CACHE_FILE=""
 
 _LIVE_AGENT_LIST=""
 
@@ -105,6 +106,112 @@ _test_agent_socket_socat() {
 	return 1
 }
 
+_ssh_agent_socket_exists() {
+	[[ -S $1 ]]
+}
+
+_ssh_agent_cache_dir() {
+	local dir
+
+	if [[ -n $XDG_RUNTIME_DIR && -d $XDG_RUNTIME_DIR && -O $XDG_RUNTIME_DIR ]]; then
+		dir="$XDG_RUNTIME_DIR/dotfiles"
+	else
+		dir="${TMPDIR:-/tmp}/dotfiles-${UID}"
+	fi
+
+	if [[ -e $dir && ! -d $dir ]]; then
+		return 1
+	fi
+
+	if [[ ! -d $dir ]]; then
+		mkdir -m 700 "$dir" 2> /dev/null || return 1
+	fi
+
+	chmod 700 "$dir" 2> /dev/null || return 1
+	[[ -O $dir ]] || return 1
+
+	printf '%s\n' "$dir"
+}
+
+_ssh_agent_cache_file() {
+	local dir
+
+	if [[ -z $_SSH_AGENT_CACHE_FILE ]]; then
+		dir="$(_ssh_agent_cache_dir)" || return 1
+		_SSH_AGENT_CACHE_FILE="$dir/ssh-auth-sock"
+	fi
+
+	printf '%s\n' "$_SSH_AGENT_CACHE_FILE"
+}
+
+_stat_mode() {
+	if stat -c '%a' "$1" > /dev/null 2>&1; then
+		stat -c '%a' "$1"
+	else
+		stat -f '%Lp' "$1"
+	fi
+}
+
+_stat_uid() {
+	if stat -c '%u' "$1" > /dev/null 2>&1; then
+		stat -c '%u' "$1"
+	else
+		stat -f '%u' "$1"
+	fi
+}
+
+_ssh_agent_cache_file_is_private() {
+	local cache_file mode mode_octal owner
+
+	cache_file="$1"
+
+	[[ -f $cache_file && ! -L $cache_file ]] || return 1
+
+	mode="$(_stat_mode "$cache_file")" || return 1
+	mode_octal=$((8#$mode))
+	if (( mode_octal & 077 )); then
+		return 1
+	fi
+
+	owner="$(_stat_uid "$cache_file")" || return 1
+	[[ $owner == "$UID" ]] || return 1
+}
+
+_read_cached_ssh_agent_socket() {
+	local cache_file socket
+
+	cache_file="$(_ssh_agent_cache_file)" || return 1
+	_ssh_agent_cache_file_is_private "$cache_file" || return 1
+
+	IFS= read -r socket < "$cache_file" || return 1
+	[[ -n $socket ]] || return 1
+	_ssh_agent_socket_exists "$socket" || return 1
+
+	SSH_AUTH_SOCK="$socket"
+	return 0
+}
+
+_write_cached_ssh_agent_socket() {
+	local cache_file tmp_file
+
+	[[ -n $SSH_AUTH_SOCK ]] || return 1
+	_ssh_agent_socket_exists "$SSH_AUTH_SOCK" || return 1
+
+	cache_file="$(_ssh_agent_cache_file)" || return 1
+	tmp_file="${cache_file}.$$"
+
+	umask 077
+	printf '%s\n' "$SSH_AUTH_SOCK" > "$tmp_file" || {
+		rm -f "$tmp_file"
+		return 1
+	}
+	chmod 600 "$tmp_file" 2> /dev/null || {
+		rm -f "$tmp_file"
+		return 1
+	}
+	mv -f "$tmp_file" "$cache_file"
+}
+
 _find_live_gnome_keyring_agents() {
 	for i in $_GNOME_KEYRING_AGENT_SOCKETS
 	do
@@ -169,7 +276,10 @@ set_ssh_agent_socket() {
 	if [[ -n $TMUX ]]; then
 		IFS='=' read -r _ SSH_AUTH_SOCK <<< "$(tmux show-environment SSH_AUTH_SOCK)"
 	else
-		IFS=':' read -r SSH_AUTH_SOCK _ <<< "$(_find_all_agent_sockets | tail -n 1)"
+		if ! _read_cached_ssh_agent_socket; then
+			IFS=':' read -r SSH_AUTH_SOCK _ <<< "$(_find_all_agent_sockets | tail -n 1)"
+			_write_cached_ssh_agent_socket
+		fi
 	fi
 	export SSH_AUTH_SOCK
 }
