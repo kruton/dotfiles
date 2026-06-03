@@ -16,6 +16,10 @@ _SSH_AGENT_CACHE_FILE=""
 
 _LIVE_AGENT_LIST=""
 
+_join_socket_lists() {
+	printf '%s\n%s\n' "$1" "$2" | sed '/^$/d' | sort -u
+}
+
 _debug_print() {
 	if [[ $_DEBUG -gt 0 ]]
 	then
@@ -24,22 +28,59 @@ _debug_print() {
 }
 
 _find_all_ssh_agent_sockets() {
-	_SSH_AGENT_SOCKETS="$(find /tmp/ -type s -name agent.\* 2> /dev/null | grep '/tmp/ssh-.*/agent.*')"
+	_SSH_AGENT_SOCKETS="$(_find_home_ssh_agent_sockets)"
+	_SSH_AGENT_SOCKETS="$(_join_socket_lists "$_SSH_AGENT_SOCKETS" "$(_find_xdg_ssh_agent_sockets)")"
 	_debug_print "$_SSH_AGENT_SOCKETS"
 }
 
+_find_all_legacy_tmp_ssh_agent_sockets() {
+	_SSH_AGENT_SOCKETS="$(_join_socket_lists "$_SSH_AGENT_SOCKETS" "$(find /tmp/ssh-* -maxdepth 1 -type s -name 'agent.*' 2> /dev/null)")"
+	_debug_print "$_SSH_AGENT_SOCKETS"
+}
+
+_find_home_ssh_agent_sockets() {
+	local agent_dir
+
+	agent_dir="$HOME/.ssh/agent"
+	[[ -d $agent_dir ]] || return 0
+
+	find "$agent_dir" -maxdepth 1 -type s \( \
+		-name 'agent.*' -o \
+		-name 's.*.agent.*' -o \
+		-name '*.sock' -o \
+		-name '*ssh*' \
+	\) 2> /dev/null
+}
+
+_find_xdg_ssh_agent_sockets() {
+	[[ -n $XDG_RUNTIME_DIR && -d $XDG_RUNTIME_DIR && -O $XDG_RUNTIME_DIR ]] || return 0
+
+	find "$XDG_RUNTIME_DIR" -maxdepth 4 -type s \( \
+		-name 'agent.*' -o \
+		-name 'ssh' \
+	\) 2> /dev/null
+}
+
 _find_all_gpg_agent_sockets() {
-	_GPG_AGENT_SOCKETS="$(find /tmp/ -type s -name S.gpg-agent.ssh 2> /dev/null | grep '/tmp/gpg-.*/S.gpg-agent.ssh')"
+	_GPG_AGENT_SOCKETS=
+	if [[ -n $XDG_RUNTIME_DIR && -d $XDG_RUNTIME_DIR && -O $XDG_RUNTIME_DIR ]]; then
+		_GPG_AGENT_SOCKETS="$(_join_socket_lists "$_GPG_AGENT_SOCKETS" "$(find "$XDG_RUNTIME_DIR/gnupg" -maxdepth 1 -type s -name S.gpg-agent.ssh 2> /dev/null)")"
+	fi
 	_debug_print "$_GPG_AGENT_SOCKETS"
 }
 
-_find_all_gnome_keyring_agent_sockets() {
-	_GNOME_KEYRING_AGENT_SOCKETS="$(find /tmp/ -type s -name ssh 2> /dev/null | grep '/tmp/keyring-.*/ssh$')"
+_find_all_legacy_tmp_gpg_agent_sockets() {
+	_GPG_AGENT_SOCKETS="$(_join_socket_lists "$_GPG_AGENT_SOCKETS" "$(find /tmp/gpg-* -maxdepth 1 -type s -name S.gpg-agent.ssh 2> /dev/null)")"
+	_debug_print "$_GPG_AGENT_SOCKETS"
+}
+
+_find_all_legacy_tmp_gnome_keyring_agent_sockets() {
+	_GNOME_KEYRING_AGENT_SOCKETS="$(find /tmp/keyring-* -maxdepth 1 -type s -name ssh 2> /dev/null)"
 	_debug_print "$_GNOME_KEYRING_AGENT_SOCKETS"
 }
 
-_find_all_osx_keychain_agent_sockets() {
-	_OSX_KEYCHAIN_AGENT_SOCKETS="$(find /tmp/ -type s -regex '.*/launch-.*/Listeners$'  2> /dev/null)"
+_find_all_legacy_tmp_osx_keychain_agent_sockets() {
+	_OSX_KEYCHAIN_AGENT_SOCKETS="$(_join_socket_lists "$_OSX_KEYCHAIN_AGENT_SOCKETS" "$(find /tmp/launch-* -maxdepth 1 -type s -name Listeners 2> /dev/null)")"
 	_debug_print "$_OSX_KEYCHAIN_AGENT_SOCKETS"
 }
 
@@ -48,8 +89,84 @@ _find_all_secretive_agent_sockets() {
 	_debug_print "$_SECRETIVE_AGENT_SOCKETS"
 }
 
-_find_all_gnubby_agent_sockets() {
-	_GNUBBY_AGENT_SOCKETS="$(find /tmp/ -type s -name agent.\* 2> /dev/null | grep "/tmp/agent.$USER.local/agent.*")"
+_expand_ssh_identity_agent_path() {
+	local path
+
+	path="$1"
+	path="${path%\"}"
+	path="${path#\"}"
+	path="${path%\'}"
+	path="${path#\'}"
+
+	case "$path" in
+		none)
+			return 1
+			;;
+		SSH_AUTH_SOCK)
+			[[ -n $SSH_AUTH_SOCK ]] || return 1
+			printf '%s\n' "$SSH_AUTH_SOCK"
+			return 0
+			;;
+		\~)
+			path="$HOME"
+			;;
+		\~/*)
+			path="$HOME/${path#\~/}"
+			;;
+	esac
+
+	path="${path//\%d/$HOME}"
+	path="${path//\$\{HOME\}/$HOME}"
+	path="${path//\$HOME/$HOME}"
+	if [[ -n $SSH_AUTH_SOCK ]]; then
+		path="${path//\$\{SSH_AUTH_SOCK\}/$SSH_AUTH_SOCK}"
+		path="${path//\$SSH_AUTH_SOCK/$SSH_AUTH_SOCK}"
+	fi
+	if [[ -n $XDG_RUNTIME_DIR ]]; then
+		path="${path//\$\{XDG_RUNTIME_DIR\}/$XDG_RUNTIME_DIR}"
+		path="${path//\$XDG_RUNTIME_DIR/$XDG_RUNTIME_DIR}"
+	fi
+
+	printf '%s\n' "$path"
+}
+
+_find_ssh_config_identity_agent_sockets() {
+	local config file identity_agent socket
+
+	config="$HOME/.ssh/config"
+	[[ -f $config ]] || return 0
+
+	while IFS= read -r file
+	do
+		[[ -f $file ]] || continue
+		while read -r keyword identity_agent _
+		do
+			case "$keyword" in
+				[Ii][Dd][Ee][Nn][Tt][Ii][Tt][Yy][Aa][Gg][Ee][Nn][Tt])
+					socket="$(_expand_ssh_identity_agent_path "$identity_agent")" || continue
+					[[ -S $socket ]] && printf '%s\n' "$socket"
+					;;
+			esac
+		done < <(sed 's/[[:space:]]*#.*$//' "$file")
+	done < <(
+		{
+			printf '%s\n' "$config"
+			while read -r keyword include_path _
+			do
+				case "$keyword" in
+					[Ii][Nn][Cc][Ll][Uu][Dd][Ee])
+						include_path="$(_expand_ssh_identity_agent_path "$include_path")" || continue
+						# shellcheck disable=SC2086
+						printf '%s\n' $include_path
+						;;
+				esac
+			done < <(sed 's/[[:space:]]*#.*$//' "$config")
+		} | sort -u
+	)
+}
+
+_find_all_legacy_tmp_gnubby_agent_sockets() {
+	_GNUBBY_AGENT_SOCKETS="$(_join_socket_lists "$_GNUBBY_AGENT_SOCKETS" "$(find "/tmp/agent.$USER.local" -maxdepth 1 -type s -name 'agent.*' 2> /dev/null)")"
 	_debug_print "$_GNUBBY_AGENT_SOCKETS"
 }
 
@@ -58,7 +175,7 @@ _test_agent_socket() {
 	SSH_AUTH_SOCK=$SOCKET $_SSH_ADD_BINARY -l 2> /dev/null > /dev/null
 	result=$?
 
-	_debug_print $result
+	_debug_print "$result"
 
 	if [[ $result -eq 0 ]]
 	then
@@ -108,6 +225,16 @@ _test_agent_socket_socat() {
 
 _ssh_agent_socket_exists() {
 	[[ -S $1 ]]
+}
+
+_ssh_agent_socket_is_live() {
+	local live_agent_list result
+
+	live_agent_list="$_LIVE_AGENT_LIST"
+	_test_agent_socket "$1"
+	result=$?
+	_LIVE_AGENT_LIST="$live_agent_list"
+	return "$result"
 }
 
 _ssh_agent_cache_dir() {
@@ -254,32 +381,75 @@ _find_live_ssh_agents() {
 	done
 }
 
-_find_all_agent_sockets() {
-	_LIVE_AGENT_LIST=
-	_find_all_ssh_agent_sockets
-	_find_all_gpg_agent_sockets
-	_find_all_gnome_keyring_agent_sockets
-	_find_all_osx_keychain_agent_sockets
-	_find_all_gnubby_agent_sockets
-	_find_all_secretive_agent_sockets
+_live_agent_list_has_keys() {
+	printf '%s\n' "$_LIVE_AGENT_LIST" | grep -Eq ':[1-9][0-9]*( |$)'
+}
+
+_find_live_known_agents() {
 	_find_live_ssh_agents
 	_find_live_gpg_agents
 	_find_live_gnome_keyring_agents
 	_find_live_osx_keychain_agents
 	_find_live_gnubby_agents
 	_find_live_secretive_agents
+	for i in $_SSH_CONFIG_AGENT_SOCKETS
+	do
+		_test_agent_socket "$i"
+	done
+}
+
+_find_legacy_tmp_agent_sockets() {
+	_find_all_legacy_tmp_ssh_agent_sockets
+	_find_all_legacy_tmp_gpg_agent_sockets
+	_find_all_legacy_tmp_gnome_keyring_agent_sockets
+	_find_all_legacy_tmp_osx_keychain_agent_sockets
+	_find_all_legacy_tmp_gnubby_agent_sockets
+}
+
+_find_live_legacy_tmp_agents() {
+	_find_live_ssh_agents
+	_find_live_gpg_agents
+	_find_live_gnome_keyring_agents
+	_find_live_osx_keychain_agents
+	_find_live_gnubby_agents
+}
+
+_find_all_agent_sockets() {
+	_LIVE_AGENT_LIST=
+	_GNOME_KEYRING_AGENT_SOCKETS=
+	_OSX_KEYCHAIN_AGENT_SOCKETS=
+	_GNUBBY_AGENT_SOCKETS=
+	_find_all_ssh_agent_sockets
+	_find_all_gpg_agent_sockets
+	_find_all_secretive_agent_sockets
+	_SSH_CONFIG_AGENT_SOCKETS="$(_find_ssh_config_identity_agent_sockets)"
+	_debug_print "$_SSH_CONFIG_AGENT_SOCKETS"
+	_find_live_known_agents
+	if ! _live_agent_list_has_keys; then
+		_find_legacy_tmp_agent_sockets
+		_find_live_legacy_tmp_agents
+	fi
 	_debug_print "$_LIVE_AGENT_LIST"
-	printf '%s\n' "$_LIVE_AGENT_LIST" | tr ' ' $'\n' | sort -n -t: -k 2 -k 1
+	printf '%s\n' "$_LIVE_AGENT_LIST" | tr ' ' $'\n' | sort -u -n -t: -k 2 -k 1
 }
 
 set_ssh_agent_socket() {
+	local tmux_ssh_auth_sock
+
 	if [[ -n $TMUX ]]; then
-		IFS='=' read -r _ SSH_AUTH_SOCK <<< "$(tmux show-environment SSH_AUTH_SOCK)"
-	else
-		if ! _read_cached_ssh_agent_socket; then
-			IFS=':' read -r SSH_AUTH_SOCK _ <<< "$(_find_all_agent_sockets | tail -n 1)"
-			_write_cached_ssh_agent_socket
+		IFS='=' read -r _ tmux_ssh_auth_sock <<< "$(tmux show-environment SSH_AUTH_SOCK 2> /dev/null)"
+		if [[ -n $tmux_ssh_auth_sock ]] &&
+			_ssh_agent_socket_exists "$tmux_ssh_auth_sock" &&
+			_ssh_agent_socket_is_live "$tmux_ssh_auth_sock"; then
+			SSH_AUTH_SOCK="$tmux_ssh_auth_sock"
+			export SSH_AUTH_SOCK
+			return 0
 		fi
+	fi
+
+	if ! _read_cached_ssh_agent_socket; then
+		IFS=':' read -r SSH_AUTH_SOCK _ <<< "$(_find_all_agent_sockets | tail -n 1)"
+		_write_cached_ssh_agent_socket
 	fi
 	export SSH_AUTH_SOCK
 }

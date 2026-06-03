@@ -66,3 +66,36 @@ setup() {
     assert_equal "$cache_dir_mode" 700
     assert_equal "$cache_file_mode" 600
 }
+
+@test "ssh config IdentityAgent path expands home directory tokens" {
+    HOME="$BATS_TEST_TMPDIR/home"
+
+    # shellcheck disable=SC2088
+    run _expand_ssh_identity_agent_path '~/.ssh/agent.sock'
+
+    assert_success
+    assert_output "$HOME/.ssh/agent.sock"
+}
+
+@test "ssh config IdentityAgent path expands SSH_AUTH_SOCK token" {
+    SSH_AUTH_SOCK="$BATS_TEST_TMPDIR/live-agent.sock"
+    export SSH_AUTH_SOCK
+
+    run _expand_ssh_identity_agent_path 'SSH_AUTH_SOCK'
+
+    assert_success
+    assert_output "$SSH_AUTH_SOCK"
+}
+
+@test "gnome keyring fallback discovery populates keyring ssh socket candidates" {
+    find() {
+        # shellcheck disable=SC2317
+        if [[ $* == "/tmp/keyring-* -maxdepth 1 -type s -name ssh" ]]; then
+            printf '/tmp/keyring-test/ssh\n'
+        fi
+    }
+
+    _find_all_legacy_tmp_gnome_keyring_agent_sockets
+
+    assert_equal "$_GNOME_KEYRING_AGENT_SOCKETS" "/tmp/keyring-test/ssh"
+}
