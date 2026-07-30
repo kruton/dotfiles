@@ -5,7 +5,7 @@
 {{/* renovate: datasource=github-releases depName=rbenv/ruby-build */}}
 {{- $rubyBuildVersion := "20251225" -}}
 {{/* renovate: datasource=github-releases depName=jdx/mise */}}
-{{- $miseVersion := "v2026.7.17" -}}
+{{- $miseVersion := "v2026.7.18" -}}
 {{/* renovate: datasource=git-refs depName=lincheney/fzf-tab-completion packageName=https://github.com/lincheney/fzf-tab-completion currentValue=master */}}
 {{- $fzfTabCompletionCommit := "7014e0a7cd68fe3530e2f58c45740d17e98f05b8" -}}
 {{/* renovate: datasource=github-tags depName=rcaloras/bash-preexec */}}
