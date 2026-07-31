@@ -27,5 +27,5 @@ fi
 
 # We don't want to attach if this is running in systemd
 if [[ $STARTED_BY_SYSTEMD != yes ]]; then \
-    tmux attach-session -t home
+    tmux -u attach-session -t home
 fi
