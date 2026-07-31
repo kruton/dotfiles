@@ -28,3 +28,6 @@ set visible-stats on
 "\e[5D": backward-word
 "\e\e[C": forward-word
 "\e\e[D": backward-word
+
+# Bracketed paste makes it easier to paste long stuff
+set enable-bracketed-paste on
