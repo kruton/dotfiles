@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -eu
+
+# Vim plugin configuration hash: {{ include "dot_vim/settings/plugins.vim" | sha256sum }}
+
+if ! command -v vim >/dev/null 2>&1; then
+    echo "vim is required to install Vim plugins" >&2
+    exit 1
+fi
+
+if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
+    echo "vim-plug was not installed at $HOME/.vim/autoload/plug.vim" >&2
+    exit 1
+fi
+
+vim -Nu "$HOME/.vimrc" -n -es -i NONE \
+    -c 'PlugInstall --sync' \
+    -c 'qa'

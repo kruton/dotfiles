@@ -18,6 +18,14 @@ setup() {
     refute_output
 }
 
+@test "vim plugins are installed after chezmoi applies the configuration" {
+    local install_script="$BATS_TEST_DIRNAME/../run_onchange_after_install-vim-plugins.sh.tmpl"
+
+    assert [ -f "$install_script" ]
+    assert grep -q 'include "dot_vim/settings/plugins.vim" | sha256sum' "$install_script"
+    assert grep -q "PlugInstall --sync" "$install_script"
+}
+
 @test "vim backup config centralizes recovery files outside projects" {
     command -v vim > /dev/null || skip "vim is not installed"
 
