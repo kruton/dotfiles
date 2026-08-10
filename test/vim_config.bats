@@ -26,6 +26,11 @@ setup() {
     assert grep -q "PlugInstall --sync" "$install_script"
 }
 
+@test "vim-startify links to the vim-plug updater" {
+    assert grep -q "'Update Vim plugins', 'PlugUpdate'" \
+        "$BATS_TEST_DIRNAME/../dot_vim/settings/plugins.vim"
+}
+
 @test "vim backup config centralizes recovery files outside projects" {
     command -v vim > /dev/null || skip "vim is not installed"
 
