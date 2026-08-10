@@ -140,6 +140,7 @@ Plug 'mhinz/vim-startify' "{{{
   let g:startify_show_sessions = 1
   let g:startify_session_delete_buffers = 1
   let g:startify_session_persistence = 1
+  let g:startify_custom_header = []
   let g:startify_bookmarks = [ {'p': '~/.vim/settings/plugins.vim'} ]
   let g:startify_commands = [
       \ {'u': ['Update Vim plugins', 'PlugUpdate']},

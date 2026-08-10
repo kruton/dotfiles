@@ -33,6 +33,8 @@ setup() {
 }
 
 @test "vim-startify links to the vim-plug updater" {
+    assert grep -q 'let g:startify_custom_header = \[\]' \
+        "$BATS_TEST_DIRNAME/../dot_vim/settings/plugins.vim"
     assert grep -q "'Update Vim plugins', 'PlugUpdate'" \
         "$BATS_TEST_DIRNAME/../dot_vim/settings/plugins.vim"
 }
