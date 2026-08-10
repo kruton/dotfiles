@@ -18,6 +18,14 @@ setup() {
     refute_output
 }
 
+@test "YouCompleteMe builds against Vim's embedded Python" {
+    refute grep -q '!\./install.py' "$BATS_TEST_DIRNAME/../dot_vim/settings/plugins.vim"
+    assert grep -q "py3eval('__import__(\"sys\").prefix')" \
+        "$BATS_TEST_DIRNAME/../dot_vim/settings/plugins.vim"
+    assert grep -q "'/bin/python' . l:python_version" \
+        "$BATS_TEST_DIRNAME/../dot_vim/settings/plugins.vim"
+}
+
 @test "vim uses built-in filetypes and modern terminal colors" {
     refute grep -Eq 'vim-colors-solarized|gitignore\.vim|vim-fish|csapprox|genindent|vimproc|vim-reunions' \
         "$BATS_TEST_DIRNAME/../dot_vim/settings/plugins.vim"

@@ -69,7 +69,18 @@ else
       " - status: 'installed', 'updated', or 'unchanged'
       " - force:  set on PlugInstall! or PlugUpdate!
       if a:info.status == 'installed' || a:info.force
-        !./install.py
+        let l:python_version = py3eval(
+            \ '"{}.{}".format(*__import__("sys").version_info[:2])')
+        let l:python = py3eval('__import__("sys").prefix') .
+            \ (has('win32') ? '/python.exe' : '/bin/python' . l:python_version)
+        if !executable(l:python)
+          throw 'No Python interpreter matching Vim was found at ' . l:python
+        endif
+
+        execute '!' . shellescape(l:python) . ' install.py'
+        if v:shell_error
+          throw 'YouCompleteMe build failed with ' . l:python
+        endif
       endif
     endfunction
 
