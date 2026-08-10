@@ -4,7 +4,7 @@
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'Lokaltog/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 
 " Shows git status in the 'gutter'
 Plug 'airblade/vim-gitgutter'
@@ -18,7 +18,7 @@ Plug 'Bogdanp/browser-connect.vim', {
     \ }
 
 " Provides a class outline for files in a separate window
-Plug 'majutsushi/tagbar'
+Plug 'preservim/tagbar'
 
 " Gives better numbering depending on what mode you're in.
 Plug 'myusuf3/numbers.vim'
@@ -29,7 +29,7 @@ Plug 'rdolgushin/gitignore.vim', {
     \ }
 
 " Syntax checking plugin
-Plug 'scrooloose/syntastic' "{{{
+Plug 'vim-syntastic/syntastic' "{{{
   let g:syntastic_java_javac_config_file_enabled = 1
 "}}}
 
@@ -93,7 +93,7 @@ else
       endif
     endfunction
 
-    Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+    Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildYCM') }
 endif
 
 " coverage report for Python
@@ -176,7 +176,7 @@ Plug 'bazelbuild/vim-bazel'
 """ Testing utilities
 
 " Helps with running unit tests
-Plug 'janko-m/vim-test', {
+Plug 'vim-test/vim-test', {
     \ 'on': [ 'TestNearest',
     \         'TestFile',
     \         'TestSuite',
