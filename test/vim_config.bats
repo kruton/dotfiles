@@ -24,6 +24,16 @@ setup() {
     refute grep -q 'CSApprox_' "$BATS_TEST_DIRNAME/../dot_vimrc"
 }
 
+@test "LambdaMOO files use moo-lsp-rs through YouCompleteMe" {
+    assert grep -q 'depName=kruton/moo-lsp-rs' "$BATS_TEST_DIRNAME/../.chezmoiexternal.toml"
+    assert grep -q 'moo-lsp-rs.*releases/download/{{ \$mooLspVersion }}' \
+        "$BATS_TEST_DIRNAME/../.chezmoiexternal.toml"
+    assert grep -q 'setfiletype moo' "$BATS_TEST_DIRNAME/../dot_vim/ftdetect/moo.vim"
+    assert grep -q "'cmdline': \[s:moo_lsp_binary\]" \
+        "$BATS_TEST_DIRNAME/../dot_vim/settings/moo.vim"
+    assert grep -q "'filetypes': \['moo'\]" "$BATS_TEST_DIRNAME/../dot_vim/settings/moo.vim"
+}
+
 @test "vim plugins are installed after chezmoi applies the configuration" {
     local install_script="$BATS_TEST_DIRNAME/../run_onchange_after_install-vim-plugins.sh.tmpl"
 
