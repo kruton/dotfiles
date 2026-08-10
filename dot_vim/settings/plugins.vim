@@ -9,9 +9,6 @@ Plug 'easymotion/vim-easymotion'
 " Shows git status in the 'gutter'
 Plug 'airblade/vim-gitgutter'
 
-" Solarized color scheme
-Plug 'altercation/vim-colors-solarized'
-
 " This provides live-update webpage editing.
 Plug 'Bogdanp/browser-connect.vim', {
     \ 'for': ['html', 'xhtml'],
@@ -22,11 +19,6 @@ Plug 'preservim/tagbar'
 
 " Gives better numbering depending on what mode you're in.
 Plug 'myusuf3/numbers.vim'
-
-" Syntax highlighting today
-Plug 'rdolgushin/gitignore.vim', {
-    \ 'filename_patterns': '^\.gitignore$',
-    \ }
 
 " Syntax checking plugin
 Plug 'vim-syntastic/syntastic' "{{{
@@ -51,24 +43,12 @@ Plug 'tpope/vim-unimpaired', {
     \ }
 "   \ 'mappings': ['[', ']'],
 
-" Color scheme tweaks
-Plug 'godlygeek/csapprox'
-
-" Generic indenting plugin that uses b:indent_block_start and
-" b:indent_block_end
-Plug 'vim-scripts/genindent.vim'
-
 " Filetype editing
 Plug 'sheerun/vim-polyglot'
 
 " Cryptol files
 Plug 'victoredwardocallaghan/cryptol.vim', {
     \ 'for': ['cryptol'],
-    \ }
-
-" Fish (shell) files
-Plug 'dag/vim-fish', {
-    \ 'for': ['fish'],
     \ }
 
 Plug 'sukima/xmledit', {
@@ -100,12 +80,6 @@ endif
 Plug 'alfredodeza/coveragepy.vim', {
       \ 'for': ['python'],
       \ }
-
-" Vimproc, asynchronous execution library
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-
-" Makes using vimproc easier
-Plug 'osyo-manga/vim-reunions'
 
 " Snippets
 Plug 'Shougo/neosnippet.vim', {

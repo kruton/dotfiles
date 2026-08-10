@@ -18,6 +18,12 @@ setup() {
     refute_output
 }
 
+@test "vim uses built-in filetypes and modern terminal colors" {
+    refute grep -Eq 'vim-colors-solarized|gitignore\.vim|vim-fish|csapprox|genindent|vimproc|vim-reunions' \
+        "$BATS_TEST_DIRNAME/../dot_vim/settings/plugins.vim"
+    refute grep -q 'CSApprox_' "$BATS_TEST_DIRNAME/../dot_vimrc"
+}
+
 @test "vim plugins are installed after chezmoi applies the configuration" {
     local install_script="$BATS_TEST_DIRNAME/../run_onchange_after_install-vim-plugins.sh.tmpl"
 

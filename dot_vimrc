@@ -99,9 +99,6 @@ if has('eval')
   let html_use_xhtml=1
   let html_dynamic_folds=1
 
-  " Set up for the CSApprox.vim plugin.
-  let g:CSApprox_verbose_level = 0
-  let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
 endif
 
 " Old paste macros
