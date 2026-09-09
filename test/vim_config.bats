@@ -134,3 +134,9 @@ setup() {
     assert_success
     refute_output
 }
+
+@test "neovim manages kanagawa.nvim via chezmoiexternal" {
+    assert grep -q 'depName=rebelot/kanagawa.nvim' "$BATS_TEST_DIRNAME/../.chezmoiexternal.toml"
+    assert grep -q '".local/share/nvim/site/pack/plugins/start/kanagawa.nvim"' \
+        "$BATS_TEST_DIRNAME/../.chezmoiexternal.toml"
+}

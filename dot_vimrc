@@ -209,10 +209,19 @@ au BufReadPost *.pl   set keywordprg=perldoc\ -f
 au BufReadPost *.vim  map K :exe ":help ".expand("<cword>")<CR>
 au BufReadPost .vimrc map K :exe ":help ".expand("<cword>")<CR>
 
-" Solarized color scheme setup
-let g:solarized_termcolors=256
-set background=dark
-colorscheme solarized
+" Color scheme setup
+if has('nvim')
+  set termguicolors
+  try
+    colorscheme kanagawa
+  catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme default
+  endtry
+else
+  let g:solarized_termcolors=256
+  set background=dark
+  colorscheme solarized
+endif
 
 " Python universality
 let s:python_until_eof = has("python3") ? "python3 << EOF" : "python << EOF"

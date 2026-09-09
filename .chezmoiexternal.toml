@@ -24,6 +24,8 @@
 {{- $vimPlugVersion := "0.14.0" -}}
 {{/* renovate: datasource=git-refs depName=altercation/vim-colors-solarized packageName=https://github.com/altercation/vim-colors-solarized currentValue=master */}}
 {{- $vimColorsSolarizedCommit := "528a59f26d12278698bb946f8fb82a63711eec21" -}}
+{{/* renovate: datasource=git-refs depName=rebelot/kanagawa.nvim packageName=https://github.com/rebelot/kanagawa.nvim currentValue=master */}}
+{{- $kanagawaCommit := "bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3" -}}
 
 [".local/bin/mise"]
     type = "archive-file"
@@ -99,5 +101,10 @@
 [".vim/colors/solarized.vim"]
     type = "file"
     url = "https://raw.githubusercontent.com/altercation/vim-colors-solarized/{{ $vimColorsSolarizedCommit }}/colors/solarized.vim"
+[".local/share/nvim/site/pack/plugins/start/kanagawa.nvim"]
+    type = "archive"
+    url = "https://github.com/rebelot/kanagawa.nvim/archive/{{ $kanagawaCommit }}.zip"
+    exact = true
+    stripComponents = 1
 
 # https://github.com/jorgebucaran/fisher.git
