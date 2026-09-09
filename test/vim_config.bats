@@ -34,6 +34,7 @@ setup() {
 
 @test "LambdaMOO files use moo-lsp-rs through YouCompleteMe" {
     assert grep -q 'depName=kruton/moo-lsp-rs' "$BATS_TEST_DIRNAME/../.chezmoiexternal.toml"
+    # shellcheck disable=SC2016
     assert grep -q 'moo-lsp-rs.*releases/download/{{ \$mooLspVersion }}' \
         "$BATS_TEST_DIRNAME/../.chezmoiexternal.toml"
     assert grep -q 'setfiletype moo' "$BATS_TEST_DIRNAME/../dot_vim/ftdetect/moo.vim"
@@ -84,4 +85,52 @@ setup() {
     assert [ -d "$home/.vim/state/swap" ]
     assert [ -d "$home/.vim/state/backup" ]
     assert [ -d "$home/.vim/state/undo" ]
+}
+
+@test "neovim configuration bridges to vimrc" {
+    local nvim_init="$BATS_TEST_DIRNAME/../dot_config/nvim/init.vim"
+
+    assert [ -f "$nvim_init" ]
+    assert grep -q "set runtimepath^=~/.vim runtimepath+=~/.vim/after" "$nvim_init"
+    assert grep -q "source ~/.vimrc" "$nvim_init"
+}
+
+@test "neovim backup config centralizes recovery files in nvim state" {
+    command -v nvim > /dev/null || skip "nvim is not installed"
+
+    home="$BATS_TEST_TMPDIR/home"
+    mkdir "$home"
+
+    run env HOME="$home" nvim --headless -Nu NONE -n -es \
+        -S "$BATS_TEST_DIRNAME/../dot_vim/settings/backup.vim" \
+        -c 'redir => options' \
+        -c 'silent set directory? backupdir? swapfile? backup? writebackup? undodir? undofile?' \
+        -c 'redir END' \
+        -c 'put =options' \
+        -c '%print' \
+        -c 'qa!'
+
+    assert_success
+    assert_output --partial "directory=~/.local/state/nvim/swap//"
+    assert_output --partial "backupdir=~/.local/state/nvim/backup//"
+    assert_output --partial "undodir=~/.local/state/nvim/undo//"
+    assert_output --partial "swapfile"
+    assert_output --partial "backup"
+    assert_output --partial "writebackup"
+    assert_output --partial "undofile"
+
+    assert [ -d "$home/.local/state/nvim/swap" ]
+    assert [ -d "$home/.local/state/nvim/backup" ]
+    assert [ -d "$home/.local/state/nvim/undo" ]
+}
+
+@test "neovim loads shared config without errors" {
+    command -v nvim > /dev/null || skip "nvim is not installed"
+
+    run nvim --headless \
+        -u "$BATS_TEST_DIRNAME/../dot_config/nvim/init.vim" \
+        -c 'qa!'
+
+    assert_success
+    refute_output
 }

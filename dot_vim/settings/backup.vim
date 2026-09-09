@@ -1,6 +1,10 @@
-" Keep generated Vim state out of project directories without disabling
+" Keep generated Vim/Neovim state out of project directories without disabling
 " recovery or write safety.
-let s:vim_state_home = expand('~/.vim/state')
+if has('nvim')
+  let s:vim_state_home = stdpath('state')
+else
+  let s:vim_state_home = expand('~/.vim/state')
+endif
 let s:vim_swap_dir = s:vim_state_home . '/swap'
 let s:vim_backup_dir = s:vim_state_home . '/backup'
 let s:vim_undo_dir = s:vim_state_home . '/undo'
