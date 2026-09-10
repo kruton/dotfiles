@@ -140,3 +140,45 @@ setup() {
     assert grep -q '".local/share/nvim/site/pack/plugins/start/kanagawa.nvim"' \
         "$BATS_TEST_DIRNAME/../.chezmoiexternal.toml"
 }
+
+@test "neovim manages plenary.nvim via chezmoiexternal" {
+    assert grep -q 'depName=nvim-lua/plenary.nvim' "$BATS_TEST_DIRNAME/../.chezmoiexternal.toml"
+    assert grep -q '".local/share/nvim/site/pack/plugins/start/plenary.nvim"' \
+        "$BATS_TEST_DIRNAME/../.chezmoiexternal.toml"
+}
+
+@test "neovim manages inlay-hints.nvim via chezmoiexternal" {
+    assert grep -q 'depName=MysticalDevil/inlay-hints.nvim' "$BATS_TEST_DIRNAME/../.chezmoiexternal.toml"
+    assert grep -q '".local/share/nvim/site/pack/plugins/start/inlay-hints.nvim"' \
+        "$BATS_TEST_DIRNAME/../.chezmoiexternal.toml"
+}
+
+@test "neovim configures inlay-hints" {
+    local nvim_init="$BATS_TEST_DIRNAME/../dot_config/nvim/init.vim"
+
+    assert [ -f "$nvim_init" ]
+    assert grep -q 'require, "inlay-hints"' "$nvim_init"
+    assert grep -q 'inlay_hints.setup()' "$nvim_init"
+}
+
+@test "neovim configures nvim-lambdamoo when repository is present" {
+    local nvim_init="$BATS_TEST_DIRNAME/../dot_config/nvim/init.vim"
+
+    assert [ -f "$nvim_init" ]
+    assert grep -q "nvim-lambdamoo" "$nvim_init"
+    assert grep -q 'lambdamoo.setup' "$nvim_init"
+    assert grep -q 'authority = "codepoint"' "$nvim_init"
+    assert grep -q 'endpoint = "https://codepoint.the-b.org/dav/"' "$nvim_init"
+}
+
+@test "neovim disables YouCompleteMe for MOO files" {
+    command -v nvim > /dev/null || skip "nvim is not installed"
+
+    run nvim --headless \
+        -u "$BATS_TEST_DIRNAME/../dot_config/nvim/init.vim" \
+        -c 'echo get(g:ycm_filetype_blacklist, "moo", 0)' \
+        -c 'qa!'
+
+    assert_success
+    assert_output "1"
+}

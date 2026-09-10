@@ -26,6 +26,10 @@
 {{- $vimColorsSolarizedCommit := "528a59f26d12278698bb946f8fb82a63711eec21" -}}
 {{/* renovate: datasource=git-refs depName=rebelot/kanagawa.nvim packageName=https://github.com/rebelot/kanagawa.nvim currentValue=master */}}
 {{- $kanagawaCommit := "bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3" -}}
+{{/* renovate: datasource=git-refs depName=nvim-lua/plenary.nvim packageName=https://github.com/nvim-lua/plenary.nvim currentValue=master */}}
+{{- $plenaryCommit := "74b06c6c75e4eeb3108ec01852001636d85a932b" -}}
+{{/* renovate: datasource=git-refs depName=MysticalDevil/inlay-hints.nvim packageName=https://github.com/MysticalDevil/inlay-hints.nvim currentValue=master */}}
+{{- $inlayHintsCommit := "297a65ab9543eb0850c1a55df4bb89e22cfec504" -}}
 
 [".local/bin/mise"]
     type = "archive-file"
@@ -104,6 +108,16 @@
 [".local/share/nvim/site/pack/plugins/start/kanagawa.nvim"]
     type = "archive"
     url = "https://github.com/rebelot/kanagawa.nvim/archive/{{ $kanagawaCommit }}.zip"
+    exact = true
+    stripComponents = 1
+[".local/share/nvim/site/pack/plugins/start/plenary.nvim"]
+    type = "archive"
+    url = "https://github.com/nvim-lua/plenary.nvim/archive/{{ $plenaryCommit }}.zip"
+    exact = true
+    stripComponents = 1
+[".local/share/nvim/site/pack/plugins/start/inlay-hints.nvim"]
+    type = "archive"
+    url = "https://github.com/MysticalDevil/inlay-hints.nvim/archive/{{ $inlayHintsCommit }}.zip"
     exact = true
     stripComponents = 1
 

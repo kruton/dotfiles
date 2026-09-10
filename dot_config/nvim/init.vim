@@ -20,3 +20,37 @@ endif
 if filereadable(expand('~/.vimrc'))
   source ~/.vimrc
 endif
+
+" Load local nvim-lambdamoo plugin if present
+let s:nvim_lambdamoo = expand('~/git/nvim-lambdamoo')
+if isdirectory(s:nvim_lambdamoo)
+  execute 'set runtimepath+=' . fnameescape(s:nvim_lambdamoo)
+  lua << EOF
+  local ok, lambdamoo = pcall(require, "lambdamoo")
+  if ok then
+    lambdamoo.setup({
+      connections = {
+        {
+          authority = "waterpoint",
+          endpoint = "https://moo.waterpoint.org/dav/",
+        },
+        {
+          authority = "codepoint",
+          endpoint = "https://moo.codepoint.the-b.org/dav/",
+        },
+      },
+    })
+  end
+EOF
+endif
+
+" Enable inlay hints if installed
+lua << EOF
+local ok, inlay_hints = pcall(require, "inlay-hints")
+if ok then
+  inlay_hints.setup({
+    commands = { enable = true },  -- Enable commands: InlayHintsToggle, InlayHintsEnable, InlayHintsDisable
+    autocmd = { enable = true },  -- Auto-enable inlay hints on LspAttach
+  })
+end
+EOF
