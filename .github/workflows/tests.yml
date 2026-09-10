@@ -54,6 +54,12 @@ jobs:
 
         perf/run-perf.sh --compare "$base_ref" HEAD --samples 3
 
+    - name: Verify chezmoi templates
+      run: |
+        sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "${RUNNER_TEMP}/bin"
+        "${RUNNER_TEMP}/bin/chezmoi" init --source . --destination "${RUNNER_TEMP}/chezmoi-dest"
+        "${RUNNER_TEMP}/bin/chezmoi" diff --source . --destination "${RUNNER_TEMP}/chezmoi-dest"
+
     - name: Run the tests
       run: |
         docker run --rm --security-opt seccomp=unconfined -v ${{ github.workspace }}:/source \

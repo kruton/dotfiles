@@ -27,29 +27,8 @@ EOF
 }
 
 @test "bash_profile dedupes path after local profile hooks" {
-    cat > "$HOME/.bashrc" <<'EOF'
-dedupe_path_list() {
-    local _raw_list="${1#*:}"
-    local _deduped_list="${1%%:*}"
-    local _next_entry
-
-    while [[ -n $_raw_list ]]; do
-        if [[ $_raw_list =~ : ]]; then
-            _next_entry="${_raw_list%%:*}"
-            _raw_list="${_raw_list#*:}"
-        else
-            _next_entry="$_raw_list"
-            _raw_list=""
-        fi
-
-        case ":${_deduped_list}:" in
-            *:${_next_entry}:*) ;;
-            *) _deduped_list="${_deduped_list}:${_next_entry}" ;;
-        esac
-    done
-
-    echo "${_deduped_list}"
-}
+    cat > "$HOME/.bashrc" <<EOF
+source "$BATS_TEST_DIRNAME/../dot_bashrc.d/98-dedupe-function.bash"
 EOF
     cat > "$HOME/.bash_profile.local" <<'EOF'
 PATH="$HOME/bin:$PATH:/usr/bin"
