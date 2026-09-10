@@ -158,17 +158,24 @@ setup() {
 
     assert [ -f "$nvim_init" ]
     assert grep -q 'require, "inlay-hints"' "$nvim_init"
-    assert grep -q 'inlay_hints.setup()' "$nvim_init"
+    assert grep -q 'inlay_hints.setup' "$nvim_init"
 }
 
-@test "neovim configures nvim-lambdamoo when repository is present" {
+@test "neovim manages nvim-lambdamoo via chezmoiexternal" {
+    assert grep -q 'depName=kruton/nvim-lambdamoo' "$BATS_TEST_DIRNAME/../.chezmoiexternal.toml"
+    assert grep -q '".local/share/nvim/site/pack/plugins/start/nvim-lambdamoo"' \
+        "$BATS_TEST_DIRNAME/../.chezmoiexternal.toml"
+}
+
+@test "neovim configures nvim-lambdamoo" {
     local nvim_init="$BATS_TEST_DIRNAME/../dot_config/nvim/init.vim"
 
     assert [ -f "$nvim_init" ]
     assert grep -q "nvim-lambdamoo" "$nvim_init"
     assert grep -q 'lambdamoo.setup' "$nvim_init"
+    assert grep -q 'authority = "waterpoint"' "$nvim_init"
     assert grep -q 'authority = "codepoint"' "$nvim_init"
-    assert grep -q 'endpoint = "https://codepoint.the-b.org/dav/"' "$nvim_init"
+    assert grep -q 'endpoint = "https://moo.codepoint.the-b.org/dav/"' "$nvim_init"
 }
 
 @test "neovim disables YouCompleteMe for MOO files" {
