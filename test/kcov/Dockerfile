@@ -10,10 +10,13 @@ RUN apt-get update && \
       bash-completion \
       ca-certificates \
       curl \
+      git \
+      ncurses-bin \
       ncurses-term \
       neovim \
       vim \
       && \
+    git config --system --add safe.directory '*' && \
     sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin && \
     rm -rf /var/lib/apt/lists/*
 

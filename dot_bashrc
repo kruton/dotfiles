@@ -18,17 +18,21 @@ DOTFILES_DIR="$( cd -P "$( dirname "$BASHRC_SOURCE" )" && pwd )"
 # Hack to get around gnome-terminal not being able to set its TERM
 # to xterm-256color
 #
+_warn() {
+    [ -t 2 ] && echo "$@" >&2
+}
+
 if [ "$TERM" = "xterm" ] ; then
     if [ -z "$COLORTERM" ] ; then
         if [ -z "$XTERM_VERSION" ] ; then
-            echo "Warning: Terminal wrongly calling itself 'xterm'."
+            _warn "Warning: Terminal wrongly calling itself 'xterm'."
         else
             case "$XTERM_VERSION" in
             "XTerm(256)") TERM="xterm-256color" ;;
             "XTerm(88)") TERM="xterm-88color" ;;
             "XTerm") ;;
             *)
-                echo "Warning: Unrecognized XTERM_VERSION: $XTERM_VERSION"
+                _warn "Warning: Unrecognized XTERM_VERSION: $XTERM_VERSION"
                 ;;
             esac
         fi
@@ -42,47 +46,54 @@ if [ "$TERM" = "xterm" ] ; then
                 TERM="gnome-256color"
                 ;;
             *)
-                echo "Warning: Unrecognized COLORTERM: $COLORTERM"
+                _warn "Warning: Unrecognized COLORTERM: $COLORTERM"
                 ;;
         esac
     fi
 fi
 
-SCREEN_COLORS="$(tput colors 2>/dev/null || true)"
-if [ -z "$SCREEN_COLORS" ] ; then
-    case "$TERM" in
-        screen-*color-bce)
-            echo "Unknown terminal $TERM. Falling back to 'screen-bce'."
-            export TERM=screen-bce
-            ;;
-        *-88color)
-            echo "Unknown terminal $TERM. Falling back to 'xterm-88color'."
-            export TERM=xterm-88color
-            ;;
-        *-256color)
-            echo "Unknown terminal $TERM. Falling back to 'xterm-256color'."
-            export TERM=xterm-256color
-            ;;
-    esac
+if command -v tput >/dev/null 2>&1; then
     SCREEN_COLORS="$(tput colors 2>/dev/null || true)"
+    if [ -z "$SCREEN_COLORS" ] ; then
+        case "$TERM" in
+            screen-*color-bce)
+                _warn "Unknown terminal $TERM. Falling back to 'screen-bce'."
+                export TERM=screen-bce
+                ;;
+            *-88color)
+                _warn "Unknown terminal $TERM. Falling back to 'xterm-88color'."
+                export TERM=xterm-88color
+                ;;
+            *-256color)
+                if [ "$TERM" != "xterm-256color" ]; then
+                    _warn "Unknown terminal $TERM. Falling back to 'xterm-256color'."
+                    export TERM=xterm-256color
+                fi
+                ;;
+        esac
+        SCREEN_COLORS="$(tput colors 2>/dev/null || true)"
+    fi
+    if [ -z "$SCREEN_COLORS" ] ; then
+        case "$TERM" in
+            gnome*|xterm*|konsole*|aterm|[Ee]term)
+                if [ "$TERM" != "xterm" ]; then
+                    _warn "Unknown terminal $TERM. Falling back to 'xterm'."
+                    export TERM=xterm
+                fi
+                ;;
+            rxvt*)
+                _warn "Unknown terminal $TERM. Falling back to 'rxvt'."
+                export TERM=rxvt
+                ;;
+            screen*)
+                _warn "Unknown terminal $TERM. Falling back to 'screen'."
+                export TERM=screen
+                ;;
+        esac
+        SCREEN_COLORS="$(tput colors 2>/dev/null || true)"
+    fi
 fi
-if [ -z "$SCREEN_COLORS" ] ; then
-    case "$TERM" in
-        gnome*|xterm*|konsole*|aterm|[Ee]term)
-            echo "Unknown terminal $TERM. Falling back to 'xterm'."
-            export TERM=xterm
-            ;;
-        rxvt*)
-            echo "Unknown terminal $TERM. Falling back to 'rxvt'."
-            export TERM=rxvt
-            ;;
-        screen*)
-            echo "Unknown terminal $TERM. Falling back to 'screen'."
-            export TERM=screen
-            ;;
-    esac
-    SCREEN_COLORS="$(tput colors 2>/dev/null || true)"
-fi
+unset -f _warn
 
 # a million lines in file history
 export HISTFILESIZE=1000000

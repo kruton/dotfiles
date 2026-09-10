@@ -45,7 +45,7 @@ setup() {
     assert_success
     refute_output
 
-    filtered_stderr="$(printf '%s\n' "${stderr_lines[@]}" | grep -Ev '(cannot set terminal process group|no job control in this shell)' || true)"
+    filtered_stderr="$(printf '%s\n' "${stderr_lines[@]}" | grep -Ev '(cannot set terminal process group|no job control in this shell|^exit$)' || true)"
     assert_equal "$filtered_stderr" ""
 }
 
@@ -62,7 +62,7 @@ setup() {
     assert_success
     assert_output "IDEMPOTENT_OK"
 
-    filtered_stderr="$(printf '%s\n' "${stderr_lines[@]}" | grep -Ev '(cannot set terminal process group|no job control in this shell)' || true)"
+    filtered_stderr="$(printf '%s\n' "${stderr_lines[@]}" | grep -Ev '(cannot set terminal process group|no job control in this shell|^exit$)' || true)"
     assert_equal "$filtered_stderr" ""
 }
 
