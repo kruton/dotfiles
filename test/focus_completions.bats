@@ -173,19 +173,19 @@ EOF
 }
 
 @test "completion handles missing adb and fastboot commands gracefully" {
-    local orig_path="$PATH"
-    PATH="/nonexistent"
-    _focus_reset
-    COMPREPLY=()
-    COMP_WORDS=(focus "")
-    COMP_LINE="focus "
-    COMP_POINT=6
-    COMP_CWORD=1
-    _focus
-    local count="${#COMPREPLY[@]}"
-    PATH="$orig_path"
-
-    assert_equal "$count" 0
+    # shellcheck disable=SC2016
+    run bash -c '
+        source "'"$BATS_TEST_DIRNAME"'/../dot_bashrc.d/20-android-focus.bash"
+        PATH="/nonexistent"
+        COMP_WORDS=(focus "")
+        COMP_LINE="focus "
+        COMP_POINT=6
+        COMP_CWORD=1
+        _focus
+        echo "${#COMPREPLY[@]}"
+    '
+    assert_success
+    assert_output "0"
 }
 
 @test "completion does not complete for arguments beyond the first" {
