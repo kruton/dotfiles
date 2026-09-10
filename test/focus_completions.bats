@@ -163,7 +163,7 @@ call_focus() {
 echo "* daemon not running; starting now at tcp:5037"
 echo "* daemon started successfully"
 echo "List of devices attached"
-echo -e "DEVICE999\tdevice product:pixel model:Pixel device:pixel"
+printf 'DEVICE999\tdevice product:pixel model:Pixel device:pixel\n'
 EOF
     chmod +x "$mock_bin/adb"
     PATH="$mock_bin:$PATH"
