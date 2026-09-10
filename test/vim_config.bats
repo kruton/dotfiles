@@ -76,7 +76,10 @@ setup() {
 @test "neovim loads shared config without errors" {
     command -v nvim > /dev/null || skip "nvim is not installed"
 
-    run nvim --headless \
+    local home="$BATS_TEST_TMPDIR/home"
+    mkdir -p "$home"
+
+    run env HOME="$home" nvim --headless \
         -u "$BATS_TEST_DIRNAME/../dot_config/nvim/init.vim" \
         -c 'qa!'
 
@@ -87,8 +90,11 @@ setup() {
 @test "neovim disables YouCompleteMe for MOO files" {
     command -v nvim > /dev/null || skip "nvim is not installed"
 
-    run nvim --headless \
-        -u "$BATS_TEST_DIRNAME/../dot_config/nvim/init.vim" \
+    local home="$BATS_TEST_TMPDIR/home"
+    mkdir -p "$home"
+
+    run env HOME="$home" nvim --headless -Nu NONE -n \
+        -S "$BATS_TEST_DIRNAME/../dot_vim/settings/moo.vim" \
         -c 'echo get(g:ycm_filetype_blacklist, "moo", 0)' \
         -c 'qa!'
 

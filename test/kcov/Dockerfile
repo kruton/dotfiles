@@ -22,6 +22,7 @@ RUN groupadd --gid "$GID" -r abc && \
     mkdir -p "$WORKDIR/coverage" && \
     chown -R abc:abc "$WORKDIR"
 
+ENV HOME=/home/abc
 USER abc
 
 WORKDIR "$WORKDIR/coverage"
