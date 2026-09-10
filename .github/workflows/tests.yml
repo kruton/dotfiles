@@ -25,7 +25,7 @@ jobs:
       run: |
         shellcheck -s bash -e SC1090,SC1091 \
           dot_bashrc dot_bash_profile dot_bashrc.d/*.bash \
-          run_*.sh bin/*.sh test/*.bats test/*.bash test/*.sh test/libexec/*.sh \
+          run_*.sh bin/*.sh test/*.bats test/*.bash test/*.sh \
           perf/*.sh
 
     - name: Check Bash startup performance

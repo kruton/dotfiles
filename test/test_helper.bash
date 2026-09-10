@@ -1,7 +1,3 @@
-if [[ $BATS_LOADED != 1 ]]; then
-  export BATS_LOADED=1
-  export PATH="${BATS_TEST_DIRNAME}/libexec:$PATH"
-fi
 
 # Just so the terminal isn't an issue
 FOCUS_TEST_bold="$(tput bold)"
