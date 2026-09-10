@@ -1,4 +1,5 @@
 #!/usr/bin/env bats
+# shellcheck disable=SC2016
 
 setup() {
     load 'test_helper/bats-support/load'
