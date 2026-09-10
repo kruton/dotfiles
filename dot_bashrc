@@ -48,7 +48,7 @@ if [ "$TERM" = "xterm" ] ; then
     fi
 fi
 
-SCREEN_COLORS="$(tput colors)"
+SCREEN_COLORS="$(tput colors 2>/dev/null || true)"
 if [ -z "$SCREEN_COLORS" ] ; then
     case "$TERM" in
         screen-*color-bce)
@@ -64,7 +64,7 @@ if [ -z "$SCREEN_COLORS" ] ; then
             export TERM=xterm-256color
             ;;
     esac
-    SCREEN_COLORS="$(tput colors)"
+    SCREEN_COLORS="$(tput colors 2>/dev/null || true)"
 fi
 if [ -z "$SCREEN_COLORS" ] ; then
     case "$TERM" in
@@ -81,7 +81,7 @@ if [ -z "$SCREEN_COLORS" ] ; then
             export TERM=screen
             ;;
     esac
-    SCREEN_COLORS="$(tput colors)"
+    SCREEN_COLORS="$(tput colors 2>/dev/null || true)"
 fi
 
 # a million lines in file history

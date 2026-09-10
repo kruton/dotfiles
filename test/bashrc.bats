@@ -2,6 +2,7 @@
 # shellcheck disable=SC2016
 
 setup() {
+    bats_require_minimum_version 1.5.0
     load 'test_helper/bats-support/load'
     load 'test_helper/bats-assert/load'
     load test_helper.bash
@@ -32,7 +33,7 @@ setup() {
 }
 
 @test "bashrc loads cleanly in interactive subshell" {
-    run env -i \
+    run --separate-stderr env -i \
         HOME="$TEST_HOME" \
         PATH="$TEST_HOME/bin:/usr/local/bin:/usr/bin:/bin" \
         TERM="xterm-256color" \
@@ -42,10 +43,14 @@ setup() {
         bash --noprofile --norc -i -c 'source ~/.bashrc && [[ -n $HISTSIZE ]]'
 
     assert_success
+    refute_output
+
+    filtered_stderr="$(printf '%s\n' "${stderr_lines[@]}" | grep -Ev '(cannot set terminal process group|no job control in this shell)' || true)"
+    assert_equal "$filtered_stderr" ""
 }
 
 @test "bashrc is idempotent when sourced repeatedly" {
-    run env -i \
+    run --separate-stderr env -i \
         HOME="$TEST_HOME" \
         PATH="$TEST_HOME/bin:/usr/local/bin:/usr/bin:/bin" \
         TERM="xterm-256color" \
@@ -56,17 +61,21 @@ setup() {
 
     assert_success
     assert_output "IDEMPOTENT_OK"
+
+    filtered_stderr="$(printf '%s\n' "${stderr_lines[@]}" | grep -Ev '(cannot set terminal process group|no job control in this shell)' || true)"
+    assert_equal "$filtered_stderr" ""
 }
 
 @test "chezmoi templates and configuration render without errors" {
     command -v chezmoi > /dev/null || skip "chezmoi is not installed"
 
+    local home="$BATS_TEST_TMPDIR/chezmoi-home"
     local dest="$BATS_TEST_TMPDIR/chezmoi-dest"
-    mkdir -p "$dest"
+    mkdir -p "$home" "$dest"
 
-    run chezmoi init --source "$BATS_TEST_DIRNAME/.." --destination "$dest"
+    run env HOME="$home" chezmoi init --source "$BATS_TEST_DIRNAME/.." --destination "$dest"
     assert_success
 
-    run chezmoi diff --source "$BATS_TEST_DIRNAME/.." --destination "$dest"
+    run env HOME="$home" chezmoi diff --no-pager --source "$BATS_TEST_DIRNAME/.." --destination "$dest"
     assert_success
 }

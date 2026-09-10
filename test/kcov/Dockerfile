@@ -10,6 +10,7 @@ RUN apt-get update && \
       bash-completion \
       ca-certificates \
       curl \
+      ncurses-term \
       neovim \
       vim \
       && \

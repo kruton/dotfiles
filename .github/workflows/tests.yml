@@ -58,12 +58,12 @@ jobs:
       run: |
         sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "${RUNNER_TEMP}/bin"
         "${RUNNER_TEMP}/bin/chezmoi" init --source . --destination "${RUNNER_TEMP}/chezmoi-dest"
-        "${RUNNER_TEMP}/bin/chezmoi" diff --source . --destination "${RUNNER_TEMP}/chezmoi-dest"
+        "${RUNNER_TEMP}/bin/chezmoi" diff --no-pager --source . --destination "${RUNNER_TEMP}/chezmoi-dest"
 
     - name: Run the tests
       run: |
         docker run --rm --security-opt seccomp=unconfined -v ${{ github.workspace }}:/source \
-          -e TERM=xterm kcov \
+          -e TERM=xterm-256color kcov \
           /source/test/bats/bin/bats --tap /source/test
     - name: Upload coverage to Qlty
       uses: qltysh/qlty-action/coverage@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0

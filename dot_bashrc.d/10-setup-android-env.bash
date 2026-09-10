@@ -26,7 +26,9 @@ get_term_size_with_max() {
     max_height="$1"
     max_width="$2"
 
-    read -r height width < <(stty size)
+    read -r height width < <(stty size 2>/dev/null || echo "24 80")
+    height="${height:-24}"
+    width="${width:-80}"
 
     echo $((height>max_height?max_height:height)) $((width>max_width?max_width:width))
 }
@@ -61,10 +63,10 @@ switch_android_tree() {
                 done
                 tmp_file="$(mktemp)"
                 trap 'clean_up "${tmp_file}"' EXIT SIGINT SIGQUIT SIGTERM
-                tput smcup
+                tput smcup 2>/dev/null || true
                 eval "$dialog_cmd" 5> "$tmp_file"
                 (( ret = $? ))
-                tput rmcup
+                tput rmcup 2>/dev/null || true
                 if (( ret == 0 )); then
                     clear
                     read -r target_number < "$tmp_file"
