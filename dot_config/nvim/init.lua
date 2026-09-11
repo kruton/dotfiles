@@ -25,13 +25,12 @@ if vim.fn.filereadable(vimrc) == 1 then
 end
 
 -- Bootstrap and configure lazy.nvim
-local uv = vim.uv or vim.loop
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not uv.fs_stat(lazypath) and #vim.api.nvim_list_uis() > 0 then
+if not vim.uv.fs_stat(lazypath) and #vim.api.nvim_list_uis() > 0 then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
   vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
 end
-if uv.fs_stat(lazypath) then
+if vim.uv.fs_stat(lazypath) then
   vim.opt.rtp:prepend(lazypath)
   local ok, lazy = pcall(require, "lazy")
   if ok then
