@@ -33,7 +33,7 @@
 {{/* renovate: datasource=git-refs depName=a-usr/xml2lua.nvim packageName=https://github.com/a-usr/xml2lua.nvim currentValue=master */}}
 {{- $xml2luaCommit := "c5fa33ad038958e9592df06e8ca6a88f4e7543aa" -}}
 {{/* renovate: datasource=github-tags depName=kruton/nvim-lambdamoo */}}
-{{- $nvimLambdamooVersion := "v0.1.3" -}}
+{{- $nvimLambdamooVersion := "v0.1.4" -}}
 
 [".local/bin/mise"]
     type = "archive-file"
