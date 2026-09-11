@@ -50,3 +50,17 @@ if ok then
   })
 end
 EOF
+
+" Set up LSP keybindings on attach
+lua << EOF
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
+  callback = function(ev)
+    local opts = { buffer = ev.buf, silent = true }
+    -- Go to definition (resolves remote verbs over moo://)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    -- Show hover / verb definition origins
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+  end,
+})
+EOF
