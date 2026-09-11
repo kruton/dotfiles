@@ -31,7 +31,7 @@
 {{/* renovate: datasource=git-refs depName=MysticalDevil/inlay-hints.nvim packageName=https://github.com/MysticalDevil/inlay-hints.nvim currentValue=master */}}
 {{- $inlayHintsCommit := "297a65ab9543eb0850c1a55df4bb89e22cfec504" -}}
 {{/* renovate: datasource=github-tags depName=kruton/nvim-lambdamoo */}}
-{{- $nvimLambdamooVersion := "v0.1.1" -}}
+{{- $nvimLambdamooVersion := "v0.1.2" -}}
 
 [".local/bin/mise"]
     type = "archive-file"
