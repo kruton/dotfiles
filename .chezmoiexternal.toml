@@ -30,6 +30,8 @@
 {{- $plenaryCommit := "74b06c6c75e4eeb3108ec01852001636d85a932b" -}}
 {{/* renovate: datasource=git-refs depName=MysticalDevil/inlay-hints.nvim packageName=https://github.com/MysticalDevil/inlay-hints.nvim currentValue=master */}}
 {{- $inlayHintsCommit := "297a65ab9543eb0850c1a55df4bb89e22cfec504" -}}
+{{/* renovate: datasource=git-refs depName=a-usr/xml2lua.nvim packageName=https://github.com/a-usr/xml2lua.nvim currentValue=master */}}
+{{- $xml2luaCommit := "c5fa33ad038958e9592df06e8ca6a88f4e7543aa" -}}
 {{/* renovate: datasource=github-tags depName=kruton/nvim-lambdamoo */}}
 {{- $nvimLambdamooVersion := "v0.1.2" -}}
 
@@ -125,6 +127,11 @@
 [".local/share/nvim/site/pack/plugins/start/nvim-lambdamoo"]
     type = "archive"
     url = "https://github.com/kruton/nvim-lambdamoo/archive/refs/tags/{{ $nvimLambdamooVersion }}.zip"
+    exact = true
+    stripComponents = 1
+[".local/share/nvim/site/pack/plugins/start/xml2lua.nvim"]
+    type = "archive"
+    url = "https://github.com/a-usr/xml2lua.nvim/archive/{{ $xml2luaCommit }}.zip"
     exact = true
     stripComponents = 1
 
