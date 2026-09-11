@@ -62,7 +62,7 @@ Plug 'vim-scripts/bash-support.vim', {
 if filereadable(expand('~/.at_google.vim'))
     " Google-only
     source ~/.at_google.vim
-else
+elseif !has('nvim') || has('python3')
     function! BuildYCM(info)
       " info is a dictionary with 3 fields
       " - name:   name of the plugin

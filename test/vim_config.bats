@@ -101,3 +101,8 @@ setup() {
     assert_success
     assert_output "1"
 }
+
+@test "neovim only loads YouCompleteMe when python3 is available" {
+    assert grep -q "elseif !has('nvim') || has('python3')" \
+        "$BATS_TEST_DIRNAME/../dot_vim/settings/plugins.vim"
+}
