@@ -80,7 +80,7 @@ setup() {
     mkdir -p "$home"
 
     run env HOME="$home" nvim --headless \
-        -u "$BATS_TEST_DIRNAME/../dot_config/nvim/init.vim" \
+        -u "$BATS_TEST_DIRNAME/../dot_config/nvim/init.lua" \
         -c 'qa!'
 
     assert_success
@@ -100,9 +100,4 @@ setup() {
 
     assert_success
     assert_output "1"
-}
-
-@test "neovim only loads YouCompleteMe when python3 is available" {
-    assert grep -q "elseif !has('nvim') || has('python3')" \
-        "$BATS_TEST_DIRNAME/../dot_vim/settings/plugins.vim"
 }
