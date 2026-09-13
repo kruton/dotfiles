@@ -5,7 +5,7 @@
 {{/* renovate: datasource=github-releases depName=rbenv/ruby-build */}}
 {{- $rubyBuildVersion := "20251225" -}}
 {{/* renovate: datasource=github-releases depName=jdx/mise */}}
-{{- $miseVersion := "v2026.9.5" -}}
+{{- $miseVersion := "v2026.9.6" -}}
 {{/* renovate: datasource=github-releases depName=kruton/moo-lsp-rs */}}
 {{- $mooLspVersion := "v0.3.0" -}}
 {{/* renovate: datasource=git-refs depName=lincheney/fzf-tab-completion packageName=https://github.com/lincheney/fzf-tab-completion currentValue=master */}}
