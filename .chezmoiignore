@@ -15,3 +15,7 @@ home
 perf
 renovate.json5
 test
+
+# Blightmud machine-local secrets and migration backups
+.config/blightmud/local/credentials.lua
+.config/blightmud/backups
