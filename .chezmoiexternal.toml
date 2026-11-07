@@ -21,7 +21,7 @@
 {{/* renovate: datasource=github-tags depName=paldepind/projectdo */}}
 {{- $projectdoVersion := "v1.0.0" -}}
 {{/* renovate: datasource=github-tags depName=junegunn/vim-plug */}}
-{{- $vimPlugVersion := "0.14.0" -}}
+{{- $vimPlugVersion := "0.15.0" -}}
 {{/* renovate: datasource=git-refs depName=altercation/vim-colors-solarized packageName=https://github.com/altercation/vim-colors-solarized currentValue=master */}}
 {{- $vimColorsSolarizedCommit := "528a59f26d12278698bb946f8fb82a63711eec21" -}}
 {{/* renovate: datasource=github-tags depName=folke/lazy.nvim */}}
