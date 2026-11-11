@@ -154,13 +154,13 @@ _find_ssh_config_identity_agent_sockets() {
 			printf '%s\n' "$config"
 			while read -r keyword include_path _
 			do
-				case "$keyword" in
-					[Ii][Nn][Cc][Ll][Uu][Dd][Ee])
-						include_path="$(_expand_ssh_identity_agent_path "$include_path")" || continue
-						# shellcheck disable=SC2086
-						printf '%s\n' $include_path
-						;;
-				esac
+				# Bash 3.2 misparses case terminators in this nested
+				# process substitution. Keep the pattern in [[ ]] instead.
+				if [[ $keyword == [Ii][Nn][Cc][Ll][Uu][Dd][Ee] ]]; then
+					include_path="$(_expand_ssh_identity_agent_path "$include_path")" || continue
+					# shellcheck disable=SC2086
+					printf '%s\n' $include_path
+				fi
 			done < <(sed 's/[[:space:]]*#.*$//' "$config")
 		} | sort -u
 	)
