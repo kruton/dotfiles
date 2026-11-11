@@ -1,0 +1,4 @@
+# Obsolete shell modules replaced by the current .bashrc.d configuration.
+.bashrc.d/49-homebrew-path.bash
+.bashrc.d/49-macports-path.bash
+.bashrc.d/49-pip-local-user.bash

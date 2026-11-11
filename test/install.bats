@@ -26,15 +26,29 @@ chezmoi_test() {
     # or running package managers and editor plugin installers on the host.
     cp "$REPO/dot_bashrc" "$REPO/dot_bash_profile" \
         "$REPO/dot_bash_aliases" "$REPO/dot_gitconfig.tmpl" \
-        "$REPO/run_onchange_old_bashrcd.sh" \
+        "$REPO/.chezmoiremove" \
         "$REPO/run_once_after_migration.sh" "$TEST_SOURCE/"
     mkdir -p "$TEST_SOURCE/dot_bashrc.d" "$TEST_HOME/.bashrc.d"
     cp "$REPO/dot_bashrc.d/91-starship.bash" "$TEST_SOURCE/dot_bashrc.d/"
-    touch "$TEST_HOME/.bashrc.d/49-homebrew-path.bash"
+    local obsolete
+    for obsolete in 49-homebrew-path.bash 49-macports-path.bash 49-pip-local-user.bash; do
+        printf '# obsolete module\n' > "$TEST_HOME/.bashrc.d/$obsolete"
+    done
+    printf '# machine-local module\n' > "$TEST_HOME/.bashrc.d/50-local.bash"
+
+    # Deletions should be visible for review before applying.
+    run chezmoi_test diff --no-pager
+    assert_success
+    for obsolete in 49-homebrew-path.bash 49-macports-path.bash 49-pip-local-user.bash; do
+        assert_output --partial "$obsolete"
+    done
 
     run chezmoi_test apply
     assert_success
-    [ ! -e "$TEST_HOME/.bashrc.d/49-homebrew-path.bash" ]
+    for obsolete in 49-homebrew-path.bash 49-macports-path.bash 49-pip-local-user.bash; do
+        [ ! -e "$TEST_HOME/.bashrc.d/$obsolete" ]
+    done
+    [ -f "$TEST_HOME/.bashrc.d/50-local.bash" ]
     cmp "$REPO/dot_bashrc.d/91-starship.bash" "$TEST_HOME/.bashrc.d/91-starship.bash"
     cmp "$REPO/dot_bashrc" "$TEST_HOME/.bashrc"
     cmp "$REPO/dot_bash_profile" "$TEST_HOME/.bash_profile"
@@ -48,6 +62,12 @@ chezmoi_test() {
     run chezmoi_test diff --no-pager
     assert_success
     refute_output
+
+    # Recreated files remain removal targets; explicitly accept the conflict.
+    touch "$TEST_HOME/.bashrc.d/49-homebrew-path.bash"
+    run chezmoi_test apply --force
+    assert_success
+    [ ! -e "$TEST_HOME/.bashrc.d/49-homebrew-path.bash" ]
 
     printf '[core]\n autocrlf = false\n[merge]\n conflictstyle = merge\n' > "$TEST_HOME/.gitconfig.local"
     run git config --file "$TEST_HOME/.gitconfig" --includes --get core.autocrlf
