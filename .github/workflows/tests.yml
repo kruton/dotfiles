@@ -3,6 +3,26 @@ name: CI
 on: [push, pull_request]
 
 jobs:
+  portable-install:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        submodules: true
+    - name: Install chezmoi
+      run: |
+        sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "${RUNNER_TEMP}/bin"
+        echo "${RUNNER_TEMP}/bin" >> "$GITHUB_PATH"
+    - name: Test isolated installation and portable shell helpers
+      env:
+        TERM: xterm-256color
+      run: |
+        test/bats/bin/bats test/install.bats test/ssh_agent_cache.bats \
+          test/bash_profile.bats test/path_dedupe.bats
+
   build:
 
     runs-on: ubuntu-latest

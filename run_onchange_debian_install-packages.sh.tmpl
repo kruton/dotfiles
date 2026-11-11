@@ -1,4 +1,4 @@
-{{ if eq .osid "linux-debian" -}}
+{{ if or (eq .osid "linux-debian") (eq .osid "linux-ubuntu") -}}
 #!/bin/bash
 
 sudo apt-get install -y {{ range .packages.debian -}}

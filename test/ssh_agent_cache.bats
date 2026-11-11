@@ -77,6 +77,22 @@ setup() {
     assert_output "$HOME/.ssh/agent.sock"
 }
 
+@test "writing ssh agent cache preserves the caller umask on success and failure" {
+    SSH_AUTH_SOCK="$BATS_TEST_TMPDIR/agent.sock"
+    touch "$SSH_AUTH_SOCK"
+    umask 022
+
+    _write_cached_ssh_agent_socket
+    assert_equal "$(umask)" "0022"
+
+    # Fail after the writer sets its private umask.
+    mv() { return 1; }
+    if _write_cached_ssh_agent_socket; then
+        fail "cache write unexpectedly succeeded"
+    fi
+    assert_equal "$(umask)" "0022"
+}
+
 @test "ssh config IdentityAgent path expands SSH_AUTH_SOCK token" {
     SSH_AUTH_SOCK="$BATS_TEST_TMPDIR/live-agent.sock"
     export SSH_AUTH_SOCK

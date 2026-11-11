@@ -318,7 +318,7 @@ _read_cached_ssh_agent_socket() {
 	return 0
 }
 
-_write_cached_ssh_agent_socket() {
+_write_cached_ssh_agent_socket() (
 	local cache_file tmp_file
 
 	[[ -n $SSH_AUTH_SOCK ]] || return 1
@@ -337,7 +337,7 @@ _write_cached_ssh_agent_socket() {
 		return 1
 	}
 	mv -f "$tmp_file" "$cache_file"
-}
+)
 
 _find_live_gnome_keyring_agents() {
 	for i in $_GNOME_KEYRING_AGENT_SOCKETS
