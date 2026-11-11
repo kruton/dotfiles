@@ -1,0 +1,19 @@
+# Machine-specific Git settings.
+# Loaded after shared settings, so values here take precedence.
+# Uncomment and customize what you need.
+
+# [user]
+#     name = Your Name
+#     email = you@example.com
+
+# [commit]
+#     gpgsign = true
+
+# [user]
+#     signingkey = YOUR_KEY_ID
+
+# [core]
+#     editor = nvim
+
+# [includeIf "gitdir:~/work/"]
+#     path = ~/.gitconfig.work

@@ -31,12 +31,15 @@ replacing `.bashrc`; source `~/.bashrc.dev` from the existing shell configuratio
 Leave `DEVSERVER` unset for a normal installation (even `DEVSERVER=0` enables
 the mode). This choice is saved in chezmoi's configuration.
 
-Machine-specific overrides belong in these unmanaged files:
+Machine-specific overrides belong in these local files:
 
 - `~/.bashrc.local.pre`: loaded before shell modules.
 - `~/.bashrc.local`: loaded after shell modules and aliases.
 - `~/.bash_profile.local`: loaded after `.bashrc` for login shells.
 - `~/.gitconfig.local`: loaded after shared Git settings, so local values win.
+
+Chezmoi creates a commented starter for `.gitconfig.local` if it is missing.
+Existing contents and subsequent local edits are left alone.
 
 Keep credentials and machine-specific secrets out of the source repository.
 Tool versions live in `.chezmoiexternals/` and
