@@ -1,0 +1,40 @@
+{{/* renovate: datasource=github-releases depName=junegunn/fzf */}}
+{{- $fzfVersion := "0.74.5" -}}
+{{/* renovate: datasource=git-refs depName=lincheney/fzf-tab-completion packageName=https://github.com/lincheney/fzf-tab-completion currentValue=master */}}
+{{- $fzfTabCompletionCommit := "7014e0a7cd68fe3530e2f58c45740d17e98f05b8" -}}
+{{/* renovate: datasource=github-tags depName=rcaloras/bash-preexec */}}
+{{- $bashPreexecVersion := "0.7.0" -}}
+{{/* renovate: datasource=git-refs depName=seebi/dircolors-solarized packageName=https://github.com/seebi/dircolors-solarized currentValue=master */}}
+{{- $dircolorsSolarizedCommit := "bd9d473393a78366d5c3658d9cd2db7d8944b447" -}}
+{{/* renovate: datasource=github-tags depName=tmux-plugins/tpm */}}
+{{- $tpmVersion := "v3.1.0" -}}
+
+[".fzf"]
+    type = "archive"
+    url = "https://github.com/junegunn/fzf/archive/refs/tags/v{{ $fzfVersion }}.tar.gz"
+    exact = true
+    stripComponents = 1
+[".fzf/bin"]
+    type = "archive"
+    exact = true
+    url = "https://github.com/junegunn/fzf/releases/download/v{{ $fzfVersion }}/fzf-{{ $fzfVersion }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+[".fzf-tab-completion"]
+    type = "archive"
+    url = "https://github.com/lincheney/fzf-tab-completion/archive/{{ $fzfTabCompletionCommit }}.zip"
+    exact = true
+    stripComponents = 1
+[".bash-preexec"]
+    type = "archive"
+    url = "https://github.com/rcaloras/bash-preexec/archive/refs/tags/{{ $bashPreexecVersion }}.zip"
+    exact = true
+    stripComponents = 1
+[".dircolors-solarized"]
+    type = "archive"
+    url = "https://github.com/seebi/dircolors-solarized/archive/{{ $dircolorsSolarizedCommit }}.zip"
+    exact = true
+    stripComponents = 1
+[".tmux/plugins/tpm"]
+    type = "archive"
+    url = "https://github.com/tmux-plugins/tpm/archive/refs/tags/{{ $tpmVersion }}.zip"
+    exact = true
+    stripComponents = 1

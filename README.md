@@ -39,7 +39,7 @@ Machine-specific overrides belong in these unmanaged files:
 - `~/.gitconfig.local`: loaded after shared Git settings, so local values win.
 
 Keep credentials and machine-specific secrets out of the source repository.
-Tool versions live in `.chezmoiexternal.toml` and
+Tool versions live in `.chezmoiexternals/` and
 `dot_config/mise/config.toml.tmpl`; OS packages live in `.chezmoidata/packages.yaml`.
 
 To run the tests, initialize the test framework submodules and use Bats:
