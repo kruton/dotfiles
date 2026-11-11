@@ -2,3 +2,6 @@
 .bashrc.d/49-homebrew-path.bash
 .bashrc.d/49-macports-path.bash
 .bashrc.d/49-pip-local-user.bash
+.bashrc.d/60-nvm.bash
+.bashrc.d/60-rbenv.bash
+.bashrc.d/90-node.bash

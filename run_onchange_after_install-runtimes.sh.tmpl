@@ -1,0 +1,15 @@
+#!/bin/sh
+set -eu
+
+# Run after chezmoi installs mise and its configuration.
+mise="$HOME/.local/bin/mise"
+
+# Reuse existing Node installations, including their global npm packages.
+# These are symlinks: keep the original nvm directory after migration.
+if [ -d "${NVM_DIR:-$HOME/.nvm}/versions/node" ]; then
+    "$mise" -C "$HOME" sync node --nvm
+fi
+
+"$mise" -C "$HOME" install \
+    {{ printf "node@%s" .runtimes.node | quote }} \
+    {{ printf "ruby@%s" .runtimes.ruby | quote }}

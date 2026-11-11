@@ -4,10 +4,6 @@
 {{- $gitRebaseAllCommit := "a8639a142dd5d672586a6c3b67c1b9288dab586b" -}}
 {{/* renovate: datasource=github-tags depName=paldepind/projectdo */}}
 {{- $projectdoVersion := "v1.0.0" -}}
-{{/* renovate: datasource=github-releases depName=rbenv/rbenv */}}
-{{- $rbenvVersion := "1.3.2" -}}
-{{/* renovate: datasource=github-releases depName=rbenv/ruby-build */}}
-{{- $rubyBuildVersion := "20251225" -}}
 
 [".local/bin/mise"]
     type = "archive-file"
@@ -24,14 +20,3 @@
     url = "https://github.com/paldepind/projectdo/archive/refs/tags/{{ $projectdoVersion }}.zip"
     stripComponents = 1
     path = "projectdo"
-[".rbenv"]
-    type = "archive"
-    url = "https://github.com/rbenv/rbenv/archive/refs/tags/v{{ $rbenvVersion }}.zip"
-    stripComponents = 1
-    refreshPeriod = "168h"
-[".ruby-build"]
-    type = "archive"
-    url = "https://github.com/rbenv/ruby-build/archive/refs/tags/v{{ $rubyBuildVersion }}.zip"
-    exact = true
-    stripComponents = 1
-    refreshPeriod = "168h"

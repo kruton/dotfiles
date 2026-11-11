@@ -1,8 +1,10 @@
 [settings]
-idiomatic_version_file_enable_tools = []
+idiomatic_version_file_enable_tools = ["node", "ruby"]
 experimental = true
 
 [tools]
+node = {{ .runtimes.node | quote }}
+ruby = {{ .runtimes.ruby | quote }}
 "aqua:FiloSottile/age" = "1.2.1"
 "aqua:atuinsh/atuin" = "18.8.0"
 "aqua:cargo-bins/cargo-binstall" = "1.14.1"

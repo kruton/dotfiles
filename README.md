@@ -45,6 +45,20 @@ Keep credentials and machine-specific secrets out of the source repository.
 Tool versions live in `.chezmoiexternals/` and
 `dot_config/mise/config.toml.tmpl`; OS packages live in `.chezmoidata/packages.yaml`.
 
+Mise manages Node and Ruby alongside the existing Python and Java setup.
+Default Node/Ruby versions live in `.chezmoidata/runtimes.yaml` and are installed
+after applying the configuration. Project `.nvmrc`, `.node-version`, and
+`.ruby-version` files are enabled; run `mise install` in a project to install
+its requested versions, or use `mise use node@VERSION` / `mise use ruby@VERSION`
+to record a version in the project's `mise.toml`.
+
+The migration imports existing nvm Node installations as symlinks, preserving
+their global npm packages. Keep `~/.nvm` (or your custom `NVM_DIR`) while those
+links are in use. Old rbenv installations are also left on disk, but neither
+nvm nor rbenv is initialized by the shell. Ruby gems from other installations
+are not copied; run `bundle install` in Ruby projects as needed. Open a fresh
+login session after applying to discard the old managers' inherited PATH entries.
+
 To run the tests, initialize the test framework submodules and use Bats:
 
 ```sh

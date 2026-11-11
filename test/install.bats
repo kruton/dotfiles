@@ -10,6 +10,7 @@ setup() {
     TEST_HOME="$BATS_TEST_TMPDIR/home"
     mkdir -p "$TEST_SOURCE/.chezmoidata" "$TEST_HOME"
     cp "$REPO/.chezmoidata/packages.yaml" "$TEST_SOURCE/.chezmoidata/"
+    cp "$REPO/.chezmoidata/runtimes.yaml" "$TEST_SOURCE/.chezmoidata/"
     printf '[data]\ndevserver = false\n' > "$BATS_TEST_TMPDIR/chezmoi.toml"
 }
 
@@ -94,4 +95,74 @@ chezmoi_test() {
         assert_success
         refute_output
     done
+}
+
+prepare_runtime_install() {
+    mkdir -p "$TEST_SOURCE/dot_config/mise" "$TEST_HOME/.local/bin"
+    cp "$REPO/dot_config/mise/config.toml.tmpl" "$TEST_SOURCE/dot_config/mise/"
+    cp "$REPO/run_onchange_after_install-runtimes.sh.tmpl" "$REPO/.chezmoiremove" "$TEST_SOURCE/"
+    export NVM_DIR="$TEST_HOME/.nvm"
+    # Record installer calls without downloading runtimes. Also verify that
+    # configuration exists before the after-script runs.
+    cat > "$TEST_HOME/.local/bin/mise" <<'EOF'
+#!/bin/sh
+set -eu
+test -f "$HOME/.config/mise/config.toml"
+test "$1" = -C
+test "$2" = "$HOME"
+shift 2
+printf '%s\n' "$*" >> "$HOME/mise-calls"
+if [ "$1" = install ]; then
+    shift
+    for tool in "$@"; do
+        name=${tool%@*}
+        version=${tool#*@}
+        grep -F "$name = \"$version\"" "$HOME/.config/mise/config.toml" >/dev/null
+    done
+fi
+EOF
+    chmod +x "$TEST_HOME/.local/bin/mise"
+}
+
+@test "runtime migration reuses nvm installs and removes legacy startup modules" {
+    prepare_runtime_install
+    mkdir -p "$NVM_DIR/versions/node" "$TEST_HOME/.rbenv/versions" "$TEST_HOME/.bashrc.d"
+    touch "$NVM_DIR/versions/node/keep" "$TEST_HOME/.rbenv/versions/keep"
+    local module
+    for module in 60-nvm.bash 60-rbenv.bash 90-node.bash; do
+        touch "$TEST_HOME/.bashrc.d/$module"
+    done
+
+    run chezmoi_test apply
+    assert_success
+    for module in 60-nvm.bash 60-rbenv.bash 90-node.bash; do
+        [ ! -e "$TEST_HOME/.bashrc.d/$module" ]
+    done
+    [ -f "$NVM_DIR/versions/node/keep" ]
+    [ -f "$TEST_HOME/.rbenv/versions/keep" ]
+    run cat "$TEST_HOME/mise-calls"
+    assert_success
+    assert_line --index 0 'sync node --nvm'
+    assert_line --index 1 --partial 'install node@'
+    assert_equal "${#lines[@]}" 2
+    cp "$TEST_HOME/mise-calls" "$BATS_TEST_TMPDIR/expected-calls"
+
+    run chezmoi_test apply
+    assert_success
+    cmp "$BATS_TEST_TMPDIR/expected-calls" "$TEST_HOME/mise-calls"
+    run chezmoi_test diff --no-pager
+    assert_success
+    refute_output
+}
+
+@test "fresh runtime installation needs no legacy runtime manager" {
+    prepare_runtime_install
+    run chezmoi_test apply
+    assert_success
+    run cat "$TEST_HOME/mise-calls"
+    assert_success
+    assert_line --index 0 --partial 'install node@'
+    assert_equal "${#lines[@]}" 1
+    run grep -F 'idiomatic_version_file_enable_tools = ["node", "ruby"]' "$TEST_HOME/.config/mise/config.toml"
+    assert_success
 }
