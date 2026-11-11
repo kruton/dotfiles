@@ -20,7 +20,7 @@ jobs:
       env:
         TERM: xterm-256color
       run: |
-        test/bats/bin/bats test/install.bats test/ssh_agent_cache.bats \
+        test/bats/bin/bats test/install.bats test/ssh_agent_cache.bats test/ssh_agent_startup.bats \
           test/bash_profile.bats test/path_dedupe.bats
 
   build:

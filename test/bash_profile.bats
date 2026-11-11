@@ -15,11 +15,13 @@ setup() {
 printf '%s\n' "$PATH" > "$HOME/path-seen-by-bashrc"
 EOF
 
-    PATH="/usr/bin"
-    export PATH
-
-    # shellcheck source=/dev/null
-    source "$BATS_TEST_DIRNAME/../dot_bash_profile"
+    # Limit PATH only inside the shell under test. Bats needs /bin utilities
+    # such as cat and rm on macOS for assertions and cleanup.
+    run bash --noprofile --norc -c '
+        export PATH=/usr/bin
+        source "$1"
+    ' bash "$BATS_TEST_DIRNAME/../dot_bash_profile"
+    assert_success
 
     run cat "$HOME/path-seen-by-bashrc"
     assert_success
@@ -34,11 +36,11 @@ EOF
 PATH="$HOME/bin:$PATH:/usr/bin"
 EOF
 
-    PATH="/usr/bin"
-    export PATH
-
-    # shellcheck source=/dev/null
-    source "$BATS_TEST_DIRNAME/../dot_bash_profile"
-
-    assert_equal "$PATH" "$HOME/bin:/usr/bin"
+    run bash --noprofile --norc -c '
+        export PATH=/usr/bin
+        source "$1"
+        printf "%s\n" "$PATH"
+    ' bash "$BATS_TEST_DIRNAME/../dot_bash_profile"
+    assert_success
+    assert_output "$HOME/bin:/usr/bin"
 }

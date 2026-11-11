@@ -6,9 +6,10 @@
 #
 # See LICENSE for details
 
-_SOCAT_BINARY="$(command -v socat 2> /dev/null)"
-_TIMEOUT_BINARY="$(command -v timeout 2> /dev/null)"
-_SSH_ADD_BINARY="$(command -v ssh-add 2> /dev/null)"
+# Missing discovery tools must not abort shells that enable errexit.
+_SOCAT_BINARY="$(command -v socat 2> /dev/null || true)"
+_TIMEOUT_BINARY="$(command -v timeout 2> /dev/null || true)"
+_SSH_ADD_BINARY="$(command -v ssh-add 2> /dev/null || true)"
 if [[ -x $_TIMEOUT_BINARY && -x $_SSH_ADD_BINARY ]]; then
 	_SSH_ADD_BINARY="$_TIMEOUT_BINARY 2 $_SSH_ADD_BINARY"
 fi
