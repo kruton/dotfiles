@@ -24,7 +24,7 @@
     stripComponents = 1
 
 {{/* renovate: datasource=git-refs depName=arcticicestudio/nord-tmux packageName=https://github.com/arcticicestudio/nord-tmux.git currentValue=develop */}}
-{{- $nordTmuxCommit := "a91f437eb41db07370d92ca924286745f58a993d" -}}
+{{- $nordTmuxCommit := "f7b6da07ab55fe32ee5f7d62da56d8e5ac691a92" -}}
 [".tmux/plugins/nord-tmux"]
     type = "archive"
     url = "https://github.com/arcticicestudio/nord-tmux/archive/{{ $nordTmuxCommit }}.tar.gz"
