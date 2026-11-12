@@ -1,0 +1,40 @@
+{{/* renovate: datasource=github-tags depName=tmux-plugins/tpm */}}
+{{- $tpmVersion := "v3.1.0" -}}
+
+[".tmux/plugins/tpm"]
+    type = "archive"
+    url = "https://github.com/tmux-plugins/tpm/archive/refs/tags/{{ $tpmVersion }}.zip"
+    exact = true
+    stripComponents = 1
+
+{{/* renovate: datasource=git-refs depName=tmux-plugins/tmux-sensible packageName=https://github.com/tmux-plugins/tmux-sensible.git currentValue=master */}}
+{{- $tmuxSensibleCommit := "25cb91f42d020f675bb0a2ce3fbd3a5d96119efa" -}}
+[".tmux/plugins/tmux-sensible"]
+    type = "archive"
+    url = "https://github.com/tmux-plugins/tmux-sensible/archive/{{ $tmuxSensibleCommit }}.tar.gz"
+    exact = true
+    stripComponents = 1
+
+{{/* renovate: datasource=git-refs depName=soyuka/tmux-current-pane-hostname packageName=https://github.com/soyuka/tmux-current-pane-hostname.git currentValue=master */}}
+{{- $tmuxHostnameCommit := "451288056950a4f21c92d9fd59fb2db365a38a0f" -}}
+[".tmux/plugins/tmux-current-pane-hostname"]
+    type = "archive"
+    url = "https://github.com/soyuka/tmux-current-pane-hostname/archive/{{ $tmuxHostnameCommit }}.tar.gz"
+    exact = true
+    stripComponents = 1
+
+{{/* renovate: datasource=git-refs depName=arcticicestudio/nord-tmux packageName=https://github.com/arcticicestudio/nord-tmux.git currentValue=develop */}}
+{{- $nordTmuxCommit := "a91f437eb41db07370d92ca924286745f58a993d" -}}
+[".tmux/plugins/nord-tmux"]
+    type = "archive"
+    url = "https://github.com/arcticicestudio/nord-tmux/archive/{{ $nordTmuxCommit }}.tar.gz"
+    exact = true
+    stripComponents = 1
+
+{{/* renovate: datasource=git-refs depName=sainnhe/tmux-fzf packageName=https://github.com/sainnhe/tmux-fzf.git currentValue=master */}}
+{{- $tmuxFzfCommit := "e91c1ae55389f2b34480ea23df77682bdd51d735" -}}
+[".tmux/plugins/tmux-fzf"]
+    type = "archive"
+    url = "https://github.com/sainnhe/tmux-fzf/archive/{{ $tmuxFzfCommit }}.tar.gz"
+    exact = true
+    stripComponents = 1

@@ -59,6 +59,13 @@ nvm nor rbenv is initialized by the shell. Ruby gems from other installations
 are not copied; run `bundle install` in Ruby projects as needed. Open a fresh
 login session after applying to discard the old managers' inherited PATH entries.
 
+Renovate tracks the runtime versions in `.chezmoidata/runtimes.yaml`, Vim
+plugin commits in `dot_vim/settings/plugins.vim`, Neovim plugin commits/tags in
+`dot_config/nvim/init.lua`, and tmux plugins in `.chezmoiexternals/tmux.toml`.
+After merging an update, `chezmoi apply` updates the pinned plugins; reload tmux
+or restart the editor to use them. Use this workflow instead of TPM's update
+key binding, which can move a plugin away from its declared revision.
+
 To run the tests, initialize the test framework submodules and use Bats:
 
 ```sh

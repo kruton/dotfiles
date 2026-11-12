@@ -24,12 +24,8 @@ if vim.fn.filereadable(vimrc) == 1 then
   vim.cmd.source(vimrc)
 end
 
--- Bootstrap and configure lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) and #vim.api.nvim_list_uis() > 0 then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-end
+-- Chezmoi owns lazy.nvim outside the directory of Git-managed plugins.
+local lazypath = vim.fn.stdpath("data") .. "/site/lazy.nvim"
 if vim.uv.fs_stat(lazypath) then
   vim.opt.rtp:prepend(lazypath)
   local ok, lazy = pcall(require, "lazy")
@@ -38,6 +34,7 @@ if vim.uv.fs_stat(lazypath) then
       spec = {
         {
           "rebelot/kanagawa.nvim",
+          -- renovate: datasource=git-refs depName=rebelot/kanagawa.nvim packageName=https://github.com/rebelot/kanagawa.nvim.git currentValue=master
           commit = "bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3",
           lazy = false,
           priority = 1000,
@@ -47,16 +44,19 @@ if vim.uv.fs_stat(lazypath) then
         },
         {
           "nvim-lua/plenary.nvim",
+          -- renovate: datasource=github-tags depName=nvim-lua/plenary.nvim
           version = "v0.1.4",
           lazy = true,
         },
         {
           "a-usr/xml2lua.nvim",
+          -- renovate: datasource=git-refs depName=a-usr/xml2lua.nvim packageName=https://github.com/a-usr/xml2lua.nvim.git currentValue=master
           commit = "c5fa33ad038958e9592df06e8ca6a88f4e7543aa",
           lazy = true,
         },
         {
           "kruton/nvim-lambdamoo",
+          -- renovate: datasource=github-tags depName=kruton/nvim-lambdamoo
           version = "v0.1.5",
           dependencies = {
             "nvim-lua/plenary.nvim",
@@ -78,6 +78,7 @@ if vim.uv.fs_stat(lazypath) then
         },
         {
           "MysticalDevil/inlay-hints.nvim",
+          -- renovate: datasource=github-tags depName=MysticalDevil/inlay-hints.nvim
           version = "v0.0.7",
           opts = {
             commands = { enable = true },

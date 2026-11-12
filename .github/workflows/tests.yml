@@ -36,6 +36,9 @@ jobs:
     - name: Pull the kcov image
       run: docker pull kcov/kcov
 
+    - name: Check Renovate dependency discovery
+      run: node test/renovate.cjs
+
     - name: Prepare the container
       run: |
         ./test/docker-build.sh

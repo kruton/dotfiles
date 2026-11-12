@@ -8,6 +8,35 @@
   },
   customManagers: [
     {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^\\.chezmoidata/runtimes\\.yaml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+\\w+:\\s*[\\x22\\x27](?<currentValue>[^\\x22\\x27]+)[\\x22\\x27]"
+      ]
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^dot_vim/settings/plugins\\.vim$/",
+        "/^dot_config/nvim/init\\.lua$/"
+      ],
+      "matchStrings": [
+        "renovate: datasource=git-refs depName=(?<depName>\\S+) packageName=(?<packageName>\\S+) currentValue=(?<currentValue>\\S+)\\n[^\\n]*?(?:\\x27commit\\x27:|commit\\s*=)\\s*[\\x22\\x27](?<currentDigest>[a-f0-9]{40})[\\x22\\x27]"
+      ],
+      "datasourceTemplate": "git-refs"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^dot_config/nvim/init\\.lua$/"
+      ],
+      "matchStrings": [
+        "renovate: datasource=(?<datasource>github-tags) depName=(?<depName>\\S+)\\s+version\\s*=\\s*\\x22(?<currentValue>[^\\x22]+)\\x22"
+      ]
+    },
+    {
       customType: 'regex',
       managerFilePatterns: [
         '/home/\\.bashrc\\.d/.*\\.bash$/',

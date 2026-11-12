@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+
+# Neovim plugin configuration hash: {{ include "dot_config/nvim/init.lua" | sha256sum }}
+
+if ! command -v nvim >/dev/null 2>&1; then
+    echo "nvim is required to install Neovim plugins" >&2
+    exit 1
+fi
+
+nvim --headless -u "$HOME/.config/nvim/init.lua" \
+    -c 'Lazy! sync' -c 'qa'

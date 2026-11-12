@@ -26,7 +26,8 @@
 [".vim/colors/solarized.vim"]
     type = "file"
     url = "https://raw.githubusercontent.com/altercation/vim-colors-solarized/{{ $vimColorsSolarizedCommit }}/colors/solarized.vim"
-[".local/share/nvim/lazy/lazy.nvim"]
-    type = "git-repo"
-    url = "https://github.com/folke/lazy.nvim.git"
-    revision = "{{ $lazyVersion }}"
+[".local/share/nvim/site/lazy.nvim"]
+    type = "archive"
+    url = "https://github.com/folke/lazy.nvim/archive/refs/tags/{{ $lazyVersion }}.tar.gz"
+    exact = true
+    stripComponents = 1

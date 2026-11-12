@@ -6,8 +6,6 @@
 {{- $bashPreexecVersion := "0.7.0" -}}
 {{/* renovate: datasource=git-refs depName=seebi/dircolors-solarized packageName=https://github.com/seebi/dircolors-solarized currentValue=master */}}
 {{- $dircolorsSolarizedCommit := "bd9d473393a78366d5c3658d9cd2db7d8944b447" -}}
-{{/* renovate: datasource=github-tags depName=tmux-plugins/tpm */}}
-{{- $tpmVersion := "v3.1.0" -}}
 
 [".fzf"]
     type = "archive"
@@ -31,10 +29,5 @@
 [".dircolors-solarized"]
     type = "archive"
     url = "https://github.com/seebi/dircolors-solarized/archive/{{ $dircolorsSolarizedCommit }}.zip"
-    exact = true
-    stripComponents = 1
-[".tmux/plugins/tpm"]
-    type = "archive"
-    url = "https://github.com/tmux-plugins/tpm/archive/refs/tags/{{ $tpmVersion }}.zip"
     exact = true
     stripComponents = 1

@@ -15,5 +15,5 @@ if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
 fi
 
 vim -Nu "$HOME/.vimrc" -n -es -i NONE \
-    -c 'PlugInstall --sync' \
+    -c 'PlugUpdate --sync' \
     -c 'qa'
