@@ -1,5 +1,5 @@
 runtimes:
   # renovate: datasource=node-version depName=node
-  node: '25.1.0'
+  node: '26.13.1'
   # renovate: datasource=ruby-version depName=ruby
   ruby: '4.0.9'
