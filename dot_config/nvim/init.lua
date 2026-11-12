@@ -57,7 +57,7 @@ if vim.uv.fs_stat(lazypath) then
         {
           "kruton/nvim-lambdamoo",
           -- renovate: datasource=github-tags depName=kruton/nvim-lambdamoo
-          version = "v0.1.5",
+          version = "v0.2.0",
           dependencies = {
             "nvim-lua/plenary.nvim",
             "a-usr/xml2lua.nvim",
