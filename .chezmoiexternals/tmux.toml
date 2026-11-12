@@ -16,7 +16,7 @@
     stripComponents = 1
 
 {{/* renovate: datasource=git-refs depName=soyuka/tmux-current-pane-hostname packageName=https://github.com/soyuka/tmux-current-pane-hostname.git currentValue=master */}}
-{{- $tmuxHostnameCommit := "451288056950a4f21c92d9fd59fb2db365a38a0f" -}}
+{{- $tmuxHostnameCommit := "0a8a187afcdf258e32a6b014105c12d344b670a5" -}}
 [".tmux/plugins/tmux-current-pane-hostname"]
     type = "archive"
     url = "https://github.com/soyuka/tmux-current-pane-hostname/archive/{{ $tmuxHostnameCommit }}.tar.gz"
