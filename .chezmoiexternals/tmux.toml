@@ -32,7 +32,7 @@
     stripComponents = 1
 
 {{/* renovate: datasource=git-refs depName=sainnhe/tmux-fzf packageName=https://github.com/sainnhe/tmux-fzf.git currentValue=master */}}
-{{- $tmuxFzfCommit := "e91c1ae55389f2b34480ea23df77682bdd51d735" -}}
+{{- $tmuxFzfCommit := "2839d6bd0e13b7c5e385e131e4c217917fa73555" -}}
 [".tmux/plugins/tmux-fzf"]
     type = "archive"
     url = "https://github.com/sainnhe/tmux-fzf/archive/{{ $tmuxFzfCommit }}.tar.gz"
