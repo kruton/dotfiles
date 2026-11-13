@@ -1,5 +1,5 @@
 {{/* renovate: datasource=github-releases depName=jdx/mise */}}
-{{- $miseVersion := "v2026.11.7" -}}
+{{- $miseVersion := "v2026.11.8" -}}
 {{/* renovate: datasource=git-refs depName=nornagon/git-rebase-all packageName=https://github.com/nornagon/git-rebase-all currentValue=master */}}
 {{- $gitRebaseAllCommit := "a8639a142dd5d672586a6c3b67c1b9288dab586b" -}}
 {{/* renovate: datasource=github-tags depName=paldepind/projectdo */}}
