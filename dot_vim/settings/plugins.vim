@@ -190,7 +190,7 @@ Plug 'mhinz/vim-startify', { 'commit': '4e089dffdad46f3f5593f34362d530e8fe823dcf
 "}}}
 
 " renovate: datasource=git-refs depName=google/vim-maktaba packageName=https://github.com/google/vim-maktaba.git currentValue=master
-Plug 'google/vim-maktaba', { 'commit': 'fe95bb10f6bb250943a44632107f6a3d76ce5f28' }
+Plug 'google/vim-maktaba', { 'commit': 'c9fd222c7ea3bde0952d2b879085e368ea75837b' }
 " renovate: datasource=git-refs depName=bazelbuild/vim-bazel packageName=https://github.com/bazelbuild/vim-bazel.git currentValue=master
 Plug 'bazelbuild/vim-bazel', { 'commit': '31b0d5e4f51da1aeb56d65bf505a744e6de405de' }
 
