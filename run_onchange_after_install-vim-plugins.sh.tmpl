@@ -14,17 +14,24 @@ if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
     exit 1
 fi
 
-# Load declarations without running the interactive config or installed plugins.
+# Load declarations without the interactive config. vim-plug also sources file
+# detection and reloads plugins after updating, so suppress editor autocommands
+# for the entire batch run, including startup and shutdown.
 # Keep a verbose log so silent Ex mode cannot hide startup or hook errors.
 log_dir=$(mktemp -d)
 trap 'rm -rf "$log_dir"' EXIT HUP INT TERM
 
-if vim -N --noplugin -u "$HOME/.vim/settings/plugins.vim" -n -es -i NONE \
+if vim -N --cmd 'set eventignore=all' --noplugin \
+    -u "$HOME/.vim/settings/plugins.vim" -n -es -i NONE \
     -V1"$log_dir/verbose" \
     -c 'PlugUpdate --sync' \
     -c 'qa' >"$log_dir/output" 2>&1; then
     :
 else
-    cat "$log_dir/verbose" "$log_dir/output" >&2
+    if [ -s "$log_dir/verbose" ]; then
+        cat "$log_dir/verbose" >&2
+    else
+        cat "$log_dir/output" >&2
+    fi
     exit 1
 fi

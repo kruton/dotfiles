@@ -55,6 +55,26 @@ EOF
     assert_output --partial "plugin declaration failed"
 }
 
+@test "vim plugin installer suppresses autocommands registered by file detection" {
+    setup_plugin_installer
+    # plug#end() sources file detection even with --noplugin. PlugUpdate also
+    # reloads plugins, and creates unnamed windows that can break their hooks.
+    cat >> "$home/.vim/settings/plugins.vim" <<'EOF'
+autocmd BufEnter,BufWinEnter,VimLeave * throw 'interactive autocommand fired'
+function! BatchUpdate()
+    tabnew
+    call writefile(['--sync'], $HOME . '/updated')
+endfunction
+command! -nargs=* PlugUpdate call BatchUpdate()
+EOF
+
+    run env HOME="$home" sh "$BATS_TEST_DIRNAME/../run_onchange_after_install-vim-plugins.sh.tmpl"
+
+    assert_success
+    refute_output
+    assert_equal "$(cat "$home/updated")" "--sync"
+}
+
 
 @test "vim-plug plugin declarations are unique" {
     run bash -c "sed -n \"s/^[[:space:]]*Plug[[:space:]]*'\\([^']*\\)'.*/\\1/p\" \"$BATS_TEST_DIRNAME/../dot_vim/settings/plugins.vim\" | sort | uniq -d"
