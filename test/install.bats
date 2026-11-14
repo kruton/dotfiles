@@ -3,6 +3,8 @@
 setup() {
     load 'test_helper/bats-support/load'
     load 'test_helper/bats-assert/load'
+    # Keep Neovim's startup log out of the working directory.
+    export NVIM_LOG_FILE="$BATS_TEST_TMPDIR/nvim.log"
     command -v chezmoi >/dev/null || skip "chezmoi is not installed"
 
     REPO="$BATS_TEST_DIRNAME/.."

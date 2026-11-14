@@ -4,6 +4,55 @@ setup() {
     load 'test_helper/bats-support/load'
     load 'test_helper/bats-assert/load'
     load test_helper.bash
+    # Keep Neovim's startup log out of the working directory.
+    export NVIM_LOG_FILE="$BATS_TEST_TMPDIR/nvim.log"
+}
+
+setup_plugin_installer() {
+    command -v vim > /dev/null || skip "vim is not installed"
+    home="$BATS_TEST_TMPDIR/home"
+    mkdir -p "$home/.vim/autoload" "$home/.vim/settings" "$home/.vim/plugin"
+    cp "$BATS_TEST_DIRNAME/../dot_vim/settings/plugins.vim" "$home/.vim/settings/plugins.vim"
+    cat > "$home/.vim/autoload/plug.vim" <<'EOF'
+function! plug#begin(...)
+    let g:plugs = {}
+    command! -bar -nargs=+ Plug call plug#register(<args>)
+endfunction
+function! plug#register(name, ...)
+    let g:plugs[a:name] = {}
+endfunction
+function! plug#end()
+    command! -nargs=* PlugUpdate call writefile([<q-args>], $HOME . '/updated')
+    if !has('python3') && has_key(g:plugs, 'ycm-core/YouCompleteMe')
+        throw 'YouCompleteMe requires Python 3'
+    endif
+    if !has('python') && !has('python3') && has_key(g:plugs, 'qytz/vim-cscope-utils')
+        throw 'vim-cscope-utils requires Python'
+    endif
+endfunction
+EOF
+}
+
+@test "vim plugin installer avoids interactive config and plugin startup" {
+    setup_plugin_installer
+    echo "throw 'interactive vimrc loaded'" > "$home/.vimrc"
+    echo "throw 'installed plugin loaded'" > "$home/.vim/plugin/broken.vim"
+
+    run env HOME="$home" sh "$BATS_TEST_DIRNAME/../run_onchange_after_install-vim-plugins.sh.tmpl"
+
+    assert_success
+    refute_output
+    assert_equal "$(cat "$home/updated")" "--sync"
+}
+
+@test "vim plugin installer reports errors hidden by silent Ex mode" {
+    setup_plugin_installer
+    echo "throw 'plugin declaration failed'" >> "$home/.vim/settings/plugins.vim"
+
+    run env HOME="$home" sh "$BATS_TEST_DIRNAME/../run_onchange_after_install-vim-plugins.sh.tmpl"
+
+    assert_failure
+    assert_output --partial "plugin declaration failed"
 }
 
 

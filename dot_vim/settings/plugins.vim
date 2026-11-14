@@ -77,7 +77,7 @@ Plug 'vim-scripts/bash-support.vim', { 'commit': '309d6fe45859f2d30d0e8fe8016ca6
 if filereadable(expand('~/.at_google.vim'))
     " Google-only
     source ~/.at_google.vim
-elseif !has('nvim') || has('python3')
+elseif has('python3')
     function! BuildYCM(info)
       " info is a dictionary with 3 fields
       " - name:   name of the plugin
@@ -145,8 +145,10 @@ Plug 'Shougo/unite.vim', { 'commit': '0ccb3f7988d61a9a86525374be97360bd20db6bc',
 " cscope
 " renovate: datasource=git-refs depName=simplyzhao/cscope_maps.vim packageName=https://github.com/simplyzhao/cscope_maps.vim.git currentValue=master
 Plug 'simplyzhao/cscope_maps.vim', { 'commit': '4b11997b3794f51dbe69c7e2ee24e863dadcbd13' }
-" renovate: datasource=git-refs depName=qytz/vim-cscope-utils packageName=https://github.com/qytz/vim-cscope-utils.git currentValue=master
-Plug 'qytz/vim-cscope-utils', { 'commit': '8657d06675e9e0f80853da4d51e5789cc0908232' }
+if has('python') || has('python3')
+  " renovate: datasource=git-refs depName=qytz/vim-cscope-utils packageName=https://github.com/qytz/vim-cscope-utils.git currentValue=master
+  Plug 'qytz/vim-cscope-utils', { 'commit': '8657d06675e9e0f80853da4d51e5789cc0908232' }
+endif
 
 " LaTeX automatic mode
 " renovate: datasource=git-refs depName=coot/atp_vim packageName=https://github.com/coot/atp_vim.git currentValue=master
