@@ -16,6 +16,9 @@ perf
 renovate.json5
 test
 
+# Neovim regenerates this help index inside the managed lazy.nvim archive.
+.local/share/nvim/site/lazy.nvim/doc/tags
+
 # Blightmud machine-local secrets and migration backups
 .config/blightmud/local/credentials.lua
 .config/blightmud/backups

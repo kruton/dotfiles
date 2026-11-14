@@ -166,3 +166,41 @@ EOF
     run grep -F 'idiomatic_version_file_enable_tools = ["node", "ruby"]' "$TEST_HOME/.config/mise/config.toml"
     assert_success
 }
+
+@test "regenerating lazy.nvim help tags leaves chezmoi in sync" {
+    command -v nvim >/dev/null || skip "nvim is not installed"
+
+    # Use the real external entry with a local archive to avoid downloads.
+    local archive="$BATS_TEST_TMPDIR/lazy.tar.gz"
+    local fixture="$BATS_TEST_TMPDIR/archive/lazy.nvim"
+    mkdir -p "$fixture/doc" "$fixture/lua"
+    printf '*lazy-fixture* Fixture help\n' > "$fixture/doc/lazy.txt"
+    printf 'bundled tags\n' > "$fixture/doc/tags"
+    printf 'return {}\n' > "$fixture/lua/lazy.lua"
+    tar -czf "$archive" -C "$BATS_TEST_TMPDIR/archive" lazy.nvim
+    chezmoi_test execute-template --file "$REPO/.chezmoiexternals/editors.toml" |
+        sed -n '/^\[".local\/share\/nvim\/site\/lazy.nvim"\]/,$p' |
+        sed "s|^    url = .*|    url = \"file://$archive\"|" > "$TEST_SOURCE/.chezmoiexternal.toml"
+
+    run chezmoi_test apply
+    assert_success
+    local installed="$TEST_HOME/.local/share/nvim/site/lazy.nvim"
+    run nvim --headless -u NONE -i NONE -c "helptags $installed/doc" -c 'qa'
+    assert_success
+    # Also cover migration from an installation where tags were managed.
+    cp "$REPO/.chezmoiignore" "$TEST_SOURCE/"
+    run chezmoi_test diff --no-pager
+    assert_success
+    refute_output
+
+    cp "$installed/doc/tags" "$BATS_TEST_TMPDIR/generated-tags"
+    run chezmoi_test apply
+    assert_success
+    cmp "$BATS_TEST_TMPDIR/generated-tags" "$installed/doc/tags"
+
+    # The exception must not hide changes to the plugin's actual source.
+    printf 'return { modified = true }\n' > "$installed/lua/lazy.lua"
+    run chezmoi_test diff --no-pager
+    assert_success
+    assert_output --partial 'lua/lazy.lua'
+}
