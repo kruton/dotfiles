@@ -81,6 +81,24 @@ chezmoi_test() {
     assert_output merge
 }
 
+@test "neovim Lua migration removes the conflicting legacy init.vim" {
+    cp "$REPO/.chezmoiremove" "$TEST_SOURCE/"
+    mkdir -p "$TEST_SOURCE/dot_config/nvim" "$TEST_HOME/.config/nvim"
+    cp "$REPO/dot_config/nvim/init.lua" "$TEST_SOURCE/dot_config/nvim/"
+    printf '" legacy config\n' > "$TEST_HOME/.config/nvim/init.vim"
+    printf '" local settings\n' > "$TEST_HOME/.config/nvim/local.vim"
+
+    run chezmoi_test apply
+    assert_success
+    assert [ ! -e "$TEST_HOME/.config/nvim/init.vim" ]
+    assert [ -f "$TEST_HOME/.config/nvim/local.vim" ]
+    cmp "$REPO/dot_config/nvim/init.lua" "$TEST_HOME/.config/nvim/init.lua"
+
+    run chezmoi_test diff --no-pager
+    assert_success
+    refute_output
+}
+
 @test "apt installer renders for Debian and Ubuntu only" {
     local osid
     for osid in linux-debian linux-ubuntu; do

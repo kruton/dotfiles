@@ -150,3 +150,41 @@ EOF
     assert_success
     assert_output "1"
 }
+
+@test "neovim inlay hint commands work without an external plugin" {
+    command -v nvim > /dev/null || skip "nvim is not installed"
+    local home="$BATS_TEST_TMPDIR/home"
+    mkdir -p "$home"
+    cat > "$BATS_TEST_TMPDIR/check-hints.lua" <<'EOF'
+local hints = vim.lsp.inlay_hint
+if not hints then return end
+vim.cmd.InlayHintsEnable()
+assert(hints.is_enabled({ bufnr = 0 }))
+vim.cmd.InlayHintsToggle()
+assert(not hints.is_enabled({ bufnr = 0 }))
+vim.cmd.InlayHintsToggle()
+assert(hints.is_enabled({ bufnr = 0 }))
+vim.cmd.InlayHintsDisable()
+assert(not hints.is_enabled({ bufnr = 0 }))
+
+local supported = false
+vim.lsp.get_client_by_id = function()
+  return { supports_method = function(_, method)
+    assert(method == 'textDocument/inlayHint')
+    return supported
+  end }
+end
+vim.api.nvim_exec_autocmds('LspAttach', { buffer = 0, data = { client_id = 1 } })
+assert(not hints.is_enabled({ bufnr = 0 }))
+supported = true
+vim.api.nvim_exec_autocmds('LspAttach', { buffer = 0, data = { client_id = 1 } })
+assert(hints.is_enabled({ bufnr = 0 }))
+EOF
+
+    run env HOME="$home" nvim --headless -i NONE \
+        -u "$BATS_TEST_DIRNAME/../dot_config/nvim/init.lua" \
+        -c "luafile $BATS_TEST_TMPDIR/check-hints.lua" -c 'qa!'
+
+    assert_success
+    refute_output
+}

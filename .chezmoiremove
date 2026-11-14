@@ -5,3 +5,6 @@
 .bashrc.d/60-nvm.bash
 .bashrc.d/60-rbenv.bash
 .bashrc.d/90-node.bash
+
+# Replaced by the Lua Neovim configuration.
+.config/nvim/init.vim

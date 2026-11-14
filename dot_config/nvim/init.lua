@@ -76,15 +76,6 @@ if vim.uv.fs_stat(lazypath) then
             },
           },
         },
-        {
-          "MysticalDevil/inlay-hints.nvim",
-          -- renovate: datasource=github-tags depName=MysticalDevil/inlay-hints.nvim
-          version = "v0.0.7",
-          opts = {
-            commands = { enable = true },
-            autocmd = { enable = true },
-          },
-        },
       },
       install = {
         missing = #vim.api.nvim_list_uis() > 0,
@@ -99,10 +90,28 @@ if vim.uv.fs_stat(lazypath) then
   end
 end
 
+-- Use Neovim's built-in inlay hints without an external plugin.
+if vim.lsp.inlay_hint then
+  for name, action in pairs({
+    InlayHintsEnable = function() vim.lsp.inlay_hint.enable(true, { bufnr = 0 }) end,
+    InlayHintsDisable = function() vim.lsp.inlay_hint.enable(false, { bufnr = 0 }) end,
+    InlayHintsToggle = function()
+      local filter = { bufnr = 0 }
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(filter), filter)
+    end,
+  }) do
+    vim.api.nvim_create_user_command(name, action, {})
+  end
+end
+
 -- Set up LSP keybindings on attach
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
   callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if vim.lsp.inlay_hint and client and client:supports_method("textDocument/inlayHint", ev.buf) then
+      vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+    end
     local opts = { buffer = ev.buf, silent = true }
     -- Go to definition (resolves remote verbs over moo://)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
