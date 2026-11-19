@@ -200,7 +200,7 @@ Plug 'bazelbuild/vim-bazel', { 'commit': '31b0d5e4f51da1aeb56d65bf505a744e6de405
 
 " Helps with running unit tests
 " renovate: datasource=git-refs depName=vim-test/vim-test packageName=https://github.com/vim-test/vim-test.git currentValue=master
-Plug 'vim-test/vim-test', { 'commit': 'ca437c53ece108c87aada4e70abacac7d5193dbb',
+Plug 'vim-test/vim-test', { 'commit': '70dc0f77ef46c1bd46ff6e82587c6a76076f0314',
     \ 'on': [ 'TestNearest',
     \         'TestFile',
     \         'TestSuite',
