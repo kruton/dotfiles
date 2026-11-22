@@ -156,6 +156,24 @@ EOF
     refute_output
 }
 
+@test "neovim only advertises Python when the host can execute code" {
+    command -v nvim > /dev/null || skip "nvim is not installed"
+
+    local home="$BATS_TEST_TMPDIR/home"
+    mkdir -p "$home/bin"
+    # Simulate a mise-selected project Python without the Neovim module.
+    printf '#!/bin/sh\necho 3.12\nexit 2\n' > "$home/bin/python3"
+    printf '#!/bin/sh\ncommand -v python3\n' > "$home/bin/mise"
+    chmod +x "$home/bin/python3" "$home/bin/mise"
+
+    run env HOME="$home" PATH="$home/bin:$PATH" nvim --headless -i NONE \
+        -u "$BATS_TEST_DIRNAME/../dot_config/nvim/init.lua" \
+        -c "if has('python3') && py3eval('6 * 7') != 42 | cquit 1 | endif" -c 'qa!'
+
+    assert_success
+    refute_output
+}
+
 @test "neovim disables YouCompleteMe for MOO files" {
     command -v nvim > /dev/null || skip "nvim is not installed"
 

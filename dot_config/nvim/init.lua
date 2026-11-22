@@ -8,16 +8,6 @@ vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 
--- Configure Python 3 provider if mise or python3 is available
-if vim.fn.executable("mise") == 1 then
-  local mise_python = vim.fn.trim(vim.fn.system("mise which python3"))
-  if vim.fn.filereadable(mise_python) == 1 then
-    vim.g.python3_host_prog = mise_python
-  end
-elseif vim.fn.executable("python3") == 1 then
-  vim.g.python3_host_prog = vim.fn.exepath("python3")
-end
-
 -- Source ~/.vimrc to initialize vim-plug and settings before lazy.nvim
 local vimrc = vim.fn.expand("~/.vimrc")
 if vim.fn.filereadable(vimrc) == 1 then
